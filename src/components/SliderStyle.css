@@ -1,0 +1,53 @@
+.slick-slide {
+  overflow: hidden;
+  height: 90vh; /* Đặt chiều cao của slide bằng chiều cao của viewport */
+}
+
+.slick-slide img {
+  width: 100%;
+  height: 90vh; /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao của slide */
+  object-fit: cover; /* Đảm bảo hình ảnh giữ tỷ lệ khung hình và crop theo kích thước */
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: 90px; /* Đặt vị trí của dots cách đáy slider 90px */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.slick-dots li button:before {
+  color: #fff;
+  font-size: 20px; /* Kích thước của dots */
+  border: 2px solid #fff; /* Viền màu trắng */
+  border-radius: 50%; /* Bo tròn dots */
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: #fff;
+  right: 0px;
+}
+.slick-prev {
+    left: 0px;
+    visibility: hidden;
+  }
+.slick-next {
+  right: 0px;
+  visibility: hidden;
+}
+@media screen and (max-width: 1140px){
+    .slick-slide {
+        height: 70vh; /* Đặt chiều cao của slide bằng 70% chiều cao của viewport */
+    }
+    .slick-slide img {
+        height: 70vh; /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao của slide */
+    }
+    .slick-dots {
+        bottom: 70px; /* Đặt vị trí của dots cách đáy slider 70px */
+    }
+    .slick-dots li button:before {
+        font-size: 15px; /* Kích thước của dots */
+    }
+}
