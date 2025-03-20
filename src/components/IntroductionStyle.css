@@ -1,5 +1,5 @@
 .introduction {
-  padding: 25px 50px;
+  padding: 30px;
   background-color: #DBE4FF;
   text-align: center;
 }
@@ -18,7 +18,14 @@
 
 .text {
   width: 50%;
-  text-align: left;
+  text-align: justify;
+  position: relative;
+}
+
+.text h1 {
+  text-align: center;
+  padding-bottom: 20px;
+
 }
 
 .text h3 {
@@ -37,27 +44,19 @@
   margin-bottom: 20px;
 }
 
-.text button {
-  font-size: 18px;
-  padding: 10px 20px;
-  background-color: #00a99d;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.text button:hover {
-  background-color: #008b7d;
-}
-
 .signature {
+  text-align: right;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .signature span {
   font-weight: normal;
   font-style: italic;
+}
+
+.signature p {
+  margin: 0;
 }
 
 .image {
@@ -81,15 +80,13 @@
   .text, .image {
     width: 100%;
   }
-  .image img {
-    margin-top: 90px;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-  }
-  
+
   .text {
     margin-bottom: 20px;
-    text-align: center;
+    text-align: justify; /* Giữ text-align: justify để căn đều hai bên */
+  }
+
+  .signature {
+    text-align: right; /* Giữ text-align: right để căn phải chữ ký */
   }
 }
