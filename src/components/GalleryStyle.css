@@ -1,0 +1,139 @@
+.gallery {
+  padding: 50px;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.gallery h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.gallery-item {
+  width: 30%;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  position: relative;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.load-more {
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: #00a99d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.load-more:hover {
+  background-color: #008b7d;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #008b7d42;
+  transition: 0.3s ease-in-out;
+}
+.close-modal:hover{
+  background-color: #77db56;
+  color: #000000;
+}
+
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 1140px) {
+  .gallery-item {
+    width: 45%;
+  }
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    padding: 5px 8px;
+    font-size: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #008b7d42;
+    transition: 0.3s ease-in-out;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gallery-item {
+    width: 100%;
+  }
+  .close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #008b7d42;
+  }
+}

@@ -45,7 +45,7 @@
     border-radius: 4px;
     transition: all 0.3s ease-in-out;
 }
-button{
+.signin-btn{
     white-space: nowrap;
     border-radius: 4px;
     font-size: 18px;
@@ -56,7 +56,7 @@ button{
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
-button:hover{
+.signin-btn:hover{
     background-color: #77db56;
     color: #000000;
 }
@@ -120,7 +120,7 @@ button:hover{
         font-size: 18px;
         color: #222
     }
-    button{
+    .signin-btn{
         white-space: nowrap;
         border-radius: 4px;
         font-size: 18px;
@@ -133,7 +133,7 @@ button:hover{
         width: 80%;
         transition: none;
     }
-    button:hover{
+    .signin-btn:hover{
         background-color: #77db56;
         color: #000000;
     }
