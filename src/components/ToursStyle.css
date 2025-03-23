@@ -1,5 +1,5 @@
 .domestic-tours {
-  padding: 50px;
+  padding: 550px;
   background-color: #ffffff;
   text-align: center;
 }
@@ -11,7 +11,7 @@
 }
 
 .tours-section {
-  padding: 50px;
+  padding: 10px 50px;
   background-color: #000;
   color: #fff;
   text-align: center;
@@ -20,6 +20,7 @@
 .tours-section h2 {
   font-size: 36px;
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 
 .tours-menu {
@@ -61,7 +62,7 @@
 
 .tour-item img {
   width: 100%;
-  height: 200px;
+  height: 290px;
   object-fit: cover;
 }
 

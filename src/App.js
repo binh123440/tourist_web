@@ -9,6 +9,8 @@ import Gallery from './components/Gallery';
 import TeamMember from './components/TeamMember';
 import Destinations from './components/Destinations';
 import Tours from './components/Tours';
+import Reviews from './components/Reviews';
+import Footer from './components/Footer';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
         <TeamMember/>
         <Destinations/>
         <Tours/>
+        <Reviews />
+        <Footer />
     </div>
   );
 }

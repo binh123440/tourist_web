@@ -15,6 +15,7 @@ const Tours = () => {
 
   return (
     <div className="tours-section">
+      <hr></hr>
       <h2>CHƯƠNG TRÌNH TRẢI NGHIỆM</h2>
       <div className="tours-menu">
         <a href="#all" onClick={() => handleDestinationChange('all')}>All Posts</a>
@@ -31,7 +32,7 @@ const Tours = () => {
               <p className="destination">{tour.destination}</p>
               <h3>{tour.title}</h3>
               <p className="description">{tour.description}</p>
-              <a href={tour.link} className="continue-reading">Continue Reading</a>
+              <a href={tour.link} className="continue-reading">Xem tour</a>
             </div>
           </div>
         ))}

@@ -1,0 +1,136 @@
+.reviews-section {
+  padding: 50px;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.reviews-section h2 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.reviews-section .review-text {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.reviews-section .slick-slide {
+  padding: 0 10px; /* Thêm khoảng cách ngang giữa các slide */
+  height: 300px;
+}
+
+.reviews-section .slick-slider {
+  width: 90%;
+  margin: 0 auto;
+}
+.review-item {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.review-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.recommend {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.review-text {
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  font-size: 16px;
+  margin-bottom: 10px;
+  -webkit-line-clamp: 2;
+}
+
+.read-more {
+  color: #00a99d;
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.fb-img{
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.insta-img{
+  margin: 0px 15px 0 30px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+.read-more:hover {
+  text-decoration: underline;
+}
+
+.reviewer {
+  font-size: 13px;
+  color: #888;
+}
+
+.recommendation-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.facebook-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.fb-text {
+  text-decoration: none;
+  font-size: 20px;
+  color: #3b5998;
+  margin: 0;
+}
+.insta-text {
+  text-decoration: none;
+  font-size: 20px;
+  color: #eb6bfc;
+  margin: 0;
+}
+
+.recommendation-text {
+  text-align: left;
+}
+
+.recommendation-text p {
+  margin: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .review-item {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .review-item {
+    width: 100%;
+  }
+}
