@@ -1,19 +1,42 @@
 
 import './App.css';
+<<<<<<< Updated upstream
 import NavBar from './components/Navbar'
 import SliderComponent from './components/Slider';
 import Introduction from './components/Introduction';
 import { Routes } from 'react-router-dom';
+=======
+import { Route, Routes } from 'react-router-dom';
+import Home from './routes/Home';
+import About from './routes/About';
+import Tour from './routes/Tour';
+import Contactp from './routes/Contact';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import TourDetail from './components/TourDetail';
+>>>>>>> Stashed changes
 
 
 function App() {
   return (
     <div className="App">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/tour" element={<Tour />} />
+        <Route path="/contact" element={<Contactp />} />
+        <Route path="/tour-detail" element={<TourDetail />} />
+      </Routes>
+      <Navbar />
+      <Footer />
       
+<<<<<<< Updated upstream
         <NavBar/>
         <SliderComponent />
         <Introduction />
 
+=======
+>>>>>>> Stashed changes
     </div>
   );
 }

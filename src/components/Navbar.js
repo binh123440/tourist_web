@@ -8,10 +8,15 @@ class Navbar extends Component{
     handleClick = () =>{
         this.setState({clicked: !this.state.clicked})
     }
+    handleBlur = (event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          this.setState({ clicked: false });
+        }
+      };
     render(){
         return(
-            <nav className="navbar-items">
-            <img className="company-logo" src="icon.png"/>
+            <nav className="navbar-items" onBlur={this.handleBlur} tabIndex="0">
+            <img className="company-logo" src="icon.png" alt="Lotus Voyages"/>
             <h1 className="navbar-logo">LOTUS VOYAGES</h1>
             <div className="menu-icons" onClick={this.handleClick}>
                 <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
@@ -20,13 +25,17 @@ class Navbar extends Component{
                 {MenuItems.map((item, index)=>{
                     return( 
                         <li key={index}>
-                            <a className={item.cName} href={item.url}>
+                            <Link className={item.cName} to={item.url}>
                             <i className={item.icon}></i>{item.title}
-                            </a>
+                            </Link>
                         </li>
                     )
                 })}
+<<<<<<< Updated upstream
                 <button >Sign up</button>
+=======
+                <Link to="/tour" className="signin-btn" style={{textDecoration: "none", color: "black"}} >Đặt lịch ngay</Link>
+>>>>>>> Stashed changes
             </ul>
         </nav>
         )
