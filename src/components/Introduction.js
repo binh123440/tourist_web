@@ -9,7 +9,7 @@ const Introduction = () => {
           <img src="founder.jpg" alt="Founder" />
         </div>
         <div className="text">
-          <h1>LOTUS VOYAGES - VÌ MỘT HÀNH TINH XANH</h1>
+          {/* <h1>LOTUS VOYAGES - VÌ MỘT HÀNH TINH XANH</h1> */}
           <h3>Thư ngỏ</h3>
           <p>Bạn thân mến,</p>
           <p>
