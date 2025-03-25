@@ -31,11 +31,7 @@ class Navbar extends Component{
                         </li>
                     )
                 })}
-<<<<<<< Updated upstream
-                <button >Sign up</button>
-=======
                 <Link to="/tour" className="signin-btn" style={{textDecoration: "none", color: "black"}} >Đặt lịch ngay</Link>
->>>>>>> Stashed changes
             </ul>
         </nav>
         )
