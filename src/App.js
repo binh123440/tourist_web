@@ -1,11 +1,14 @@
 
 import './App.css';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import NavBar from './components/Navbar'
 import SliderComponent from './components/Slider';
 import Introduction from './components/Introduction';
 import { Routes } from 'react-router-dom';
 =======
+=======
+>>>>>>> Stashed changes
 import { Route, Routes } from 'react-router-dom';
 import Home from './routes/Home';
 import About from './routes/About';
@@ -14,6 +17,9 @@ import Contactp from './routes/Contact';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import TourDetail from './components/TourDetail';
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
 
@@ -31,10 +37,12 @@ function App() {
       <Footer />
       
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <NavBar/>
         <SliderComponent />
         <Introduction />
 
+=======
 =======
 >>>>>>> Stashed changes
     </div>

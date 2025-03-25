@@ -32,7 +32,11 @@ class Navbar extends Component{
                     )
                 })}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 <button >Sign up</button>
+=======
+                <Link to="/tour" className="signin-btn" style={{textDecoration: "none", color: "black"}} >Đặt lịch ngay</Link>
+>>>>>>> Stashed changes
 =======
                 <Link to="/tour" className="signin-btn" style={{textDecoration: "none", color: "black"}} >Đặt lịch ngay</Link>
 >>>>>>> Stashed changes
