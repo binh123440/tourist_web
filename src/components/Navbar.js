@@ -31,7 +31,9 @@ class Navbar extends Component{
                         </li>
                     )
                 })}
+
                 <Link to="/tour" className="signin-btn" style={{textDecoration: "none", color: "black"}} >Đặt lịch ngay</Link>
+
             </ul>
         </nav>
         )
