@@ -1,5 +1,4 @@
 import SliderComponent from '../components/Slider';
-import NavBar from '../components/Navbar'
 import Introduction from '../components/Introduction';
 import WhyChooseUs from '../components/WhyChooseUs';
 import Gallery from '../components/Gallery';
@@ -7,7 +6,7 @@ import TeamMember from '../components/TeamMember';
 import Destinations from '../components/Destinations';
 import Tours from '../components/Tours';
 import Reviews from '../components/Reviews';
-import Footer from '../components/Footer';
+
 
 function Home(){
     return(
@@ -20,7 +19,6 @@ function Home(){
             <Destinations/>
             <Tours/>
             <Reviews />
-            
         </div>
     );
 }

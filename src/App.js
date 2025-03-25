@@ -1,9 +1,5 @@
 
 import './App.css';
-
-import Introduction from './components/Introduction';
-import WhyChooseUs from './components/WhyChooseUs';
-
 import { Route, Routes } from 'react-router-dom';
 import Home from './routes/Home';
 import About from './routes/About';
