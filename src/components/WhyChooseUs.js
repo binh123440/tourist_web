@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 const WhyChooseUs = () => {
   return (
     <div className="why-choose-us">
-      <h2>VÌ SAO CHỌN THE HAPPY FIRM TEAM</h2>
+      <h2>VÌ SAO CHỌN NÊN LOTUS VOYAGES</h2>
       <div className="items">
         {items.map((item, index) => (
           <div className="item" key={index}>

@@ -1,32 +1,31 @@
 
 import './App.css';
-import NavBar from './components/Navbar'
-import SliderComponent from './components/Slider';
+
 import Introduction from './components/Introduction';
 import WhyChooseUs from './components/WhyChooseUs';
-import { Routes } from 'react-router-dom';
-import Gallery from './components/Gallery';
-import TeamMember from './components/TeamMember';
-import Destinations from './components/Destinations';
-import Tours from './components/Tours';
-import Reviews from './components/Reviews';
+
+import { Route, Routes } from 'react-router-dom';
+import Home from './routes/Home';
+import About from './routes/About';
+import Tour from './routes/Tour';
+import Contactp from './routes/Contact';
+import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import TourDetail from './components/TourDetail';
 
 
 function App() {
   return (
     <div className="App">
-      
-        <NavBar/>
-        <SliderComponent />
-        <Introduction />
-        <WhyChooseUs />
-        <Gallery />
-        <TeamMember/>
-        <Destinations/>
-        <Tours/>
-        <Reviews />
-        <Footer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/tour" element={<Tour />} />
+        <Route path="/contact" element={<Contactp />} />
+        <Route path="/tour-detail" element={<TourDetail />} />
+      </Routes>
+      <Navbar />
+      <Footer />
     </div>
   );
 }

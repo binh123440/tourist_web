@@ -6,7 +6,7 @@ import './TeamMemberStyle.css';
 const TeamMember = () => {
   return (
     <div className="meet-the-team">
-      <h2>Meet the Team</h2>
+      <h2>Đội ngũ của Lotus Voyages</h2>
       <div className="team-grid">
         {teamMembers.map((member, index) => (
           <div className="team-member" key={index}>

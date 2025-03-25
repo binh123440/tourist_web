@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { tours } from './ToursItems.js';
 import './ToursStyle.css';
+import { Link } from 'react-router-dom';
 
 const Tours = () => {
   const [selectedDestination, setSelectedDestination] = useState('all');
@@ -18,10 +19,10 @@ const Tours = () => {
       <hr></hr>
       <h2>CHƯƠNG TRÌNH TRẢI NGHIỆM</h2>
       <div className="tours-menu">
-        <a href="#all" onClick={() => handleDestinationChange('all')}>All Posts</a>
+        <a href="#all" onClick={() => handleDestinationChange('all')}>Tất cả các tour</a>
         <a href="#bhutan" onClick={() => handleDestinationChange('bhutan')}>Bhutan</a>
         <a href="#vietnam" onClick={() => handleDestinationChange('vietnam')}>Vietnam</a>
-        <a href="#france" onClick={() => handleDestinationChange('france')}>France</a>
+        <a href="#france" onClick={() => handleDestinationChange('france')}>Pháp</a>
       </div>
       <div className="tours-grid">
         {filteredTours.map((tour, index) => (
@@ -32,7 +33,7 @@ const Tours = () => {
               <p className="destination">{tour.destination}</p>
               <h3>{tour.title}</h3>
               <p className="description">{tour.description}</p>
-              <a href={tour.link} className="continue-reading">Xem tour</a>
+              <Link to={`/tour-detail?tour=${tour.link}&slide=0`} className="continue-reading">Xem tour</Link>
             </div>
           </div>
         ))}

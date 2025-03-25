@@ -1,0 +1,46 @@
+.tour-detail-container {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+
+.tour-detail-container img {
+  width: 70%;
+  height: 90%;
+  border-radius: 10px;
+  margin: auto;
+}
+
+.slick-slide {
+  height: fit-content;
+}
+
+.slider-navigation {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateY(-50%);
+  color: #00a99d;
+}
+
+.slider-navigation button {
+  background: none;
+  border: none;
+  color: #00a99d;
+  font-size: 23px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.slider-navigation button:hover {
+  text-decoration: underline;
+}
+
+.slide-number {
+  font-size: 17px;
+  color: #00a99d;
+}

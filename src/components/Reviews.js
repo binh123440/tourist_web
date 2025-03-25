@@ -57,20 +57,20 @@ const Reviews = () => {
 
   return (
     <div className="reviews-section">
-      <h2>Reviews</h2>
+      <h2>Cảm nghĩ của khách hàng về chúng tôi</h2>
       <Slider {...settings}>
         {reviews.map((review, index) => (
           <div className="review-item" key={index}>
             <div className="review-image">{review.image}</div>
             <p className="recommend">Recommends</p>
             <p className="review-text">"{review.review}"</p>
-            <a href={review.link} className="read-more">Read full review</a>
+            <a href={review.link} className="read-more">Xem bài đánh giá</a>
             <p className="reviewer">{review.name} - {review.date}</p>
           </div>
         ))}
       </Slider>
       <div className='facebook-link'>
-        <p>Follow us on Facebook and Instagram for more reviews and updates</p>
+        <p>Hãy theo dõi chúng tôi trên FaceBook và Instagram để nắm bắt những đánh giá và cập nhật mới mới nhất</p>
         <img src="fb.png" alt="Reviews" className='fb-img'/>
         <a className="fb-text" href="https://www.facebook.com/lotusvoyagesdanang">LOTUS VOYAGES</a>
         <img src="instagram.png" alt="Reviews" className='insta-img'/>

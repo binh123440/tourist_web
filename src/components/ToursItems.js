@@ -1,22 +1,22 @@
 export const tours = [
   {
-    date: '20-December to 30-December 2024',
+    date: '20/12/2024 - 30/12/2024',
     destination: 'Bhutan',
     title: '2025 BAY THẲNG TPHCM/HANOI-BHUTAN LỊCH TRÌNH 1',
     image: 'bhutan.jpg',
     description: 'JOURNEY TO THE HIDDEN LAND - THUNDER DRAGON',
-    link: '#'
+    link: '/bhutan1'
   },
   {
-    date: '20-December to 30-December 2024',
+    date: '20/12/2024 - 30/12/2024',
     destination: 'Bhutan',
     title: 'Khám phá Bhutan - Vùng đất của những điều kỳ diệu',
     image: 'bhutan.jpg',
     description: 'Bhutan, vùng đất của những điều kỳ diệu, nơi mà thiên nhiên và văn hóa hòa quyện tạo nên một bức tranh tuyệt đẹp.',
-    link: '#'
+    link: '/bhutan2'
   },
   {
-    date: '20-December to 30-December 2024',
+    date: '20/12/2024 - 30/12/2024',
     destination: 'Vietnam',
     title: 'Hành trình khám phá miền Trung Việt Nam',
     image: 'vietnam.jpg',
@@ -24,7 +24,7 @@ export const tours = [
     link: '#'
   },
   {
-    date: '20-December to 30-December 2024',
+    date: '20/12/2024 - 30/12/2024',
     destination: 'Vietnam',
     title: 'Khám phá Sapa - Vùng đất của những điều kỳ diệu',
     image: 'vietnam.jpg',
@@ -32,7 +32,7 @@ export const tours = [
     link: '#'
   },
   {
-    date: '20-December to 30-December 2024',
+    date: '20/12/2024 - 30/12/2024',
     destination: 'France',
     title: 'Pháp - Kinh đô ánh sáng',
     image: 'phap.jpg',

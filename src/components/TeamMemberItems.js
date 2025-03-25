@@ -1,6 +1,6 @@
 export const teamMembers = [
     {
-      name: 'Ha Lam - CEO',
+      name: 'Liên Đặng - CEO',
       image: 'team1.jpg',
       description: 'Là một người đam mê du lịch, yêu thích thiên nhiên, khám phá văn hóa lịch sử và hơn 15 năm kinh nghiệm trong lĩnh vực du lịch, may mắn đến nhiều vùng đất trên thế giới và được nghe và truyền cảm hứng bởi những câu chuyện về con người, văn hóa, lịch sử, cuộc sống... Ha Lam luôn phấn đấu để lan tỏa hạnh phúc và niềm vui đến mọi người.'
     },
