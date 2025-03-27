@@ -8,13 +8,33 @@ const ContactPage = () => {
   const sendEmail = (e) => {
     e.preventDefault();
 
+    // Gửi email đến người dùng
     emailjs.sendForm('service_rna3ece', 'template_g6ctpdk', form.current, 'WMZ4FkXbGkt6pzVER')
       .then((result) => {
-          console.log(result.text);
-          alert('Gửi email thành công!');
+          console.log('Email đến người dùng:', result.text);
+          alert('Gửi email đến người dùng thành công!');
       }, (error) => {
-          console.log(error.text);
-          alert('Gửi email thất bại!');
+          console.log('Lỗi khi gửi email đến người dùng:', error.text);
+          alert('Gửi email đến người dùng thất bại!');
+      });
+
+    // Gửi email đến chính bạn (admin)
+    const adminEmailData = {
+      admin_email: 'binhgolden123@gmail.com', // Thay bằng email của bạn
+      user_name: form.current.name.value,
+      user_phone: form.current.phone.value,
+      user_email: form.current.email.value,
+      user_subject: form.current.subject.value,
+      user_message: form.current.message.value,
+    };
+
+    emailjs.send('service_rna3ece', 'template_3bgb7fs', adminEmailData, 'WMZ4FkXbGkt6pzVER')
+      .then((result) => {
+          console.log('Email đến admin:', result.text);
+          alert('Gửi email đến admin thành công!');
+      }, (error) => {
+          console.log('Lỗi khi gửi email đến admin:', error.text);
+          alert('Gửi email đến admin thất bại!');
       });
   };
 
