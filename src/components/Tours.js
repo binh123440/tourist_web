@@ -1,29 +1,58 @@
 import React, { useState } from 'react';
 import { tours } from './ToursItems.js';
 import './ToursStyle.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-const Tours = () => {
-  const [selectedDestination, setSelectedDestination] = useState('all');
+const Tours = ({ selectedDestination = 'all' }) => {
+  const [selectedCategory, setSelectedCategory] = useState('all'); // Trạng thái lưu danh mục được chọn
+  const location = useLocation();
 
-  const handleDestinationChange = (destination) => {
-    setSelectedDestination(destination);
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category.toLowerCase());
   };
 
-  const filteredTours = selectedDestination === 'all'
-    ? tours
-    : tours.filter(tour => tour.destination.toLowerCase().includes(selectedDestination));
+  // Kết hợp cả hai điều kiện lọc
+  const filteredTours = tours.filter((tour) => {
+    const matchesDestination =
+      selectedDestination === 'all' || tour.destination.toLowerCase() === selectedDestination;
+    const matchesCategory =
+      selectedCategory === 'all' || tour.destination.toLowerCase().includes(selectedCategory);
+    return matchesDestination && matchesCategory; // Chỉ giữ các tour thỏa mãn cả hai điều kiện
+  });
 
   return (
     <div className="tours-section">
-      <hr></hr>
       <h2>CHƯƠNG TRÌNH TRẢI NGHIỆM</h2>
-      <div className="tours-menu">
-        <a href="#all" onClick={() => handleDestinationChange('all')}>Tất cả các tour</a>
-        <a href="#bhutan" onClick={() => handleDestinationChange('bhutan')}>Bhutan</a>
-        <a href="#vietnam" onClick={() => handleDestinationChange('vietnam')}>Vietnam</a>
-        <a href="#france" onClick={() => handleDestinationChange('france')}>Pháp</a>
-      </div>
+      {/* Bộ lọc danh mục */}
+      {location.pathname !== '/tour' && (
+        <div className="tours-menu">
+          <button
+            className={selectedCategory === 'all' ? 'active' : ''}
+            onClick={() => handleCategoryChange('all')}
+          >
+            All Posts
+          </button>
+          <button
+            className={selectedCategory === 'bhutan' ? 'active' : ''}
+            onClick={() => handleCategoryChange('bhutan')}
+          >
+            Bhutan
+          </button>
+          <button
+            className={selectedCategory === 'việt nam' ? 'active' : ''}
+            onClick={() => handleCategoryChange('việt nam')}
+          >
+            Việt Nam
+          </button>
+          <button
+            className={selectedCategory === 'pháp' ? 'active' : ''}
+            onClick={() => handleCategoryChange('pháp')}
+          >
+            Pháp
+          </button>
+        </div>
+      )}
+      {/* Danh sách tour */}
       <div className="tours-grid">
         {filteredTours.map((tour, index) => (
           <div className="tour-item" key={index}>
@@ -33,7 +62,9 @@ const Tours = () => {
               <p className="destination">{tour.destination}</p>
               <h3>{tour.title}</h3>
               <p className="description">{tour.description}</p>
-              <Link to={`/tour-detail?tour=${tour.link}&slide=0`} className="continue-reading">Xem tour</Link>
+              <Link to={`/tour-detail?tour=${tour.link}&slide=0`} className="continue-reading">
+                Xem tour
+              </Link>
             </div>
           </div>
         ))}

@@ -17,45 +17,87 @@
   transform: translate(-50%, -50%);
   color: #fff;
   text-align: center;
+  text-shadow: 4px 4px 12px rgba(0, 0, 0, 0.8); /* Thêm đổ bóng cho chữ */
+  animation: fadeIn 1.5s ease-in-out; /* Hiệu ứng xuất hiện */
 }
 
 .slider-text h1 {
-  font-size: 48px;
+  font-size: 56px; /* Tăng kích thước chữ */
   margin-bottom: 20px;
+  font-weight: bold; /* Làm chữ đậm hơn */
+  text-transform: uppercase; /* Chuyển chữ thành in hoa */
+  letter-spacing: 2px; /* Tăng khoảng cách giữa các chữ */
 }
 
 .slider-text p {
-  font-size: 24px;
+  font-size: 28px; /* Tăng kích thước chữ */
   margin-bottom: 20px;
+  font-style: italic; /* Làm chữ nghiêng */
 }
 
 .slider-text button {
-  font-size: 18px;
-  padding: 10px 20px;
-  background-color: #00a99d;
+  font-size: 20px; /* Tăng kích thước chữ */
+  padding: 12px 24px; /* Tăng kích thước nút */
+  background-color: #ff678d; /* Thay đổi màu nền nút */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Thêm đổ bóng cho nút */
+  transition: all 0.3s ease-in-out; /* Hiệu ứng hover */
 }
 
 .slider-text button:hover {
-  background-color: #008b7d;
+  background-color: #e0557a; /* Thay đổi màu nền khi hover */
+  transform: scale(1.1); /* Phóng to nút khi hover */
 }
 
-.slick-dots {
+/* Hiệu ứng xuất hiện chữ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.slider-container .slick-dots {
   position: absolute;
   bottom: 90px; /* Đặt vị trí của dots cách đáy slider 90px */
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: center;  /* Tăng khoảng cách giữa các dots */
+}
+.slick-dots li {
+  margin: 0 15px; /* Thay thế gap bằng margin */
 }
 
 .slick-dots li button:before {
-  color: #fff;
-  font-size: 20px; /* Kích thước của dots */
-  border: 2px solid #fff; /* Viền màu trắng */
+  color: #fff; /* Màu trắng cho dots */
+  font-size: 10px; /* Tăng kích thước của dots */
+  border: 3px solid #fff; /* Thêm viền màu trắng */
   border-radius: 50%; /* Bo tròn dots */
+  padding: 1px; /* Tăng kích thước dots bằng cách thêm padding */
+  background-color: rgba(255, 4, 121, 0.855); /* Thêm nền mờ cho dots */
+  transition: all 0.3s ease-in-out; /* Hiệu ứng chuyển đổi */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Thêm đổ bóng cho dots */
+  margin-right: 150px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #ff678d; /* Màu nổi bật cho dots đang hoạt động */
+  background-color: #fff; /* Thay đổi nền cho dots đang hoạt động */
+  border-color: #ff678d; /* Thay đổi viền cho dots đang hoạt động */
+  transform: scale(1.2); /* Phóng to dots đang hoạt động */
+}
+
+.slick-dots li button:hover:before {
+  background-color: #ff678d; /* Thay đổi nền khi hover */
+  color: #fff; /* Thay đổi màu khi hover */
+  transform: scale(1.1); /* Phóng to dots khi hover */
 }
 
 .slick-prev:before,

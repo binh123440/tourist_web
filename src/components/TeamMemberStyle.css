@@ -68,10 +68,10 @@
   }
 
   .expand-btn::before {
-    content: "Expand";
+    content: "Xem thêm";
   }
   .expand-btn:checked::before {
-    content: "Collapse";
+    content: "Ẩn bớt";
   }
   .team-member p:has(+  .expand-btn:checked) {
     -webkit-line-clamp: unset;

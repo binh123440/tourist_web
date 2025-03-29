@@ -13,6 +13,7 @@
     "react-modal": "^3.16.3",
     "react-router-dom": "^7.3.0",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.9.3",
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
