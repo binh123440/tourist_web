@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import TourDetail from './components/TourDetail';
 import ScrollToTop from './components/ScrollToTop';
+import Tours from './components/Tours';
 
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/tour" element={<Tour />} />
         <Route path="/contact" element={<Contactp />} />
-        <Route path="/tour-detail" element={<TourDetail />} />
+        <Route path="/" element={<Tours />} />
+        <Route path="/tour-detail/:tourId" element={<TourDetail />} /> {/* Route động */}
       </Routes>
       <Footer />
     </div>

@@ -2,7 +2,7 @@
   position: relative;
   width: 80%;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 150px;
 }
 
 .tour-detail-container img {
@@ -18,29 +18,274 @@
 
 .slider-navigation {
   position: absolute;
+  /* Đặt các nút ở vị trí tuyệt đối so với slider */
   top: 50%;
+  /* Căn giữa nút theo chiều dọc */
   width: 100%;
+  /* Chiều rộng của vùng chứa nút */
+  transform: translateY(-50%);
+  /* Đảm bảo nút nằm chính giữa theo chiều dọc */
   display: flex;
   justify-content: space-between;
+  /* Đặt nút "Trước đó" và "Tiếp theo" ở hai bên slider */
   align-items: center;
-  transform: translateY(-50%);
-  color: #00a99d;
+  pointer-events: none;
+  /* Đảm bảo vùng chứa không chặn sự kiện chuột */
 }
 
 .slider-navigation button {
-  background: none;
+  pointer-events: all;
+  /* Cho phép nút nhận sự kiện chuột */
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #00a99d;
+  color: white;
   border: none;
-  color: #00a99d;
-  font-size: 23px;
+  border-radius: 5px;
   cursor: pointer;
-  margin: 0 10px;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  /* Đặt nút ở vị trí tuyệt đối */
 }
 
-.slider-navigation button:hover {
-  text-decoration: underline;
+.slider-navigation .prev-button {
+  left: -130px;
+  /* Đặt nút "Trước đó" ra ngoài bên trái slider */
+}
+
+.slider-navigation .next-button {
+  right: -130px;
+  /* Đặt nút "Tiếp theo" ra ngoài bên phải slider */
+}
+
+.slider-navigation button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.slider-navigation button:hover:not(:disabled) {
+  background-color: #007f7a;
 }
 
 .slide-number {
-  font-size: 17px;
-  color: #00a99d;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
+}
+
+.tour-detail-page {
+  background-color: #f5f5f5;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+.tour-slider {
+  position: relative;
+  /* Đặt slider ở vị trí tương đối để định vị các nút */
+  margin-bottom: 30px;
+  width: 70%;
+  /* Giảm kích thước slider xuống 80% */
+  margin: 0 auto;
+  /* Căn giữa slider */
+}
+
+.tour-slider img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.tour-details {
+  background-color: #fff;
+  padding: 130px 15%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  line-height: 1.8;
+  /* Tăng khoảng cách dòng để dễ đọc */
+  text-align: justify;
+  /* Căn đều hai bên cho nội dung */
+}
+.related-tours .tours-section {
+  background-color: transparent;
+  padding-top: 0px;
+}
+
+.related-tours .tours-section h2 {
+  visibility: hidden;
+  height: 0px;
+}
+
+.related-tours .tours-section .tours-menu {
+  visibility: hidden;
+  height: 0px;
+}
+
+.tour-details h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.tour-details .intro {
+  font-size: 18px;
+  margin-bottom: 30px;
+  line-height: 1.8;
+  text-align: justify;
+  /* Căn đều hai bên cho phần giới thiệu */
+}
+
+.day-details {
+  margin-bottom: 30px;
+}
+
+.day-details h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #16a085;
+  text-align: left;
+  /* Căn lề trái cho tiêu đề ngày */
+}
+
+.day-details ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.day-details ul li {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: justify;
+  /* Căn đều hai bên cho nội dung danh sách */
+}
+
+.related-tours {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.related-tours h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #e74c3c;
+}
+
+.related-tours ul {
+  list-style-type: circle;
+  padding-left: 20px;
+}
+
+.related-tours ul li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.slider-button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.schedule-button {
+  font-size: 18px;
+  padding: 10px 20px;
+  background-color: #ff678d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.schedule-button:hover {
+  background-color: #e0557a;
+  transform: scale(1.1);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.modal .contact-page {
+  padding: 30px;
+  margin: 0px;
+}
+
+.modal .contact-page .contact-form {
+  background-color: rgba(228, 255, 219, 0.8);
+  padding: 50px 50px;
+  border-radius: 10px;
+  width: 100%;
+  margin-left: 100px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ff678d;
+}
+
+.close-modal:hover {
+  color: #e0557a;
+}
+
+@media screen and (max-width: 1140px) {
+  .slider-navigation button {
+    padding: 5px 10px;
+  }
+
+  .tour-slider {
+    width: 100%;
+    /* Giảm kích thước slider xuống 80% */
+  }
+
+  .tour-info {
+    padding: 100px 0px 0px 0px;
+  }
+
+  .slider-navigation .prev-button {
+    left: -10px;
+    /* Đặt nút "Trước đó" ra ngoài bên trái slider */
+  }
+
+  .slider-navigation .next-button {
+    right: -10px;
+    /* Đặt nút "Tiếp theo" ra ngoài bên phải slider */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .team-member {
+    width: 100%;
+  }
+  .modal .contact-page .contact-form {
+    margin: auto;
+  }
+  .modal {
+    margin: 70px 0 0 0;
+  }
 }

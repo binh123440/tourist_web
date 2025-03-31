@@ -62,7 +62,7 @@ const Tours = ({ selectedDestination = 'all' }) => {
               <p className="destination">{tour.destination}</p>
               <h3>{tour.title}</h3>
               <p className="description">{tour.description}</p>
-              <Link to={`/tour-detail?tour=${tour.link}&slide=0`} className="continue-reading">
+              <Link to={`/tour-detail/${tour.link}`} className="continue-reading">
                 Xem tour
               </Link>
             </div>

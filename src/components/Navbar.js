@@ -2,7 +2,7 @@ import { Component } from "react";
 import "./NavbarStyle.css";
 import { MenuItems } from "./MenuItems";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { Link as ScrollLink, scroller } from "react-scroll"; // Import react-scroll
+import { Link as scroller } from "react-scroll"; // Import react-scroll
 
 class Navbar extends Component {
   state = { clicked: false };
@@ -54,7 +54,7 @@ class Navbar extends Component {
       <nav className="navbar-items" onBlur={this.handleBlur} tabIndex="0">
         {/* Logo dẫn đến trang chủ */}
         <Link to="/" className="logo-link" onClick={this.handleLogoClick}>
-          <img className="company-logo" src="icon.png" alt="Lotus Voyages" />
+          <img className="company-logo" src="/icon.png" alt="Lotus Voyages" />
         </Link>
         <Link to="/" className="logo-link" onClick={this.handleLogoClick}>
           <h1 className="navbar-logo">LOTUS VOYAGES</h1>
