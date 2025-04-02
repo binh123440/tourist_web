@@ -106,7 +106,7 @@ const TourDetail = () => {
           overlayClassName="overlay"
         >
           <button className="close-modal" onClick={closeModal}>
-            X
+            <i className="fas fa-times"></i>
           </button>
           <ContactPage /> {/* Hiển thị nội dung của ContactPage */}
         </Modal>
