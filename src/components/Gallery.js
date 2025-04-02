@@ -13,10 +13,14 @@ const Gallery = () => {
     '1.jpg',
     '2.webp',
     '3.jpg',
+    'founder.jpg',
+    '1.jpg',
+    '2.webp',
+    '3.jpg',
     'founder.jpg'
   ];
 
-  const [visibleImages, setVisibleImages] = useState(6);
+  const [visibleImages, setVisibleImages] = useState(8);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
 

@@ -2,10 +2,36 @@ import { Component } from "react";
 import "./NavbarStyle.css";
 import { MenuItems } from "./MenuItems";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import { Link as scroller } from "react-scroll"; // Import react-scroll
+import { scroller } from "react-scroll"; // Import react-scroll
 
 class Navbar extends Component {
-  state = { clicked: false };
+  state = {
+    clicked: false,
+    showNavbar: true, // Trạng thái hiển thị của navbar
+    lastScrollY: 0, // Vị trí cuộn trước đó
+  };
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  handleScroll = () => {
+    const currentScrollY = window.scrollY;
+
+    if (currentScrollY > this.state.lastScrollY) {
+      // Nếu cuộn xuống, ẩn navbar
+      this.setState({ showNavbar: false });
+    } else {
+      // Nếu cuộn lên, hiện navbar
+      this.setState({ showNavbar: true });
+    }
+
+    this.setState({ lastScrollY: currentScrollY });
+  };
 
   handleClick = () => {
     this.setState({ clicked: !this.state.clicked });
@@ -51,7 +77,11 @@ class Navbar extends Component {
 
   render() {
     return (
-      <nav className="navbar-items" onBlur={this.handleBlur} tabIndex="0">
+      <nav
+        className={`navbar-items ${this.state.showNavbar ? "show" : "hide"}`}
+        onBlur={this.handleBlur}
+        tabIndex="0"
+      >
         {/* Logo dẫn đến trang chủ */}
         <Link to="/" className="logo-link" onClick={this.handleLogoClick}>
           <img className="company-logo" src="/icon.png" alt="Lotus Voyages" />

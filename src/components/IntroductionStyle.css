@@ -1,5 +1,5 @@
 .introduction {
-  padding: 30px 100px;
+  padding: 30px 200px;
   background-color: #DBE4FF;
   text-align: center;
 }
@@ -12,12 +12,18 @@
 .content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch; /* Đảm bảo các phần tử con có chiều cao bằng nhau */
   gap: 50px; /* Đặt khoảng cách giữa ảnh và chữ */
 }
 
-.text {
+.text, .image {
   width: 50%;
+  display: flex;
+  flex-direction: column; /* Đảm bảo nội dung bên trong không bị ảnh hưởng */
+  justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+}
+
+.text {
   text-align: justify;
   position: relative;
 }
@@ -63,10 +69,14 @@
   width: 50%;
   height: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column; /* Đảm bảo nội dung bên trong không bị ảnh hưởng */
+  justify-content: center; /* Căn giữa nội dung theo chiều dọc */
 }
 
 .image img {
   width: 100%;
+  height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao của phần tử cha */
   border-radius: 10px;
   object-fit: cover;
 }
@@ -79,14 +89,75 @@
 
   .text, .image {
     width: 100%;
+    height: auto; /* Đặt chiều cao tự động khi ở màn hình nhỏ */
   }
 
   .text {
     margin-bottom: 20px;
-    text-align: justify; /* Giữ text-align: justify để căn đều hai bên */
+    text-align: justify;
   }
 
   .signature {
-    text-align: right; /* Giữ text-align: right để căn phải chữ ký */
+    text-align: right;
+  }
+
+  /* Giảm kích thước chữ khi màn hình nhỏ hơn 1140px */
+  .text h1 {
+    font-size: 28px;
+  }
+
+  .text h2 {
+    font-size: 24px;
+  }
+
+  .text h3 {
+    font-size: 20px;
+  }
+
+  .text p {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* Giảm kích thước chữ hơn nữa khi màn hình nhỏ hơn 768px */
+  .introduction {
+    padding: 30px 80px;
+    background-color: #DBE4FF;
+    text-align: center;
+  }
+  .text h1 {
+    font-size: 24px;
+  }
+
+  .text h2 {
+    font-size: 20px;
+  }
+
+  .text h3 {
+    font-size: 18px;
+  }
+
+  .text p {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Giảm kích thước chữ tối đa khi màn hình rất nhỏ (như điện thoại) */
+  .text h1 {
+    font-size: 20px;
+  }
+
+  .text h2 {
+    font-size: 18px;
+  }
+
+  .text h3 {
+    font-size: 16px;
+  }
+
+  .text p {
+    font-size: 12px;
   }
 }
