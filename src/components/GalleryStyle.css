@@ -12,7 +12,7 @@
 .gallery-grid {
   display: grid; /* Sử dụng Grid Layout */
   grid-template-columns: repeat(4, 1fr); /* Hiển thị 4 cột */
-  gap: 0px; /* Khoảng cách giữa các ảnh */
+  gap: 12px; /* Khoảng cách giữa các ảnh */
   justify-content: center;
 }
 .gallery-item {
@@ -22,6 +22,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   position: relative;
+  border-radius: 6px;
   aspect-ratio: 4 / 3; /* Đặt tỷ lệ khung hình cố định cho các ảnh */
 }
 
@@ -52,19 +53,17 @@
   background-color: #008b7d;
 }
 
-.modal {
+.gallery-modal {
   position: absolute;
   top: 50%;
   left: 50%;
   right: auto;
   bottom: auto;
   transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
+  background: transparent;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 100%;
+  max-height: 100%;
   overflow: auto;
 }
 

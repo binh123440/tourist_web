@@ -1,5 +1,5 @@
 .introduction {
-  padding: 30px 200px;
+  padding: 30px 250px;
   background-color: #DBE4FF;
   text-align: center;
 }
@@ -12,40 +12,46 @@
 .content {
   display: flex;
   justify-content: space-between;
-  align-items: stretch; /* Đảm bảo các phần tử con có chiều cao bằng nhau */
-  gap: 50px; /* Đặt khoảng cách giữa ảnh và chữ */
+  align-items: stretch;
+  /* Đảm bảo các phần tử con có chiều cao bằng nhau */
+  gap: 50px;
+  /* Khoảng cách giữa ảnh và chữ */
 }
 
-.text, .image {
+.text,
+.image {
   width: 50%;
   display: flex;
-  flex-direction: column; /* Đảm bảo nội dung bên trong không bị ảnh hưởng */
-  justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+  flex-direction: column;
+  justify-content: center;
+  /* Căn giữa nội dung theo chiều dọc */
 }
 
 .text {
   text-align: justify;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Căn giữa nội dung theo chiều dọc */
 }
 
 .text h1 {
   text-align: center;
   padding-bottom: 20px;
-
 }
 
 .text h3 {
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 10px;
 }
 
 .text h2 {
-  font-size: 36px;
+  font-size: 32px;
   margin-bottom: 20px;
 }
 
 .text p {
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.6;
   margin-bottom: 20px;
 }
@@ -67,29 +73,40 @@
 
 .image {
   width: 50%;
-  height: 100%;
-  overflow: hidden;
+  height: auto;
+  /* Đặt chiều cao tự động */
   display: flex;
-  flex-direction: column; /* Đảm bảo nội dung bên trong không bị ảnh hưởng */
-  justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+  align-items: center;
+  /* Căn giữa ảnh theo chiều dọc */
 }
 
 .image img {
   width: 100%;
-  height: 100%; /* Đảm bảo ảnh chiếm toàn bộ chiều cao của phần tử cha */
-  border-radius: 10px;
+  height: 100%;
   object-fit: cover;
+  /* Crop ảnh để vừa khung */
+  object-position: left center;
+  /* Crop ảnh từ phía bên trái */
+  border-radius: 10px;
 }
 
-@media screen and (max-width: 1140px) {
+@media screen and (max-width: 1500px) {
+  .introduction {
+    padding: 30px 100px;
+    background-color: #DBE4FF;
+    text-align: center;
+  }
   .content {
     flex-direction: column;
+    /* Chuyển sang bố cục cột khi màn hình nhỏ */
     align-items: center;
   }
 
-  .text, .image {
-    width: 100%;
-    height: auto; /* Đặt chiều cao tự động khi ở màn hình nhỏ */
+  .text,
+  .image {
+    width: 70%;
+    height: auto;
+    /* Đặt chiều cao tự động khi ở màn hình nhỏ */
   }
 
   .text {
@@ -104,6 +121,54 @@
   /* Giảm kích thước chữ khi màn hình nhỏ hơn 1140px */
   .text h1 {
     font-size: 28px;
+    /* Thu nhỏ cỡ chữ */
+  }
+
+  .text h2 {
+    font-size: 24px;
+  }
+
+  .text h3 {
+    font-size: 20px;
+  }
+
+  .text p {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .introduction {
+    padding: 30px 200px;
+    background-color: #DBE4FF;
+    text-align: center;
+  }
+  .content {
+    flex-direction: column;
+    /* Chuyển sang bố cục cột khi màn hình nhỏ */
+    align-items: center;
+  }
+
+  .text,
+  .image {
+    width: 100%;
+    height: auto;
+    /* Đặt chiều cao tự động khi ở màn hình nhỏ */
+  }
+
+  .text {
+    margin-bottom: 20px;
+    text-align: justify;
+  }
+
+  .signature {
+    text-align: right;
+  }
+
+  /* Giảm kích thước chữ khi màn hình nhỏ hơn 1140px */
+  .text h1 {
+    font-size: 28px;
+    /* Thu nhỏ cỡ chữ */
   }
 
   .text h2 {
@@ -120,12 +185,12 @@
 }
 
 @media screen and (max-width: 768px) {
-  /* Giảm kích thước chữ hơn nữa khi màn hình nhỏ hơn 768px */
   .introduction {
-    padding: 30px 80px;
+    padding: 30px 100px;
     background-color: #DBE4FF;
     text-align: center;
   }
+
   .text h1 {
     font-size: 24px;
   }
@@ -144,6 +209,7 @@
 }
 
 @media screen and (max-width: 480px) {
+
   /* Giảm kích thước chữ tối đa khi màn hình rất nhỏ (như điện thoại) */
   .text h1 {
     font-size: 20px;

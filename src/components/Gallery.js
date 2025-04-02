@@ -54,10 +54,9 @@ const Gallery = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Image Modal"
-        className="modal"
+        className="gallery-modal"
         overlayClassName="overlay"
       >
-        <button className="close-modal" onClick={closeModal}>X</button>
         <img src={currentImage} alt="Current" className="modal-image" />
       </Modal>
     </div>
