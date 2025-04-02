@@ -11,11 +11,11 @@ const ContactPage = () => {
     // Gửi email đến người dùng
     emailjs.sendForm('service_rna3ece', 'template_g6ctpdk', form.current, 'WMZ4FkXbGkt6pzVER')
       .then((result) => {
-          console.log('Email đến người dùng:', result.text);
-          alert('Gửi email đến người dùng thành công!');
+        console.log('Email đến người dùng:', result.text);
+        alert('Gửi email đến người dùng thành công!');
       }, (error) => {
-          console.log('Lỗi khi gửi email đến người dùng:', error.text);
-          alert('Gửi email đến người dùng thất bại!');
+        console.log('Lỗi khi gửi email đến người dùng:', error.text);
+        alert('Gửi email đến người dùng thất bại!');
       });
 
     // Gửi email đến chính bạn (admin)
@@ -30,11 +30,11 @@ const ContactPage = () => {
 
     emailjs.send('service_rna3ece', 'template_3bgb7fs', adminEmailData, 'WMZ4FkXbGkt6pzVER')
       .then((result) => {
-          console.log('Email đến admin:', result.text);
-          alert('Gửi email đến admin thành công!');
+        console.log('Email đến admin:', result.text);
+        alert('Gửi email đến admin thành công!');
       }, (error) => {
-          console.log('Lỗi khi gửi email đến admin:', error.text);
-          alert('Gửi email đến admin thất bại!');
+        console.log('Lỗi khi gửi email đến admin:', error.text);
+        alert('Gửi email đến admin thất bại!');
       });
   };
 
@@ -43,7 +43,17 @@ const ContactPage = () => {
       <div className="contact-info">
         <h2>Liên hệ</h2>
         <p>Hotline (WhatsApp, Zalo): +84 905 99 39 45</p>
-        <p>Facebook chat: <a href="https://www.facebook.com/lotusvoyagesdanang">https://www.facebook.com/lotusvoyagesdanang</a></p>
+        <p>Nền tảng khác:
+          <a href="https://www.pinterest.com/lotusvoyages" target="_blank" rel="noopener noreferrer" className="social-icon">
+            <i className="fab fa-pinterest"></i>
+          </a>
+          <a href="https://www.facebook.com/lotusvoyagesdanang" target="_blank" rel="noopener noreferrer" className="social-icon">
+            <i className="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/lotusvoyages" target="_blank" rel="noopener noreferrer" className="social-icon">
+            <i className="fab fa-instagram"></i>
+          </a>
+        </p>
         <p>Email: liendang@lotusvoyages.com.vn</p>
         <p>K285/43 Lê Duẩn, Phường Tân Chính, Quận Thanh Khê, Thành phố Đà Nẵng, Việt Nam</p>
       </div>
@@ -66,11 +76,6 @@ const ContactPage = () => {
           </div>
           <button type="submit" className="submit-btn">Gửi đi</button>
         </form>
-        <div className="social-media">
-          <a href="https://www.pinterest.com/lotusvoyages"><i className="fab fa-pinterest"></i></a>
-          <a href="https://www.facebook.com/lotusvoyagesdanang"><i className="fab fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/lotusvoyages"><i className="fab fa-instagram"></i></a>
-        </div>
       </div>
     </div>
   );

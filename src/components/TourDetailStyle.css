@@ -218,13 +218,13 @@
 }
 
 .modal .contact-page {
-  padding: 30px;
+  padding: 20px;
   margin: 0px;
 }
 
 .modal .contact-page .contact-form {
   background-color: rgba(228, 255, 219, 0.8);
-  padding: 50px 50px;
+  padding: 20px 20px;
   border-radius: 10px;
   width: 100%;
   margin-left: 100px;
