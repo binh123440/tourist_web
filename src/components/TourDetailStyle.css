@@ -12,6 +12,14 @@
   margin: auto;
 }
 
+/* Thêm selector cụ thể để không ảnh hưởng đến editor images */
+.editor-container img {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  margin: initial;
+}
+
 .slick-slide {
   height: fit-content;
 }
@@ -106,7 +114,30 @@
   text-align: justify;
   /* Căn đều hai bên cho nội dung */
 }
+/* Thêm vào DestinationsStyle.css, ToursStyle.css, và TourDetailStyle.css */
 
+.loading, .error, .no-tours {
+  padding: 20px;
+  margin: 20px auto;
+  text-align: center;
+  width: 80%;
+  border-radius: 8px;
+}
+
+.loading {
+  background-color: #f0f8ff;
+  color: #0066cc;
+}
+
+.error {
+  background-color: #fff0f0;
+  color: #cc0000;
+}
+
+.no-tours {
+  background-color: #f5f5f5;
+  color: #666;
+}
 .related-tours .tours-section {
   background-color: transparent;
   padding-top: 0px;
@@ -201,6 +232,22 @@
 .schedule-button:hover {
   background-color: #e0557a;
   transform: scale(1.1);
+}
+.detail-admin-controls {
+  margin-bottom: 20px;
+}
+
+.edit-detail-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-detail-btn:hover {
+  background-color: #2980b9;
 }
 
 .modal {
@@ -300,4 +347,67 @@
   .modal {
     margin: 70px 0 0 0;
   }
+}
+
+/* Thêm CSS để bảo vệ các style trong editor */
+.editor-container h1, 
+.editor-container h2, 
+.editor-container h3,
+.editor-container ul,
+.editor-container li,
+.editor-container p {
+  font-size: inherit;
+  margin: inherit;
+  text-align: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+/* Đảm bảo editor toolbar hiển thị đúng */
+.editor-toolbar {
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px 10px !important;
+  background-color: #f0f0f0 !important;
+  border-bottom: 1px solid #ccc !important;
+  border-top-left-radius: 4px !important;
+  border-top-right-radius: 4px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* Đảm bảo các nút trong toolbar hiển thị đúng */
+.editor-toolbar .toolbar-item {
+  background: none !important;
+  border: 1px solid #ddd !important;
+  padding: 6px 8px !important;
+  margin: 0 2px !important;
+  cursor: pointer !important;
+  border-radius: 3px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  color: #333 !important;
+}
+
+/* Đảm bảo editor content area hiển thị đúng */
+.editor-input {
+  min-height: 150px !important;
+  padding: 15px !important;
+  border: none !important;
+  outline: none !important;
+  background-color: white !important;
+  color: #333 !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+}
+
+/* Phủ định các style không mong muốn trong editor */
+.editor-container .tour-details,
+.editor-container .day-details {
+  all: initial !important;
 }

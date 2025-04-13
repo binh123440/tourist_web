@@ -77,7 +77,18 @@
 .tour-content {
   padding: 20px;
 }
+/* Bỏ gạch chân cho các liên kết trong tour-item */
+.tour-item a {
+  text-decoration: none;
+  color: inherit; /* Giữ màu chữ mặc định */
+}
 
+/* Đảm bảo các phần tử bên trong link không bị gạch chân */
+.tour-item .tour-content p,
+.tour-item .tour-content h3,
+.tour-item .tour-content .continue-reading {
+  text-decoration: none;
+}
 .tour-content .date,
 .tour-content .destination {
   font-size: 14px;
@@ -94,7 +105,28 @@
   font-size: 16px;
   margin-bottom: 20px;
 }
+.loading, .error, .no-tours {
+  padding: 20px;
+  margin: 20px auto;
+  text-align: center;
+  width: 80%;
+  border-radius: 8px;
+}
 
+.loading {
+  background-color: #f0f8ff;
+  color: #0066cc;
+}
+
+.error {
+  background-color: #fff0f0;
+  color: #cc0000;
+}
+
+.no-tours {
+  background-color: #f5f5f5;
+  color: #666;
+}
 .continue-reading {
   color: #00a99d;
   text-decoration: none;
@@ -131,6 +163,56 @@
 
 .back-button:hover {
   background-color: #007f7a;
+}
+.tour-admin-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  z-index: 10;
+}
+
+.tour-edit-btn,
+.tour-delete-btn {
+  padding: 8px;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.tour-edit-btn {
+  background-color: #3498db;
+}
+
+.tour-delete-btn {
+  background-color: #e74c3c;
+}
+
+.add-tour-btn {
+  background-color: #00a99d;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.add-tour-btn:hover {
+  background-color: #008b7d;
+}
+
+.admin-controls {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 1140px) {

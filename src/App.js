@@ -1,4 +1,3 @@
-
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Home from './routes/Home';
@@ -9,22 +8,34 @@ import Footer from './components/Footer';
 import TourDetail from './components/TourDetail';
 import ScrollToTop from './components/ScrollToTop';
 import Tours from './components/Tours';
-
+import Login from './routes/Login';
+import Admin from './routes/Admin';
+import PrivateRoute from './components/PrivateRoute';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <div className="App">
-      <ScrollToTop /> 
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tour" element={<Tour />} />
-        <Route path="/contact" element={<Contactp />} />
-        <Route path="/" element={<Tours />} />
-        <Route path="/tour-detail/:tourId" element={<TourDetail />} /> {/* Route động */}
-      </Routes>
-      <Footer />
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <ScrollToTop /> 
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tour" element={<Tour />} />
+          <Route path="/contact" element={<Contactp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/tour-detail/:tourId" element={<TourDetail />} />
+          
+          {/* Admin Routes */}
+          <Route path="/admin/*" element={
+            <PrivateRoute>
+              <Admin />
+            </PrivateRoute>
+          } />
+        </Routes>
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 }
 

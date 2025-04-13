@@ -3,6 +3,7 @@ import "./NavbarStyle.css";
 import { MenuItems } from "./MenuItems";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import { scroller } from "react-scroll"; // Import react-scroll
+import { useAuth } from '../context/AuthContext';
 
 class Navbar extends Component {
   state = {
@@ -76,6 +77,8 @@ class Navbar extends Component {
   };
 
   render() {
+    const { isAuthenticated, logout } = this.props; // Lấy từ props
+
     return (
       <nav
         className={`navbar-items ${this.state.showNavbar ? "show" : "hide"}`}
@@ -117,13 +120,32 @@ class Navbar extends Component {
               </li>
             );
           })}
-          <Link
-            to="/tour"
-            className="signin-btn"
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            Đặt lịch ngay
-          </Link>
+          
+          {/* Hiển thị menu Admin và nút Đăng xuất nếu đã đăng nhập */}
+          {isAuthenticated ? (
+            <>
+              <li>
+                <Link className="nav-links" to="/admin">
+                  <i className="fas fa-user-shield"></i>
+                  Admin
+                </Link>
+              </li>
+              <li>
+                <a className="nav-links" onClick={logout} style={{ cursor: 'pointer' }}>
+                  <i className="fas fa-sign-out-alt"></i>
+                  Đăng xuất
+                </a>
+              </li>
+            </>
+          ) : (
+            <Link
+              to="/tour"
+              className="signin-btn"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              Đặt lịch ngay
+            </Link>
+          )}
         </ul>
       </nav>
     );
@@ -133,7 +155,16 @@ class Navbar extends Component {
 // Sử dụng HOC để truyền navigate vào props
 const NavbarWithNavigate = (props) => {
   const navigate = useNavigate();
-  return <Navbar {...props} navigate={navigate} />;
+  const { isAuthenticated, logout } = useAuth();
+  
+  return (
+    <Navbar 
+      {...props} 
+      navigate={navigate} 
+      isAuthenticated={isAuthenticated} 
+      logout={logout} 
+    />
+  );
 };
 
 export default NavbarWithNavigate;

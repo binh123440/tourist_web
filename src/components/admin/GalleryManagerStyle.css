@@ -1,0 +1,285 @@
+.gallery-manager {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .gallery-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  /* Tab và folder buttons */
+  .tab-buttons, .folder-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .tab-btn, .folder-btn {
+    padding: 10px 15px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .tab-btn.active, .folder-btn.active {
+    background-color: #00a99d;
+    color: white;
+  }
+  
+  .add-btn {
+    padding: 10px 15px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  /* Gallery grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .gallery-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    height: 0;
+    padding-bottom: 75%; /* Tỷ lệ 4:3 */
+    background-color: #f8f8f8;
+  }
+  .gallery-item img.placeholder {
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 14px;
+  }
+  
+  .gallery-item img::after {
+    content: 'Lỗi tải ảnh';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    color: #888;
+  }
+  .gallery-item img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    left: 0;
+  }
+  
+  .gallery-item-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 10px;
+    z-index: 10; /* Đảm bảo overlay hiển thị trên cùng */
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .gallery-item:hover .gallery-item-overlay {
+    opacity: 1;
+  }
+  
+  .deleted-item .gallery-item-overlay {
+    opacity: 1; /* Luôn hiển thị overlay cho ảnh đã xóa */
+  }
+  
+  .image-type {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+  
+  .gallery-item-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    z-index: 20; /* Đảm bảo buttons có thể được click */
+  }
+  
+  .action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    color: white;
+    position: relative; /* Thêm position relative */
+    z-index: 30; /* Đảm bảo buttons có thể được click */
+  }
+  
+  .action-btn.view {
+    background-color: #3498db;
+  }
+  
+  .action-btn.edit {
+    background-color: #f39c12;
+  }
+  
+  .action-btn.delete {
+    background-color: #e74c3c;
+  }
+  
+  .action-btn.restore {
+    background-color: #2ecc71;
+    cursor: pointer !important;
+  }
+  
+  .action-btn.delete-permanent {
+    background-color: #c0392b;
+  }
+  
+  /* Deleted items */
+  .deleted-item {
+    opacity: 0.7;
+  }
+  
+  .deleted-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,0.1),
+      rgba(0,0,0,0.1) 10px,
+      rgba(0,0,0,0.2) 10px,
+      rgba(0,0,0,0.2) 20px
+    );
+    z-index: 5; /* Đảm bảo lớp này nằm dưới buttons */
+  }
+  
+  /* Image details */
+  .image-details {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .back-btn {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .image-details-container {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .image-preview-large {
+    width: 60%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .image-preview-large img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .image-info {
+    width: 40%;
+  }
+  
+  .image-info p {
+    margin: 8px 0;
+  }
+  
+  .action-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-buttons .action-btn {
+    width: auto;
+    height: auto;
+    border-radius: 4px;
+    padding: 8px 15px;
+  }
+  
+  .no-data {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #7f8c8d;
+    font-style: italic;
+  }
+  
+  @media (max-width: 768px) {
+    .image-details-container {
+      flex-direction: column;
+    }
+    
+    .image-preview-large, .image-info {
+      width: 100%;
+    }
+  }
+  
+  /* Thêm hiệu ứng hover cho buttons */
+  .action-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(255,255,255,0.5);
+  }
+  /* Thêm vào file GalleryManagerStyle.css */
+.folder-info {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    border-left: 4px solid #00a99d;
+    border-radius: 3px;
+  }
+  
+  .gallery-folder-label {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .gallery-folder-label i {
+    margin-right: 6px;
+    color: #00a99d;
+  }

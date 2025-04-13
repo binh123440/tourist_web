@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-left">
-          <img src="icon.png" alt="Lotus Voyages" className="footer-logo" />
+          <img src="/icon.png" alt="Lotus Voyages" className="footer-logo" />
           <p>CÔNG TY TNHH DỊCH VỤ & DU LỊCH QUỐC TẾ LOTUS VOYAGES</p>
           <p>Mã số thuế: 0402162459</p>
           <p>Địa chỉ: K285/43 Lê Duẩn, Phường Tân Chính, Quận Thanh Khê, Thành phố Đà Nẵng, Việt Nam</p>

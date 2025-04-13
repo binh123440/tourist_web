@@ -1,0 +1,481 @@
+.file-input-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .file-input-text {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  .browse-btn {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .browse-btn:hover {
+    background-color: #d0d0d0;
+  }
+  
+  .image-preview {
+    margin-top: 10px;
+  }
+  /* Thêm vào file CSS của component */
+.link-input-container {
+    margin-bottom: 5px;
+  }
+  
+  .link-preview {
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  .link-preview code {
+    background-color: #f5f5f5;
+    padding: 3px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+    color: #007bff;
+  }
+
+/* Word-like editor styles */
+.word-editor {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 250px);
+}
+
+/* CSS cho Toolbar Plugin */
+.editor-toolbar {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+
+.toolbar-item {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 6px 8px;
+  margin: 0 2px;
+  cursor: pointer;
+  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  min-height: 30px;
+}
+
+.toolbar-item:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.toolbar-item:not(:disabled):hover {
+  background-color: #e8f4ff;
+  border-color: #cce5ff;
+}
+
+.toolbar-item.active {
+  background-color: #a5d6ff !important; /* Màu xanh nhạt */
+  border-color: #0078d7 !important; /* Viền xanh đậm hơn */
+  color: #0066c0 !important; /* Màu text đậm hơn khi active */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important; /* Hiệu ứng bóng bên trong */
+}
+
+.toolbar-item.spaced {
+  margin-right: 3px;
+}
+
+.divider {
+  width: 1px;
+  background-color: #ccc;
+  height: 20px;
+  margin: 0 8px;
+}
+
+/* CSS cho Icons (sử dụng background-image hoặc font icon) */
+/* Thay đổi cách hiển thị icon bằng Font Awesome */
+.toolbar-item i.format {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  font-style: normal;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  text-align: center;
+}
+
+/* Thay thế các URL SVG bằng mã Unicode của Font Awesome */
+.toolbar-item i.format.bold::before { content: "\f032"; }
+.toolbar-item i.format.italic::before { content: "\f033"; }
+.toolbar-item i.format.underline::before { content: "\f0cd"; }
+.toolbar-item i.format.left-align::before { content: "\f036"; }
+.toolbar-item i.format.center-align::before { content: "\f037"; }
+.toolbar-item i.format.right-align::before { content: "\f038"; }
+.toolbar-item i.format.justify-align::before { content: "\f039"; }
+.toolbar-item i.format.undo::before { content: "\f0e2"; }
+.toolbar-item i.format.redo::before { content: "\f01e"; }
+
+/* Thay thế URL bằng đường dẫn tới icon của bạn hoặc dùng FontAwesome */
+/* i.format.bold { background-image: url('path/to/bold-icon.svg'); } */
+/* i.format.italic { background-image: url('path/to/italic-icon.svg'); } */
+/* i.format.underline { background-image: url('path/to/underline-icon.svg'); } */
+/* i.format.left-align { background-image: url('path/to/left-align-icon.svg'); } */
+/* i.format.center-align { background-image: url('path/to/center-align-icon.svg'); } */
+/* i.format.right-align { background-image: url('path/to/right-align-icon.svg'); } */
+/* i.format.justify-align { background-image: url('path/to/justify-align-icon.svg'); } */
+/* i.format.undo { background-image: url('path/to/undo-icon.svg'); } */
+/* i.format.redo { background-image: url('path/to/redo-icon.svg'); } */
+/* Thêm icon cho list nếu cần */
+
+/* Nếu dùng FontAwesome (cần import FontAwesome vào dự án) */
+/* Ví dụ: */
+/* i.format.bold::before { content: '\f032'; font-family: 'Font Awesome 5 Free'; font-weight: 900; } */
+/* i.format.italic::before { content: '\f033'; font-family: 'Font Awesome 5 Free'; font-weight: 900; } */
+/* ... */
+
+
+/* Select dropdown cho block type */
+.block-controls {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+/* Bọc editor-inner để scroll */
+.editor-inner {
+  background: #fff;
+  position: relative;
+  border-bottom-left-radius: 4px; /* Bo góc dưới */
+  border-bottom-right-radius: 4px;
+  border-top: none; /* Tránh viền đôi với toolbar */
+  min-height: 200px;
+}
+
+.editor-input {
+  /* Bỏ border và background từ editor-input nếu đã đặt ở editor-container/editor-inner */
+  border: none;
+  background: none;
+  min-height: 200px; /* Điều chỉnh chiều cao nếu cần */
+  padding: 15px;
+  outline: none;
+}
+
+/* Làm rõ kết cấu trình soạn thảo */
+.editor-container {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  margin-bottom: 20px; /* Thêm khoảng cách dưới editor */
+  overflow: hidden;
+}
+
+.document-container {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #e6e6e6;
+  overflow-y: auto;
+}
+
+.document-page {
+  background-color: #fff;
+  width: 21cm; /* A4 width */
+  min-height: 29.7cm; /* A4 height */
+  margin: 0 auto;
+  padding: 2.54cm;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.document-title {
+  font-size: 24px;
+  font-weight: bold;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.document-intro {
+  font-size: 16px;
+  line-height: 1.5;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 2px solid #00a99d;
+  padding-bottom: 5px;
+}
+
+.document-day {
+  margin-bottom: 25px;
+}
+
+.day-header-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.day-title-input {
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  padding: 5px 0;
+  border-bottom: 1px dashed #ddd;
+}
+
+.remove-day-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+  padding: 0 10px;
+}
+
+.remove-day-btn:hover {
+  opacity: 1;
+}
+
+
+.content-item-document {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.content-textarea {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  resize: vertical;
+  min-height: 60px;
+  background-color: transparent;
+  padding: 5px;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.content-textarea:focus {
+  background-color: #f9f9f9;
+}
+
+.remove-content-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.remove-content-btn:hover {
+  opacity: 1;
+}
+
+.add-content-btn.document-style {
+  background: none;
+  border: 1px dashed #ccc;
+  color: #666;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.add-content-btn.document-style:hover {
+  background-color: #f9f9f9;
+  color: #00a99d;
+  border-color: #00a99d;
+}
+
+.add-day-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.add-day-btn {
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.add-day-btn:hover {
+  background-color: #e0e0e0;
+  color: #00a99d;
+}
+
+.form-group.no-margin {
+  margin-bottom: 0;
+}
+
+/* CSS cho Lexical Editor */
+.editor-container {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  margin-bottom: 20px; /* Thêm khoảng cách dưới editor */
+  overflow: hidden;
+  width: 100%;
+}
+
+.editor-input {
+  min-height: 150px; /* Chiều cao tối thiểu */
+  padding: 15px;
+  outline: none;
+  font-size: 16px; /* Đặt kích thước font */
+  line-height: 1.6; /* Đặt khoảng cách dòng */
+  resize: vertical; /* Cho phép thay đổi chiều cao */
+  overflow: auto; /* Thêm thanh cuộn nếu nội dung dài */
+}
+
+.editor-placeholder {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: #aaa;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* CSS ví dụ cho theme (cần khớp với editorTheme trong JS) */
+.editor-paragraph {
+  margin-bottom: 10px;
+}
+
+.editor-heading-h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.editor-heading-h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.editor-list-ol {
+  padding-left: 30px;
+  margin-bottom: 10px;
+}
+
+.editor-list-ul {
+  padding-left: 30px;
+  margin-bottom: 10px;
+}
+
+.editor-listitem {
+  margin-bottom: 5px;
+}
+
+.editor-link {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.editor-text-bold {
+  font-weight: bold;
+}
+
+.editor-text-italic {
+  font-style: italic;
+}
+
+.editor-text-underline {
+  text-decoration: underline;
+}
+
+
+/* Bảo đảm nút khi active được hiển thị rõ ràng */
+.toolbar-item.active i {
+  color: #0066c0;
+}
+
+.drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 20px;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.drop-area.active {
+  border-color: #00a99d;
+  background-color: rgba(0, 169, 157, 0.1);
+}
+
+.drop-area p {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #666;
+}
+
+.drop-area span {
+  display: block;
+  margin: 10px 0;
+  color: #999;
+}
+
+.image-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.preview-item {
+  position: relative;
+  padding-bottom: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.preview-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
