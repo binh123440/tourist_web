@@ -182,6 +182,35 @@ function ToolbarPlugin () {
     editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
   };
 
+  // Thêm các hàm xử lý căn lề
+  const handleAlignLeft = () => {
+    // Cập nhật trạng thái UI ngay lập tức
+    setTextAlignment('left');
+    // Gửi lệnh tới editor
+    editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
+  };
+
+  const handleAlignCenter = () => {
+    // Cập nhật trạng thái UI ngay lập tức
+    setTextAlignment('center');
+    // Gửi lệnh tới editor
+    editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
+  };
+
+  const handleAlignRight = () => {
+    // Cập nhật trạng thái UI ngay lập tức
+    setTextAlignment('right');
+    // Gửi lệnh tới editor
+    editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
+  };
+
+  const handleAlignJustify = () => {
+    // Cập nhật trạng thái UI ngay lập tức
+    setTextAlignment('justify');
+    // Gửi lệnh tới editor
+    editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
+  };
+
   return (
     <div className='editor-toolbar' ref={toolbarRef}>
       {/* Undo/Redo */}
@@ -239,7 +268,7 @@ function ToolbarPlugin () {
       {/* Alignment */}
       <button
         type='button'
-        onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left')}
+        onClick={handleAlignLeft}
         className={`toolbar-item spaced ${textAlignment === 'left' || textAlignment === 'start' ? 'active' : ''}`}
         title='Căn trái'
       >
@@ -247,7 +276,7 @@ function ToolbarPlugin () {
       </button>
       <button
         type='button'
-        onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center')}
+        onClick={handleAlignCenter}
         className={`toolbar-item spaced ${textAlignment === 'center' ? 'active' : ''}`}
         title='Căn giữa'
       >
@@ -255,7 +284,7 @@ function ToolbarPlugin () {
       </button>
       <button
         type='button'
-        onClick={() => editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right')}
+        onClick={handleAlignRight}
         className={`toolbar-item spaced ${textAlignment === 'right' ? 'active' : ''}`}
         title='Căn phải'
       >
@@ -263,9 +292,7 @@ function ToolbarPlugin () {
       </button>
       <button
         type='button'
-        onClick={() =>
-          editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
-        }
+        onClick={handleAlignJustify}
         className={`toolbar-item ${textAlignment === 'justify' ? 'active' : ''}`}
         title='Căn đều'
       >

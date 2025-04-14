@@ -411,3 +411,58 @@
 .editor-container .day-details {
   all: initial !important;
 }
+
+/* Đảm bảo tất cả nội dung HTML được hiển thị đúng */
+.content-item-html {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+/* Đảm bảo các phần tử p từ editor không bị tràn */
+.content-item-html p,
+.intro p,
+.editor-paragraph {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+
+/* Xử lý các hình ảnh trong nội dung */
+.content-item-html img,
+.intro img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Đảm bảo bất kỳ bảng nào cũng không bị tràn */
+.content-item-html table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+/* Đảm bảo các liên kết dài tự động xuống dòng */
+.content-item-html a {
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Đảm bảo container của nội dung có giới hạn */
+.day-content {
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Xử lý các mã code trong editor */
+.content-item-html pre,
+.content-item-html code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
