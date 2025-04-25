@@ -1,0 +1,254 @@
+/* src/routes/HomeStyle.css */
+/* CTA Banner */
+.cta-banner {
+  background-color: #fff;
+  padding: 30px 0;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  margin-top: -80px;
+  z-index: 10;
+}
+
+.cta-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0 30px;
+}
+
+.cta-item {
+  flex: 1;
+  min-width: 250px;
+  text-align: center;
+  padding: 30px 20px;
+  transition: all 0.3s ease;
+}
+
+.cta-item:hover {
+  transform: translateY(-10px);
+}
+
+.cta-item i {
+  font-size: 40px;
+  color: #ff678d;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #ff678d, #ff9d9d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cta-item h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.cta-item p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Latest Programs Section */
+.latest-programs {
+  padding: 100px 0;
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
+}
+
+.latest-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.section-header.light {
+  color: white;
+}
+
+.section-header.light .section-subtitle {
+  color: #ff9d9d;
+}
+
+.section-header.light .section-title::after {
+  background-color: #ff9d9d;
+}
+
+.program-countdown {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 50px 30px;
+  margin-top: 40px;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.countdown-text h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.countdown-text p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.countdown-item {
+  width: 100px;
+  height: 100px;
+  background-color: rgba(255, 103, 141, 0.8);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(255, 103, 141, 0.3);
+}
+
+.countdown-item .count {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.countdown-item .label {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.book-now-btn {
+  display: inline-block;
+  padding: 15px 40px;
+  background-color: #ff678d;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(255, 103, 141, 0.3);
+}
+
+.book-now-btn:hover {
+  background-color: white;
+  color: #ff678d;
+  transform: translateY(-5px);
+}
+
+/* Newsletter Section */
+.newsletter-section {
+  padding: 80px 0;
+  background-color: #f8f9fa;
+}
+
+.newsletter-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+
+.newsletter-content {
+  text-align: center;
+}
+
+.newsletter-content h2 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.newsletter-content p {
+  font-size: 18px;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.newsletter-form {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.newsletter-form input[type="email"] {
+  flex: 1;
+  height: 60px;
+  padding: 0 20px;
+  border: 2px solid #ddd;
+  border-right: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  font-size: 16px;
+}
+
+.newsletter-form button {
+  padding: 0 40px;
+  background-color: #ff678d;
+  color: white;
+  border: none;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.newsletter-form button:hover {
+  background-color: #e0557a;
+}
+
+@media screen and (max-width: 992px) {
+  .cta-item {
+    flex-basis: calc(50% - 20px);
+  }
+  
+  .countdown-timer {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .countdown-item {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .newsletter-form {
+    flex-direction: column;
+  }
+  
+  .newsletter-form input[type="email"] {
+    border-right: 2px solid #ddd;
+    border-radius: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .newsletter-form button {
+    border-radius: 30px;
+    height: 60px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cta-item {
+    flex-basis: 100%;
+  }
+}

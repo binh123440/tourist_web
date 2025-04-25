@@ -9,3 +9,25 @@
 .App{
   text-align: center;
 }
+
+/* Cập nhật font chính cho toàn trang */
+body, html {
+  font-family: 'Montserrat', 'Segoe UI', Roboto, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Áp dụng animation cho các phần tử khi hiển thị */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}

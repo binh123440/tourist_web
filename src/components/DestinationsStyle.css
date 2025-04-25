@@ -1,62 +1,167 @@
-.featured-destinations { 
-  padding: 50px;
-  background-color: #000;
-  text-align: center;
-  color: #fff;
+.featured-destinations {
+  padding: 50px 0 100px 0;
+  background-color: #ffffff; /* Đổi từ #151921 sang màu trắng */
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
-.featured-destinations h2 {
-  font-size: 36px;
-  margin-bottom: 40px;
-  color: #fff;
+/* Xóa pattern background từ pseudo element */
+.featured-destinations::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent; /* Đặt thành transparent để không hiện pattern */
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-subtitle {
+  font-size: 16px;
+  color: #ff678d;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.section-title {
+  font-size: 42px;
+  color: #333; /* Đổi từ #fff sang màu tối */
+  position: relative;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #ff678d;
 }
 
 .destinations-grid {
-  width: 80%;
+  max-width: 1400px;
   margin: 0 auto;
-  display: flex;
-  justify-content: space-around;
-  gap: 20px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 0 30px;
 }
 
 .destination-item {
   position: relative;
-  width: 30%;
+  height: 450px;
+  border-radius: 10px;
   overflow: hidden;
-  align-items: center;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
-.destination-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease-in-out;
+.destination-item.visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
-.destination-item:hover img {
-  transform: scale(1.1);
+.destination-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 70%);
+  transition: all 0.5s ease;
+}
+
+.destination-item:hover .destination-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 100%);
+}
+
+.destination-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 30px;
+  color: white;
+  transition: all 0.4s ease;
+}
+
+.destination-item:hover .destination-content {
+  transform: translateY(-15px);
 }
 
 .destination-name {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 32px;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.destination-tours {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.destination-explore {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease 0.1s;
+}
+
+.destination-item:hover .destination-explore {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.destination-explore i {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+.destination-item:hover .destination-explore i {
+  transform: translateX(5px);
 }
 
 @media screen and (max-width: 1140px) {
-  .destination-item {
-    width: 45%;
+  .destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media screen and (max-width: 768px) {
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    font-size: 32px;
+  }
+  
   .destination-item {
-    width: 100%;
+    height: 350px;
   }
 }

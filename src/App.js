@@ -12,8 +12,19 @@ import Login from './routes/Login';
 import Admin from './routes/Admin';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: 'ease-in-out'
+    });
+  }, []);
+
   return (
     <AuthProvider>
       <div className="App">

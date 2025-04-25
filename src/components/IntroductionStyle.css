@@ -1,93 +1,167 @@
 .introduction {
-  padding: 30px 250px;
-  background-color: #DBE4FF;
-  text-align: center;
+  padding: 100px 0;
+  background-color: #f8f9fa;
 }
 
-.introduction h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
+.introduction-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 30px;
 }
 
 .content {
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
-  /* Đảm bảo các phần tử con có chiều cao bằng nhau */
-  gap: 50px;
-  /* Khoảng cách giữa ảnh và chữ */
+  align-items: center;
+  gap: 60px;
 }
 
 .text,
 .image {
   width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* Căn giữa nội dung theo chiều dọc */
+  opacity: 0;
+  transition: all 1s ease;
 }
 
-.text {
-  text-align: justify;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* Căn giữa nội dung theo chiều dọc */
+.text.fade-in-right {
+  animation: fadeInRight 1s forwards;
 }
 
-.text h1 {
-  text-align: center;
-  padding-bottom: 20px;
+.image.fade-in-left {
+  animation: fadeInLeft 1s forwards;
 }
 
-.text h3 {
-  font-size: 22px;
-  margin-bottom: 10px;
+.image-frame {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.text h2 {
-  font-size: 34px;
-  margin-bottom: 20px;
-}
-
-.text p {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 20px;
-}
-
-.signature {
-  text-align: right;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-.signature span {
-  font-weight: normal;
-  font-style: italic;
-}
-
-.signature p {
-  margin: 0;
-}
-
-.image {
-  width: 50%;
-  height: auto;
-  /* Đặt chiều cao tự động */
-  display: flex;
-  align-items: center;
-  /* Căn giữa ảnh theo chiều dọc */
+.image-frame::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  border: 5px solid #ff678d;
+  z-index: -1;
 }
 
 .image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Crop ảnh để vừa khung */
-  object-position: left center;
-  /* Crop ảnh từ phía bên trái */
-  border-radius: 10px;
+  height: auto;
+  display: block;
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
+
+.image:hover img {
+  transform: scale(1.05);
+}
+
+.text {
+  text-align: left;
+}
+
+.subtitle {
+  color: #ff678d;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+
+.title {
+  font-size: 42px;
+  margin-bottom: 30px;
+  color: #333;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background-color: #ff678d;
+}
+
+.text p {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.text p strong {
+  color: #333;
+}
+
+.signature {
+  margin-top: 30px;
+  font-style: italic;
+  text-align: right;
+}
+
+.signature p:first-child {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.learn-more-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 12px 30px;
+  background-color: transparent;
+  border: 2px solid #ff678d;
+  color: #ff678d;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.learn-more-btn i {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.learn-more-btn:hover {
+  background-color: #ff678d;
+  color: white;
+}
+
+.learn-more-btn:hover i {
+  transform: translateX(5px);
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @media screen and (max-width: 1500px) {
@@ -181,6 +255,24 @@
 
   .text p {
     font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .content {
+    flex-direction: column;
+  }
+  
+  .text, .image {
+    width: 100%;
+  }
+  
+  .image {
+    margin-bottom: 40px;
+  }
+  
+  .title {
+    font-size: 36px;
   }
 }
 
