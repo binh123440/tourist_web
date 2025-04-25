@@ -1,8 +1,9 @@
 // Component quản lý tour tích hợp - xử lý danh sách, thêm, sửa, xóa tour
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; // Thư viện gọi API
-import { useLocation, useNavigate } from 'react-router-dom'; // Xử lý điều hướng
-import IntegratedTourForm from './IntegratedTourForm'; // Component form nhập liệu
+import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
+import IntegratedTourForm from './IntegratedTourForm';
+import './AdminStyles.css';
 
 const IntegratedTourManager = () => {
   // Các state quản lý dữ liệu và trạng thái
@@ -11,8 +12,13 @@ const IntegratedTourManager = () => {
   const [error, setError] = useState(null); // Thông báo lỗi
   const [showForm, setShowForm] = useState(false); // Hiển thị/ẩn form
   const [currentTour, setCurrentTour] = useState(null); // Tour hiện tại đang chỉnh sửa
-  const location = useLocation(); // Lấy thông tin URL hiện tại
-  const navigate = useNavigate(); // Điều hướng trang
+  const [searchTerm, setSearchTerm] = useState(''); // Từ khóa tìm kiếm
+  const [notification, setNotification] = useState({ show: false, message: '', type: '' }); // Thông báo
+  const [sortField, setSortField] = useState('title'); // Trường sắp xếp
+  const [sortDirection, setSortDirection] = useState('asc'); // Hướng sắp xếp
+  
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Khi component được tải, lấy danh sách tour và kiểm tra query param
   useEffect(() => {
@@ -55,6 +61,7 @@ const IntegratedTourManager = () => {
           'x-auth-token': token
         }
       });
+      
       setCurrentTour(res.data);
       setShowForm(true);
       setLoading(false);
@@ -86,9 +93,14 @@ const IntegratedTourManager = () => {
             'x-auth-token': token
           }
         });
+        
+        // Hiển thị thông báo xóa thành công
+        showNotification('Xóa tour thành công', 'success');
+        
         fetchTours(); // Tải lại danh sách sau khi xóa
       } catch (err) {
         setError('Không thể xóa tour');
+        showNotification('Không thể xóa tour', 'error');
         console.error('Error deleting tour:', err);
       }
     }
@@ -99,22 +111,34 @@ const IntegratedTourManager = () => {
     try {
       const token = localStorage.getItem('token');
       
-      await axios.post(
-        'http://localhost:5000/api/admin/integrated-tours',
-        formData,
-        {
-          headers: {
-            'x-auth-token': token,
-            'Content-Type': 'application/json'
-          }
+      const apiUrl = currentTour 
+        ? `http://localhost:5000/api/admin/integrated-tours/${currentTour._id}`
+        : 'http://localhost:5000/api/admin/integrated-tours';
+      
+      const method = currentTour ? 'put' : 'post';
+      
+      await axios({
+        method,
+        url: apiUrl,
+        data: formData,
+        headers: {
+          'x-auth-token': token,
+          'Content-Type': 'application/json'
         }
+      });
+      
+      // Hiển thị thông báo thành công
+      showNotification(
+        currentTour ? 'Cập nhật tour thành công' : 'Thêm tour mới thành công', 
+        'success'
       );
       
       setShowForm(false);
       fetchTours(); // Tải lại danh sách sau khi lưu
       navigate('/admin/tours'); // Chuyển về trang danh sách
     } catch (err) {
-      setError('Không thể lưu tour');
+      setError('Không thể lưu tour: ' + (err.response?.data?.msg || err.message));
+      showNotification('Không thể lưu tour', 'error');
       console.error('Error saving tour:', err);
     }
   };
@@ -125,86 +149,246 @@ const IntegratedTourManager = () => {
     navigate('/admin/tours'); // Chuyển về trang danh sách
   };
 
+  // Hiển thị thông báo
+  const showNotification = (message, type = 'info') => {
+    setNotification({ show: true, message, type });
+    
+    // Tự động ẩn thông báo sau 3 giây
+    setTimeout(() => {
+      setNotification({ show: false, message: '', type: '' });
+    }, 3000);
+  };
+
+  // Hàm lọc tour theo từ khóa tìm kiếm
+  const filteredTours = tours.filter(tour => {
+    return tour.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           tour.destination.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+
+  // Sắp xếp tour
+  const sortedTours = [...filteredTours].sort((a, b) => {
+    if (a[sortField] < b[sortField]) return sortDirection === 'asc' ? -1 : 1;
+    if (a[sortField] > b[sortField]) return sortDirection === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  // Hàm thay đổi trường sắp xếp
+  const handleSort = (field) => {
+    if (field === sortField) {
+      // Nếu đã sắp xếp theo field này, đổi chiều sắp xếp
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      // Nếu chưa sắp xếp theo field này, đặt field mới và reset chiều sắp xếp
+      setSortField(field);
+      setSortDirection('asc');
+    }
+  };
+
+  // Hiển thị biểu tượng sắp xếp
+  const getSortIcon = (field) => {
+    if (field !== sortField) return null;
+    
+    return sortDirection === 'asc' 
+      ? <i className="fas fa-sort-up"></i> 
+      : <i className="fas fa-sort-down"></i>;
+  };
+
   // Hiển thị loading nếu đang tải dữ liệu
   if (loading && !showForm) {
-    return <div className="loading">Đang tải dữ liệu...</div>;
+    return (
+      <div className="admin-container">
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          <p>Đang tải danh sách tour tích hợp...</p>
+        </div>
+      </div>
+    );
   }
 
   // Hiển thị lỗi nếu có
   if (error && !showForm) {
-    return <div className="error">{error}</div>;
+    return (
+      <div className="admin-container">
+        <div className="error">
+          <i className="fas fa-exclamation-triangle"></i> {error}
+        </div>
+      </div>
+    );
   }
 
-  // Phần giao diện chính của component
+  // Cắt ngắn tiêu đề nếu quá dài
+  const truncateTitle = (title, maxLength = 50) => {
+    if (title.length <= maxLength) return title;
+    return title.substring(0, maxLength) + '...';
+  };
+
   return (
-    <div className="integrated-tour-manager">
-      <h1>Quản lý Tour</h1>
+    <div className="admin-container">
+      {/* Hiển thị thông báo */}
+      {notification.show && (
+        <div className={`notification ${notification.type}`}>
+          <i className={`fas ${notification.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`}></i>
+          <span>{notification.message}</span>
+        </div>
+      )}
+      
+      <div className="page-header">
+        <div className="page-header-content">
+          <h1 className="page-title">Quản lý Tour Tích Hợp</h1>
+          <p className="page-description">
+            Quản lý cả thông tin cơ bản và chi tiết tour trong một giao diện thống nhất.
+          </p>
+        </div>
+        
+        {!showForm && (
+          <div className="page-actions">
+            <button className="add-btn" onClick={handleAddClick}>
+              <i className="fas fa-plus"></i> Thêm Tour Tích Hợp Mới
+            </button>
+          </div>
+        )}
+      </div>
       
       {showForm ? (
-        // Hiển thị form nếu showForm = true
         <IntegratedTourForm 
-          tourData={currentTour} 
-          onSubmit={handleFormSubmit} 
-          onCancel={handleFormCancel} 
+          tourData={currentTour}
+          onSubmit={handleFormSubmit}
+          onCancel={handleFormCancel}
         />
       ) : (
-        // Ngược lại hiển thị danh sách tour
         <>
-          <button className="add-btn" onClick={handleAddClick}>
-            <i className="fas fa-plus"></i> Thêm Tour Mới
-          </button>
-          
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tiêu đề</th>
-                <th>Điểm đến</th>
-                <th>Ngày</th>
-                <th>Chi tiết</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tours.map((tour, index) => (
-                // Hiển thị từng tour trong bảng
-                <tr key={tour._id}>
-                  <td>{index + 1}</td>
-                  <td>{tour.title}</td>
-                  <td>{tour.destination}</td>
-                  <td>{tour.date}</td>
-                  <td>
-                    {tour.hasDetail ? (
-                      <span className="status-badge success">Có</span>
-                    ) : (
-                      <span className="status-badge warning">Chưa có</span>
-                    )}
-                  </td>
-                  <td>
-                    {/* Các nút thao tác: xem, sửa, xóa */}
-                    <button 
-                      className="action-btn view" 
-                      onClick={() => window.open(`/tour-detail/${tour.link}`, '_blank')}
-                    >
-                      <i className="fas fa-eye"></i>
-                    </button>
-                    <button 
-                      className="action-btn edit" 
-                      onClick={() => handleEditClick(tour)}
-                    >
-                      <i className="fas fa-edit"></i>
-                    </button>
-                    <button 
-                      className="action-btn delete" 
-                      onClick={() => handleDeleteClick(tour._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </button>
-                  </td>
+          {/* Thanh tìm kiếm và bộ lọc */}
+          <div className="search-filter-container">
+            <div className="search-box">
+              <i className="fas fa-search search-icon"></i>
+              <input
+                type="text"
+                placeholder="Tìm kiếm tour theo tên, điểm đến..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+              {searchTerm && (
+                <button 
+                  className="clear-search" 
+                  onClick={() => setSearchTerm('')}
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              )}
+            </div>
+            
+            <div className="filter-options">
+              <span className="results-count">
+                {filteredTours.length} kết quả
+              </span>
+            </div>
+          </div>
+
+          <div className="table-responsive">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th width="5%">STT</th>
+                  <th 
+                    width="35%" 
+                    onClick={() => handleSort('title')}
+                    className="sortable-header"
+                  >
+                    Tiêu đề {getSortIcon('title')}
+                  </th>
+                  <th 
+                    width="15%" 
+                    onClick={() => handleSort('destination')}
+                    className="sortable-header"
+                  >
+                    Điểm đến {getSortIcon('destination')}
+                  </th>
+                  <th 
+                    width="15%" 
+                    onClick={() => handleSort('date')}
+                    className="sortable-header"
+                  >
+                    Ngày {getSortIcon('date')}
+                  </th>
+                  <th width="10%">Chi tiết</th>
+                  <th width="20%">Thao tác</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {sortedTours.map((tour, index) => (
+                  <tr key={tour._id} className="tour-row">
+                    <td data-label="STT">{index + 1}</td>
+                    <td data-label="Tiêu đề">
+                      <div className="tour-title">
+                        {tour.image && (
+                          <div className="tour-thumbnail">
+                            <img 
+                              src={tour.image.startsWith('http') ? tour.image : `http://localhost:5000${tour.image}`} 
+                              alt={tour.title} 
+                            />
+                          </div>
+                        )}
+                        <span className="title-text" title={tour.title}>
+                          {truncateTitle(tour.title)}
+                        </span>
+                      </div>
+                    </td>
+                    <td data-label="Điểm đến">{tour.destination}</td>
+                    <td data-label="Ngày">{tour.date}</td>
+                    <td data-label="Chi tiết">
+                      {tour.hasDetail ? (
+                        <span className="status-badge success">Có</span>
+                      ) : (
+                        <span className="status-badge warning">Chưa có</span>
+                      )}
+                    </td>
+                    <td data-label="Thao tác">
+                      <div className="action-btns">
+                        <button 
+                          className="action-btn view" 
+                          onClick={() => window.open(`/tour-detail/${tour.link}`, '_blank')}
+                          title="Xem"
+                        >
+                          <i className="fas fa-eye"></i>
+                        </button>
+                        <button 
+                          className="action-btn edit" 
+                          onClick={() => handleEditClick(tour)}
+                          title="Sửa"
+                        >
+                          <i className="fas fa-edit"></i>
+                        </button>
+                        <button 
+                          className="action-btn delete" 
+                          onClick={() => handleDeleteClick(tour._id)}
+                          title="Xóa"
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                
+                {sortedTours.length === 0 && (
+                  <tr>
+                    <td colSpan="6" style={{ textAlign: 'center' }}>
+                      <div className="no-data">
+                        <i className="fas fa-info-circle"></i>
+                        <p>
+                          {searchTerm ? 
+                            `Không tìm thấy tour nào phù hợp với từ khóa "${searchTerm}"` : 
+                            'Chưa có dữ liệu tour tích hợp'
+                          }
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
     </div>

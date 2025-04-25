@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import TourForm from './TourForm';
+import './AdminStyles.css';
 
 const TourManager = () => {
   const [tours, setTours] = useState([]);
@@ -102,16 +103,34 @@ const TourManager = () => {
   };
 
   if (loading) {
-    return <div className="loading">Đang tải dữ liệu...</div>;
+    return (
+      <div className="admin-container">
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          <p>Đang tải danh sách tour...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="error">{error}</div>;
+    return (
+      <div className="admin-container">
+        <div className="error">
+          <i className="fas fa-exclamation-triangle"></i> {error}
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="tour-manager">
-      <h1>Quản lý Tour</h1>
+    <div className="admin-container">
+      <div className="page-header">
+        <h1 className="page-title">Quản lý Tour</h1>
+        <p className="page-description">
+          Quản lý danh sách các tour du lịch và thông tin cơ bản của tour.
+        </p>
+      </div>
       
       {showForm ? (
         <TourForm 
@@ -125,43 +144,56 @@ const TourManager = () => {
             <i className="fas fa-plus"></i> Thêm Tour Mới
           </button>
           
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tiêu đề</th>
-                <th>Điểm đến</th>
-                <th>Ngày</th>
-                <th>Link</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tours.map((tour, index) => (
-                <tr key={tour._id}>
-                  <td>{index + 1}</td>
-                  <td>{tour.title}</td>
-                  <td>{tour.destination}</td>
-                  <td>{tour.date}</td>
-                  <td>{tour.link}</td>
-                  <td>
-                    <button 
-                      className="action-btn edit" 
-                      onClick={() => handleEditClick(tour)}
-                    >
-                      <i className="fas fa-edit"></i>
-                    </button>
-                    <button 
-                      className="action-btn delete" 
-                      onClick={() => handleDeleteClick(tour._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </button>
-                  </td>
+          <div className="table-responsive">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th width="5%">STT</th>
+                  <th width="35%">Tiêu đề</th>
+                  <th width="15%">Điểm đến</th>
+                  <th width="15%">Ngày</th>
+                  <th width="15%">Link</th>
+                  <th width="15%">Thao tác</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {tours.map((tour, index) => (
+                  <tr key={tour._id}>
+                    <td data-label="STT">{index + 1}</td>
+                    <td data-label="Tiêu đề">{tour.title}</td>
+                    <td data-label="Điểm đến">{tour.destination}</td>
+                    <td data-label="Ngày">{tour.date}</td>
+                    <td data-label="Link">{tour.link}</td>
+                    <td data-label="Thao tác">
+                      <div className="action-btns">
+                        <button 
+                          className="action-btn view" 
+                          onClick={() => window.open(`/tour-detail/${tour.link}`, '_blank')}
+                          title="Xem"
+                        >
+                          <i className="fas fa-eye"></i>
+                        </button>
+                        <button 
+                          className="action-btn edit" 
+                          onClick={() => handleEditClick(tour)}
+                          title="Sửa"
+                        >
+                          <i className="fas fa-edit"></i>
+                        </button>
+                        <button 
+                          className="action-btn delete" 
+                          onClick={() => handleDeleteClick(tour._id)}
+                          title="Xóa"
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
     </div>

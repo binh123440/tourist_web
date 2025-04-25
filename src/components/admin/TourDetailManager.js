@@ -1,8 +1,8 @@
 // src/components/admin/TourDetailManager.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import TourDetailForm from './TourDetailForm';
 import { useLocation, useNavigate } from 'react-router-dom';
+import './AdminStyles.css';
 
 const TourDetailManager = () => {
   const [tourDetails, setTourDetails] = useState([]);
@@ -136,21 +136,41 @@ const TourDetailManager = () => {
   };
 
   if (loading && !showForm) {
-    return <div className="loading">Đang tải dữ liệu...</div>;
+    return (
+      <div className="admin-container">
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          <p>Đang tải thông tin chi tiết tour...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error && !showForm) {
-    return <div className="error">{error}</div>;
+    return (
+      <div className="admin-container">
+        <div className="error">
+          <i className="fas fa-exclamation-triangle"></i> {error}
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="tour-detail-manager">
-      <h1>Quản lý Chi tiết Tour</h1>
+    <div className="admin-container">
+      <div className="page-header">
+        <h1 className="page-title">Quản lý Chi tiết Tour</h1>
+        <p className="page-description">
+          Quản lý thông tin chi tiết về lịch trình, chương trình các tour du lịch.
+        </p>
+      </div>
       
       {showForm ? (
-        <div className="tour-detail-form-container">
+        <div className="admin-form">
           <h2>{currentTourDetail ? 'Chỉnh sửa chi tiết tour' : 'Thêm mới chi tiết tour'}</h2>
-          <p>Sử dụng Form trong ứng dụng thật. Ở đây chỉ là mockup.</p>
+          <div className="form-placeholder">
+            <p>Sử dụng Form trong ứng dụng thật. Ở đây chỉ là mockup.</p>
+          </div>
           <div className="btn-container">
             <button className="cancel-btn" onClick={handleFormCancel}>Quay lại</button>
           </div>
@@ -161,47 +181,69 @@ const TourDetailManager = () => {
             <i className="fas fa-plus"></i> Thêm Chi tiết Tour Mới
           </button>
           
-          <table className="admin-table">
-            <thead>
-              <tr>
-                <th>STT</th>
-                <th>Tour ID</th>
-                <th>Tiêu đề</th>
-                <th>Số ngày</th>
-                <th>Thao tác</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tourDetails.map((detail, index) => (
-                <tr key={detail._id}>
-                  <td>{index + 1}</td>
-                  <td>{detail.tourId}</td>
-                  <td>{detail.title}</td>
-                  <td>{detail.days ? detail.days.length : 0}</td>
-                  <td>
-                    <button 
-                      className="action-btn view" 
-                      onClick={() => window.open(`/tour-detail/${detail.tourId}`, '_blank')}
-                    >
-                      <i className="fas fa-eye"></i>
-                    </button>
-                    <button 
-                      className="action-btn edit" 
-                      onClick={() => handleEditClick(detail)}
-                    >
-                      <i className="fas fa-edit"></i>
-                    </button>
-                    <button 
-                      className="action-btn delete" 
-                      onClick={() => handleDeleteClick(detail._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </button>
-                  </td>
+          <div className="table-responsive">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th width="5%">STT</th>
+                  <th width="15%">Tour ID</th>
+                  <th width="45%">Tiêu đề</th>
+                  <th width="15%">Số ngày</th>
+                  <th width="20%">Thao tác</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {tourDetails.map((detail, index) => (
+                  <tr key={detail._id}>
+                    <td data-label="STT">{index + 1}</td>
+                    <td data-label="Tour ID">{detail.tourId}</td>
+                    <td data-label="Tiêu đề">{detail.title}</td>
+                    <td data-label="Số ngày">
+                      <span className="status-badge success">
+                        {detail.days ? detail.days.length : 0} ngày
+                      </span>
+                    </td>
+                    <td data-label="Thao tác">
+                      <div className="action-btns">
+                        <button 
+                          className="action-btn view" 
+                          onClick={() => window.open(`/tour-detail/${detail.tourId}`, '_blank')}
+                          title="Xem"
+                        >
+                          <i className="fas fa-eye"></i>
+                        </button>
+                        <button 
+                          className="action-btn edit" 
+                          onClick={() => handleEditClick(detail)}
+                          title="Sửa"
+                        >
+                          <i className="fas fa-edit"></i>
+                        </button>
+                        <button 
+                          className="action-btn delete" 
+                          onClick={() => handleDeleteClick(detail._id)}
+                          title="Xóa"
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+
+                {tourDetails.length === 0 && (
+                  <tr>
+                    <td colSpan="5" style={{ textAlign: 'center' }}>
+                      <div className="no-data">
+                        <i className="fas fa-info-circle"></i>
+                        <p>Chưa có dữ liệu chi tiết tour</p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
     </div>
