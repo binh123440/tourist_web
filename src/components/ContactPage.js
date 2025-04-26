@@ -20,7 +20,7 @@ const ContactPage = () => {
 
     // Gửi email đến chính bạn (admin)
     const adminEmailData = {
-      admin_email: 'binhgolden123@gmail.com', // Thay bằng email của bạn
+      admin_email: 'ngdhai131003@gmail.com', // Thay bằng email của bạn
       user_name: form.current.name.value,
       user_phone: form.current.phone.value,
       user_email: form.current.email.value,
