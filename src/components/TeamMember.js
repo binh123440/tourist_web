@@ -1,31 +1,38 @@
 import React, { useState } from 'react';
+// Assuming teamMembers have keys now
 import { teamMembers } from './TeamMemberItems.js';
 import './TeamMemberStyle.css';
+// Remove TranslatedText import
+// import TranslatedText from './TranslatedText';
+import { useLanguage } from '../context/LanguageContext';
+import Text from './Text'; // Import Text component
 
 const TeamMember = () => {
+  // Get t function
+  const { t } = useLanguage();
   const [expandedMember, setExpandedMember] = useState({});
-  
-  // Xử lý toggle cho từng member độc lập bằng ID
+
   const handleToggleDescription = (memberId) => {
     setExpandedMember(prev => ({
       ...prev,
       [memberId]: !prev[memberId]
     }));
   };
-  
-  // Thêm class đặc biệt khi chỉ có 1 thành viên
+
   const gridClassName = teamMembers.length === 1 ? "team-grid single-member" : "team-grid";
 
   return (
     <div className="meet-the-team" id="team-member-section">
       <div className="section-header">
-        <span className="section-subtitle">Đội ngũ chuyên nghiệp</span>
-        <h2 className="section-title">ĐỘI NGŨ CỦA LOTUS VOYAGES</h2>
+        {/* Use Text component */}
+        <Text tag="span" className="section-subtitle" translationKey="teamSubtitle" />
+        <Text tag="h2" className="section-title" translationKey="teamTitle" />
       </div>
-      
+
       <div className={gridClassName}>
+        {/* Assuming teamMembers array has nameKey, positionKey, descriptionKey */}
         {teamMembers.map((member, index) => (
-          <div 
+          <div
             className="team-member"
             key={index}
             data-aos="fade-up"
@@ -33,42 +40,39 @@ const TeamMember = () => {
           >
             <div className="team-card">
               <div className="team-image">
-                <img src={member.image} alt={member.name} />
+                {/* Use t() for alt text */}
+                <img src={member.image} alt={member.nameKey ? t(member.nameKey) : member.name} />
                 <div className="member-social">
-                  <a href={member.socialLinks?.facebook || '#'} target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-facebook-f"></i>
-                  </a>
-                  <a href={member.socialLinks?.twitter || '#'} target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-twitter"></i>
-                  </a>
-                  <a href={member.socialLinks?.linkedin || '#'} target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-linkedin-in"></i>
-                  </a>
-                  <a href={member.socialLinks?.instagram || '#'} target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-instagram"></i>
-                  </a>
+                  {/* Social links remain the same */}
+                  <a href={member.socialLinks?.facebook || '#'} target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"></i></a>
+                  <a href={member.socialLinks?.twitter || '#'} target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a>
+                  <a href={member.socialLinks?.linkedin || '#'} target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin-in"></i></a>
+                  <a href={member.socialLinks?.instagram || '#'} target="_blank" rel="noopener noreferrer"><i className="fab fa-instagram"></i></a>
                 </div>
               </div>
-              
+
               <div className="team-info">
-                <h3>{member.name}</h3>
-                <span className="position">{member.position}</span>
-                
+                {/* Use Text component */}
+                <Text tag="h3" translationKey={member.nameKey || member.name} />
+                <Text tag="span" className="position" translationKey={member.positionKey || member.position} />
+
                 <div className="team-bio">
-                  {/* Sử dụng div thay vì p để tránh issues với nested elements */}
                   <div className={`bio-content ${expandedMember[index] ? 'expanded' : ''}`}>
-                    {member.description}
+                    {/* Use Text component */}
+                    <Text translationKey={member.descriptionKey || member.description} />
                   </div>
-                  
-                  {member.description && member.description.length > 150 && (
+
+                  {/* Check description length based on translated content if needed, or keep simple check */}
+                  {(member.descriptionKey || member.description) && (member.descriptionKey ? t(member.descriptionKey) : member.description).length > 150 && (
                     <div className="toggle-container">
-                      <button 
-                        className="expand-toggle" 
+                      <button
+                        className="expand-toggle"
                         onClick={() => handleToggleDescription(index)}
-                        aria-label={expandedMember[index] ? "Thu gọn thông tin" : "Xem thêm thông tin"}
+                        aria-label={t(expandedMember[index] ? "collapseAria" : "viewMoreAria")}
                         type="button"
                       >
-                        {expandedMember[index] ? 'Thu gọn' : 'Xem thêm'}
+                        {/* Use Text component */}
+                        <Text translationKey={expandedMember[index] ? 'collapse' : 'viewMore'} />
                         <i className={`fas fa-chevron-${expandedMember[index] ? 'up' : 'down'}`}></i>
                       </button>
                     </div>

@@ -18,8 +18,7 @@ import { AutoLinkNode, LinkNode } from '@lexical/link';
 
 // Import các hàm xử lý HTML
 import { $generateNodesFromDOM, $generateHtmlFromNodes } from '@lexical/html';
-import { $getRoot, $getSelection, $isRangeSelection } from 'lexical';
-
+import { $getRoot, $getSelection, $isRangeSelection } from 'lexical'; // Ensure $isRangeSelection is imported if used
 
 // Cấu hình Theme (có thể tùy chỉnh hoặc dùng theme mặc định)
 const editorTheme = {
@@ -74,25 +73,61 @@ const editorNodes = [
 // Cập nhật InitialStatePlugin
 function InitialStatePlugin({ initialHtml }) {
   const [editor] = useLexicalComposerContext();
+  // Use a ref to track if the initial state has been applied
   const hasAppliedInitialState = useRef(false);
-  
+
   useEffect(() => {
-    if (!initialHtml || !editor || hasAppliedInitialState.current) return;
-    
+    // Only run if we have HTML, an editor instance, and haven't applied the state yet
+    if (!initialHtml || !editor || hasAppliedInitialState.current) {
+      // If initialHtml is empty/null and editor exists, clear the editor
+      if (!initialHtml && editor && !hasAppliedInitialState.current) {
+          editor.update(() => {
+              $getRoot().clear();
+              $getRoot().selectEnd(); // Move selection to end after clearing
+          });
+          hasAppliedInitialState.current = true; // Mark as applied even if empty
+      }
+      return;
+    }
+
+
     editor.update(() => {
-      const parser = new DOMParser();
-      const dom = parser.parseFromString(initialHtml, 'text/html');
-      const nodes = $generateNodesFromDOM(editor, dom);
-      const root = $getRoot();
-      root.clear();
-      
-      // Chèn nội dung mà không thay đổi selection hiện tại
-      root.append(...nodes);
+      try { // Add try...catch for robustness
+        const parser = new DOMParser();
+        const dom = parser.parseFromString(initialHtml, 'text/html');
+        // Generate Lexical nodes from the parsed DOM
+        const nodes = $generateNodesFromDOM(editor, dom);
+
+        const root = $getRoot();
+        root.clear(); // Clear any existing content
+
+        // --- FIX: Use selection to insert nodes ---
+        // Select the end of the root node to ensure insertion happens correctly
+        root.selectEnd();
+        const selection = $getSelection();
+
+        // Use insertNodes - this handles wrapping inline nodes correctly
+        if (selection) { // Check if selection exists
+          selection.insertNodes(nodes);
+        } else {
+           // Fallback if selection is null (less likely at root, but safe)
+           // This might still fail if nodes are invalid top-level types
+           root.append(...nodes);
+           console.warn("Lexical InitialStatePlugin: Selection was null, attempting direct append.");
+        }
+        // --- End FIX ---
+
+        // Mark that the initial state has been applied to prevent re-running
+        hasAppliedInitialState.current = true;
+
+      } catch (error) {
+          console.error("Error applying initial HTML state to Lexical:", error);
+          // Optionally clear the editor on error
+          // $getRoot().clear();
+      }
     });
-    
-    // Đánh dấu đã áp dụng state ban đầu
-    hasAppliedInitialState.current = true;
-  }, [initialHtml, editor]);
+
+  }, [initialHtml, editor]); // Depend on initialHtml and editor instance
 
   return null;
 }

@@ -1,60 +1,66 @@
-import React from 'react';
-import './IntroductionStyle.css';
-import { useInView } from 'react-intersection-observer';
+import React from 'react'
+import './IntroductionStyle.css'
+import { useInView } from 'react-intersection-observer'
+import { Link } from 'react-router-dom'
+import { useLanguage } from '../context/LanguageContext'
+import Text from './Text'
 
 const Introduction = () => {
   const { ref: textRef, inView: textVisible } = useInView({
     threshold: 0.1,
     triggerOnce: true
-  });
-  
+  })
+
   const { ref: imageRef, inView: imageVisible } = useInView({
     threshold: 0.1,
     triggerOnce: true
-  });
-  
+  })
+
   return (
-    <div className="introduction">
-      <div className="introduction-container">
-        <div className="content">
-          <div 
-            ref={imageRef} 
+    <div className='introduction' id='introduction'>
+      <div className='introduction-container'>
+        <div className='content'>
+          <div
+            ref={imageRef}
             className={`image ${imageVisible ? 'fade-in-left' : ''}`}
           >
-            <div className="image-frame">
-              <img src="founder.jpg" alt="Founder" />
+            <div className='image-frame'>
+              <img src='founder.jpg' alt='Founder' />
             </div>
           </div>
-          <div 
-            ref={textRef} 
+          <div
+            ref={textRef}
             className={`text ${textVisible ? 'fade-in-right' : ''}`}
           >
-            <h3 className="subtitle">Thư ngỏ</h3>
-            <h2 className="title">VÌ MỘT HÀNH TINH XANH</h2>
-            <p>Bạn thân mến,</p>
+            <Text tag='h3' className='subtitle' translationKey='letterTitle' />
+
+            <Text tag='h2' className='title' translationKey='mainTitle' />
+
+            <Text tag='p' translationKey='greeting' />
+
             <p>
-              Với nguyện ước đóng góp phần mình cho đất nước đẹp tươi, thông qua việc tổ chức những chuyến du lịch khám phá đầy ý nghĩa, trong sự lựa chọn lối sống xanh và lành, chúng tôi đã bắt đầu thực hiện dự án thành lập <strong>CÔNG TY TNHH DỊCH VỤ & DU LỊCH QUỐC TẾ LOTUS VOYAGES</strong>.
+              <Text tag='span' translationKey='introTextPart1' />
+              <Text tag='strong'>LOTUS VOYAGES</Text>
+              <Text tag='span' translationKey='introTextPart2' />
             </p>
-            <p>
-              Chúng tôi thật sự hạnh phúc khi mà dự án ấp ủ bấy lâu nay của chúng tôi đã thành hiện thực.
-            </p>
-            <p>
-              Ước mơ tổ chức các chuyến du lịch chăm sóc sức khoẻ và phát triển những tài năng của bản thân, chúng tôi sẽ tổ chức các tour du lịch gồm workshop yoga, thiền tập, nấu ăn thuần chay, hội họa…
-            </p>
-            
-            <div className="signature">
+
+            <Text tag='p' translationKey='happinessParagraph' />
+            <Text tag='p' translationKey='dreamParagraph' />
+
+            <div className='signature'>
               <p>Ms. Đặng Thị Liên</p>
               <p>Founder</p>
             </div>
-            
-            <a href="/contact" className="learn-more-btn">
-              Tìm hiểu thêm <i className="fas fa-long-arrow-alt-right"></i>
-            </a>
+
+            <Link to='/contact' className='learn-more-btn'>
+              <Text translationKey='learnMore' />{' '}
+              <i className='fas fa-long-arrow-alt-right'></i>
+            </Link>
           </div>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Introduction;
+export default Introduction

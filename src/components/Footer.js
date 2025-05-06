@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './FooterStyle.css';
+import { useLanguage } from '../context/LanguageContext';
+import Text from './Text'; // Import Text component
 
 const Footer = () => {
   const [showBackToTop, setShowBackToTop] = useState(false);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.pageYOffset > 300) {
@@ -37,9 +39,7 @@ const Footer = () => {
                 <img src="/icon.png" alt="Lotus Voyages" />
                 <h3>LOTUS VOYAGES</h3>
               </div>
-              <p className="footer-tagline">
-                Hành trình đẳng cấp - Trải nghiệm xanh
-              </p>
+              <Text tag="p" className="footer-tagline" translationKey="footerTagline" />
               <div className="social-media">
                 <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer">
                   <i className="fab fa-facebook-f"></i>
@@ -55,17 +55,15 @@ const Footer = () => {
                 </a>
               </div>
               
-              <p className="license-info">
-                GPKD Dịch Vụ Lữ Hành Quốc Tế số 48-361/2023 được Tổng cục Du Lịch Việt Nam tại Hà Nội cấp ngày 24/04/2023
-              </p>
+              <Text tag="p" className="license-info" translationKey="licenseInfo" />
             </div>
             
             <div className="footer-column">
-              <h4>Liên Hệ</h4>
+              <Text tag="h4" translationKey="contactFooter" />
               <ul className="contact-list">
                 <li>
                   <i className="fas fa-map-marker-alt"></i>
-                  <span>K285/43 Lê Duẩn, Tân Chính, Thanh Khê, Đà Nẵng, Việt Nam</span>
+                  <Text tag="span" translationKey="addressFooter" />
                 </li>
                 <li>
                   <i className="fas fa-phone-alt"></i>
@@ -77,45 +75,47 @@ const Footer = () => {
                 </li>
                 <li>
                   <i className="fas fa-clock"></i>
-                  <span>Thứ Hai - Thứ Bảy: 9:00 - 17:30</span>
+                  <Text tag="span" translationKey="workingHours" />
                 </li>
               </ul>
             </div>
             
             <div className="footer-column">
-              <h4>Liên Kết Nhanh</h4>
+              <Text tag="h4" translationKey="quickLinks" />
               <ul className="quick-links">
                 <li>
                   <Link to="/">
-                    <i className="fas fa-chevron-right"></i>Trang Chủ
+                    <i className="fas fa-chevron-right"></i>
+                    <Text translationKey="home" />
                   </Link>
                 </li>
                 <li>
                   <Link to="/tour">
-                    <i className="fas fa-chevron-right"></i>Tour Du Lịch
+                    <i className="fas fa-chevron-right"></i>
+                    <Text translationKey="toursLink" />
                   </Link>
                 </li>
                 <li>
                   <Link to="/#team-member-section">
-                    <i className="fas fa-chevron-right"></i>Về Chúng Tôi
+                    <i className="fas fa-chevron-right"></i>
+                    <Text translationKey="aboutUsLink" />
                   </Link>
                 </li>
                 <li>
                   <Link to="/contact">
-                    <i className="fas fa-chevron-right"></i>Liên Hệ
+                    <i className="fas fa-chevron-right"></i>
+                    <Text translationKey="contactLink" />
                   </Link>
                 </li>
               </ul>
             </div>
-            
-            {/* Phần đăng ký nhận tin đã được loại bỏ */}
           </div>
         </div>
         
         <div className="footer-bottom">
           <div className="footer-container">
             <p>&copy; {new Date().getFullYear()} LOTUS VOYAGES. All Rights Reserved.</p>
-            <p>Mã số thuế: 0402162459</p>
+            <Text tag="p" translationKey="taxCode" />
           </div>
         </div>
       </footer>

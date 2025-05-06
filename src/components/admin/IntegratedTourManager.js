@@ -110,13 +110,30 @@ const IntegratedTourManager = () => {
   const handleFormSubmit = async (formData) => {
     try {
       const token = localStorage.getItem('token');
-      
-      const apiUrl = currentTour 
-        ? `http://localhost:5000/api/admin/integrated-tours/${currentTour._id}`
+
+      // --- FIX: Access the correct ID ---
+      // Determine the ID based on the expected structure from your GET request
+      // Adjust 'currentTour.tour._id' if your ID is located elsewhere (e.g., currentTour._id)
+      const tourIdForUpdate = currentTour?.tour?._id || currentTour?._id; // Example: Check nested first, then top-level
+
+      // Add a check to prevent sending 'undefined'
+      if (currentTour && !tourIdForUpdate) {
+        console.error("CRITICAL: Cannot update tour because ID is missing!", currentTour);
+        setError('Không thể cập nhật tour: Thiếu ID.');
+        showNotification('Không thể cập nhật tour: Thiếu ID.', 'error');
+        return; // Stop execution if ID is missing for an update
+      }
+
+      const apiUrl = currentTour
+        ? `http://localhost:5000/api/admin/integrated-tours/${tourIdForUpdate}` // Use the correctly accessed ID
         : 'http://localhost:5000/api/admin/integrated-tours';
-      
+
       const method = currentTour ? 'put' : 'post';
-      
+
+      console.log("Submitting form. Is Edit:", !!currentTour);
+      console.log("Current Tour Data:", currentTour);
+      console.log("ID being used for URL:", tourIdForUpdate); // Log the ID being used
+
       await axios({
         method,
         url: apiUrl,
@@ -161,15 +178,52 @@ const IntegratedTourManager = () => {
 
   // Hàm lọc tour theo từ khóa tìm kiếm
   const filteredTours = tours.filter(tour => {
-    return tour.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-           tour.destination.toLowerCase().includes(searchTerm.toLowerCase());
+    if (!searchTerm) return true; // Return all if no search term
+    const searchLower = searchTerm.toLowerCase();
+  
+    // Check Vietnamese title (ensure it exists and is a string)
+    const titleMatch = tour.title?.vi && typeof tour.title.vi === 'string'
+      ? tour.title.vi.toLowerCase().includes(searchLower)
+      : false;
+  
+    // Check Vietnamese destination (ensure it exists and is a string)
+    const destinationMatch = tour.destination?.vi && typeof tour.destination.vi === 'string'
+      ? tour.destination.vi.toLowerCase().includes(searchLower)
+      : false;
+  
+    // You could optionally search other languages here too if needed
+    // const titleEnMatch = tour.title?.en?.toLowerCase().includes(searchLower) || false;
+    // return titleMatch || destinationMatch || titleEnMatch;
+  
+    return titleMatch || destinationMatch;
   });
 
   // Sắp xếp tour
   const sortedTours = [...filteredTours].sort((a, b) => {
-    if (a[sortField] < b[sortField]) return sortDirection === 'asc' ? -1 : 1;
-    if (a[sortField] > b[sortField]) return sortDirection === 'asc' ? 1 : -1;
-    return 0;
+    let fieldA = '';
+    let fieldB = '';
+
+    // Access nested fields based on sortField, defaulting to Vietnamese
+    if (sortField === 'title') {
+        fieldA = a.title?.vi || ''; // Use Vietnamese title
+        fieldB = b.title?.vi || '';
+    } else if (sortField === 'destination') {
+        fieldA = a.destination?.vi || ''; // Use Vietnamese destination
+        fieldB = b.destination?.vi || '';
+    } else if (sortField === 'date') {
+        fieldA = a.date || '';
+        fieldB = b.date || '';
+    }
+    // Add other sortable fields if necessary
+
+    // Ensure comparison is done on strings for localeCompare
+    fieldA = String(fieldA);
+    fieldB = String(fieldB);
+
+    // Use localeCompare for better string sorting, especially with accents
+    const comparison = fieldA.localeCompare(fieldB, 'vi', { sensitivity: 'base' });
+
+    return sortDirection === 'asc' ? comparison : -comparison;
   });
 
   // Hàm thay đổi trường sắp xếp
@@ -218,9 +272,14 @@ const IntegratedTourManager = () => {
 
   // Cắt ngắn tiêu đề nếu quá dài
   const truncateTitle = (title, maxLength = 50) => {
-    if (title.length <= maxLength) return title;
+    if (!title || typeof title !== 'string') { // Add check for non-string input
+        return '';
+    }
+    if (title.length <= maxLength) {
+        return title;
+    }
     return title.substring(0, maxLength) + '...';
-  };
+};
 
   return (
     <div className="admin-container">
@@ -325,16 +384,16 @@ const IntegratedTourManager = () => {
                           <div className="tour-thumbnail">
                             <img 
                               src={tour.image.startsWith('http') ? tour.image : `http://localhost:5000${tour.image}`} 
-                              alt={tour.title} 
+                              alt={tour.title?.vi || 'Tour image'}
                             />
                           </div>
                         )}
-                        <span className="title-text" title={tour.title}>
-                          {truncateTitle(tour.title)}
+                        <span className="title-text" title={tour.title?.vi}> 
+                          {truncateTitle(tour.title?.vi || '')} 
                         </span>
                       </div>
                     </td>
-                    <td data-label="Điểm đến">{tour.destination}</td>
+                    <td data-label="Điểm đến">{tour.destination?.vi || ''}</td> 
                     <td data-label="Ngày">{tour.date}</td>
                     <td data-label="Chi tiết">
                       {tour.hasDetail ? (

@@ -21,7 +21,7 @@
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 30px;
+  padding: 40px; /* Increase padding */
   background-color: var(--light-gray);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
@@ -30,12 +30,14 @@
 
 /* Page Headers - Cập nhật để tiêu đề và nút CRUD nằm trên cùng hàng */
 .page-header {
-  margin-bottom: 30px;
+  margin-bottom: 40px; /* Increase spacing */
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 20px;
+  padding-bottom: 20px; /* Add padding below */
+  border-bottom: 1px solid var(--medium-gray); /* Add a subtle separator */
 }
 
 .page-header-content {
@@ -44,12 +46,12 @@
 }
 
 .page-title {
-  font-size: 28px;
+  font-size: 32px; /* Increase title size */
   font-weight: 700;
   color: var(--text-color);
   position: relative;
   padding-bottom: 15px;
-  margin-bottom: 15px;
+  margin-bottom: 10px; /* Adjust spacing */
 }
 
 .page-title::after {
@@ -58,14 +60,14 @@
   bottom: 0;
   left: 0;
   width: 80px;
-  height: 4px;
+  height: 5px; /* Make underline thicker */
   background: linear-gradient(135deg, var(--primary-dark), var(--secondary-dark));
   border-radius: 2px;
 }
 
 .page-description {
-  font-size: 16px;
-  color: #666;
+  font-size: 17px; /* Slightly larger description */
+  color: #555; /* Darker gray */
   margin-bottom: 0; /* Thay đổi từ 25px sang 0 */
 }
 
@@ -73,17 +75,17 @@
 .page-actions {
   display: flex;
   align-items: flex-start;
-  margin-top: 10px; /* Căn chỉnh để phù hợp với tiêu đề */
+  margin-top: 0; /* Align with header content better */
 }
 
 .add-btn {
   background: linear-gradient(135deg, var(--success-color), #2E7D32);
   color: white;
   border: none;
-  padding: 12px 20px;
+  padding: 14px 24px; /* Increase button padding */
   border-radius: 8px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 17px; /* Increase font size */
   cursor: pointer;
   transition: var(--transition);
   display: flex;
@@ -94,11 +96,17 @@
   white-space: nowrap; /* Ngăn không cho chữ bị xuống dòng */
 }
 
+.add-btn:hover {
+  transform: translateY(-2px); /* Add subtle hover effect */
+  box-shadow: 0 6px 15px rgba(76, 175, 80, 0.3);
+}
+
 /* Action Buttons */
 .action-btns {
   display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
+  gap: 10px; /* Reduce gap slightly */
+  justify-content: flex-start; /* Align buttons to the start */
+  margin-bottom: 0; /* Remove bottom margin */
 }
 
 .action-btn {
@@ -113,71 +121,93 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--transition), background-color 0.2s ease, transform 0.2s ease; /* Add background-color transition */
   font-size: 16px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slightly reduce shadow */
 }
 
 .action-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transform: scale(1.1); /* Scale effect on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .action-btn.view {
   background-color: var(--primary-dark);
 }
+.action-btn.view:hover {
+  background-color: #4a91c8; /* Darker shade */
+}
 
 .action-btn.edit {
   background-color: var(--warning-color);
+}
+.action-btn.edit:hover {
+  background-color: #e6ac00; /* Darker shade */
 }
 
 .action-btn.delete {
   background-color: var(--danger-color);
 }
+.action-btn.delete:hover {
+  background-color: #d32f2f; /* Darker shade */
+}
 
-/* Tables */
-.admin-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+/* Table Responsive Wrapper */
+.table-responsive {
+  overflow-x: auto; /* Ensure horizontal scroll on small screens */
   background-color: white;
   border-radius: var(--border-radius);
-  overflow: hidden;
   box-shadow: var(--box-shadow);
   margin-bottom: 30px;
 }
 
+/* Tables */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse; /* Use collapse for cleaner lines */
+  border-spacing: 0;
+  /* Remove background, radius, shadow, margin from table itself */
+}
+
 .admin-table thead {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  /* Remove gradient, use a solid color */
+  background-color: #f8f9fa; /* Light gray header */
 }
 
 .admin-table th {
-  padding: 15px;
-  text-align: left;
-  color: #444;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 0.5px;
+  padding: 18px 20px; /* Increase padding */
+  /* ... keep existing text styles ... */
+  color: #555; /* Darker header text */
+  border-bottom: 2px solid var(--medium-gray); /* Stronger bottom border */
 }
 
 .admin-table tbody tr {
-  transition: var(--transition);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Refine transition */
+}
+
+/* Zebra Striping */
+.admin-table tbody tr:nth-child(even) {
+  background-color: #fdfdfd; /* Very light gray for even rows */
 }
 
 .admin-table tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.02);
+  background-color: #f1f9ff; /* Light blue hover */
+  /* Keep existing hover transform/shadow if desired, or remove if table-responsive handles shadow */
+  /* transform: translateY(-2px); */
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); */
 }
 
 .admin-table td {
-  padding: 15px;
+  padding: 16px 20px; /* Adjust padding */
   border-top: 1px solid #f0f0f0;
-  color: #555;
-  font-size: 15px;
+  color: #444; /* Slightly darker text */
+  font-size: 16px; /* Increase font size */
+  vertical-align: middle; /* Align content vertically */
 }
 
-.admin-table tr:last-child td {
-  border-bottom: none;
+/* Remove border for the first row's cells */
+.admin-table tbody tr:first-child td {
+  border-top: none;
 }
 
 /* Status Badges */
@@ -478,9 +508,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Increase spacing */
   gap: 20px;
   flex-wrap: wrap;
+  padding: 20px; /* Add padding */
+  background-color: #fff; /* White background */
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
 }
 
 .search-box {
@@ -495,22 +529,24 @@
   top: 50%;
   transform: translateY(-50%);
   color: #aaa;
+  font-size: 16px; /* Slightly larger icon */
 }
 
 .search-input {
   width: 100%;
-  padding: 12px 15px 12px 40px;
-  border: 1px solid #e0e0e0;
+  padding: 14px 15px 14px 45px; /* Increase padding */
+  border: 1px solid var(--medium-gray); /* Lighter border */
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 16px; /* Increase font size */
   transition: all 0.3s ease;
-  background-color: white;
+  background-color: var(--light-gray); /* Lighter background */
 }
 
 .search-input:focus {
   outline: none;
   border-color: var(--primary-dark);
   box-shadow: 0 0 0 3px rgba(91, 163, 216, 0.15);
+  background-color: #fff; /* White on focus */
 }
 
 .clear-search {
@@ -523,7 +559,7 @@
   color: #aaa;
   cursor: pointer;
   padding: 0;
-  font-size: 14px;
+  font-size: 16px; /* Increase size */
 }
 
 .clear-search:hover {
@@ -537,8 +573,9 @@
 }
 
 .results-count {
-  font-size: 14px;
-  color: #666;
+  font-size: 15px; /* Slightly larger */
+  font-weight: 500;
+  color: #444;
   white-space: nowrap;
 }
 
@@ -550,8 +587,8 @@
 }
 
 .tour-thumbnail {
-  width: 60px;
-  height: 40px;
+  width: 70px; /* Larger thumbnail */
+  height: 45px;
   border-radius: 6px;
   overflow: hidden;
   flex-shrink: 0;
@@ -565,6 +602,7 @@
 
 .title-text {
   line-height: 1.4;
+  font-weight: 500; /* Slightly bolder title */
 }
 
 /* Header có thể sắp xếp */
@@ -578,10 +616,15 @@
 .sortable-header i {
   margin-left: 5px;
   font-size: 12px;
+  color: #777; /* Make sort icon slightly less prominent */
 }
 
 .sortable-header:hover {
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: #e9ecef; /* Darker hover for header */
+}
+
+.sortable-header.active i { /* Style when this column is sorted */
+  color: var(--primary-dark);
 }
 
 /* Animation cho các hàng trong bảng */
@@ -603,8 +646,8 @@
   right: 20px;
   padding: 15px 20px;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 6px; /* Slightly smaller radius */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Adjust shadow */
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -638,7 +681,12 @@
 }
 
 .notification i {
-  font-size: 20px;
+  font-size: 22px; /* Slightly larger icon */
+  flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.notification span {
+  font-weight: 500;
 }
 
 @keyframes slideIn {
@@ -676,4 +724,24 @@
   .tabs {
     overflow-x: auto;
   }
+}
+
+/* No Data state in table */
+.no-data {
+  text-align: center;
+  padding: 50px 20px; /* More padding */
+  background-color: transparent; /* Remove background */
+  border: none; /* Remove border */
+}
+
+.no-data i {
+  font-size: 50px; /* Larger icon */
+  color: #bdc3c7; /* Lighter gray */
+  margin-bottom: 20px;
+}
+
+.no-data p {
+  color: #7f8c8d; /* Softer text color */
+  font-size: 18px; /* Larger text */
+  font-weight: 500;
 }

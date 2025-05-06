@@ -12,17 +12,17 @@ export const AuthProvider = ({ children }) => {
   // Kiểm tra xem đã đăng nhập hay chưa khi tải trang
   useEffect(() => {
     const checkLoggedIn = async () => {
-      if (localStorage.getItem('token')) {
+      if (localStorage.getItem('accessToken')) {
         try {
           const res = await axios.get('http://localhost:5000/api/auth/me', {
             headers: {
-              'x-auth-token': localStorage.getItem('token')
+              'x-auth-token': localStorage.getItem('accessToken')
             }
           });
           setUser(res.data);
           setIsAuthenticated(true);
         } catch (err) {
-          localStorage.removeItem('token');
+          localStorage.removeItem('accessToken');
           setUser(null);
           setIsAuthenticated(false);
         }

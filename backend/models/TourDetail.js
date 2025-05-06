@@ -1,43 +1,44 @@
 const mongoose = require('mongoose');
 
-const daySchema = new mongoose.Schema({
+const DaySchema = new mongoose.Schema({
   title: {
-    type: String,
-    required: true
+    vi: { type: String, required: true, default: '' },
+    en: { type: String, default: '' },
+    fr: { type: String, default: '' }
   },
-  content: [{
-    type: String,
-    required: true
+  content: [{ // Array of content items, each is an object with languages
+    vi: { type: String, default: '' },
+    en: { type: String, default: '' },
+    fr: { type: String, default: '' }
   }]
-});
+}, { _id: false }); // Prevent Mongoose from creating _id for subdocuments if not needed
 
-const tourDetailSchema = new mongoose.Schema({
-  tourId: {
-    type: String,
-    required: true,
-    unique: true
-  },
+const ImageSchema = new mongoose.Schema({
+  image: { type: String, required: true }, // URL remains a single string
+  alt: { // Alt text becomes multi-language
+    vi: { type: String, default: '' },
+    en: { type: String, default: '' },
+    fr: { type: String, default: '' }
+  }
+}, { _id: false }); // Prevent Mongoose from creating _id for subdocuments if not needed
+
+const TourDetailSchema = new mongoose.Schema({
+  tourId: { type: String, required: true, unique: true }, // Link from Tour model (using tour.link)
+  createdAt: { type: Date, default: Date.now },
+
+  // Modify translatable fields
   title: {
-    type: String,
-    required: true
+    vi: { type: String, required: true, default: '' },
+    en: { type: String, default: '' },
+    fr: { type: String, default: '' }
   },
   intro: {
-    type: String,
-    required: true
+    vi: { type: String, default: '' },
+    en: { type: String, default: '' },
+    fr: { type: String, default: '' }
   },
-  days: [daySchema],
-  images: [{
-    image: {
-      type: String,
-      required: true
-    },
-    alt: {
-      type: String,
-      required: true
-    }
-  }]
-}, {
-  timestamps: true
+  days: [DaySchema], // Use the nested DaySchema
+  images: [ImageSchema] // Use the nested ImageSchema
 });
 
-module.exports = mongoose.model('TourDetail', tourDetailSchema);
+module.exports = mongoose.model('TourDetail', TourDetailSchema);

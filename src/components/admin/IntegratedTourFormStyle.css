@@ -71,7 +71,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 250px);
+  padding: 0;
 }
 
 /* CSS cho Toolbar Plugin */
@@ -207,24 +207,23 @@
   background-color: #fff;
   margin-bottom: 20px; /* Thêm khoảng cách dưới editor */
   overflow: hidden;
+  width: 100%;
 }
 
 .document-container {
   flex-grow: 1;
-  padding: 30px;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  max-height: 800px;
+  padding: 20px;
+  background-color: #e9ecef;
+  border-radius: 8px;
   overflow-y: auto;
 }
 
 .document-page {
   background-color: white;
-  width: 21cm; /* A4 width */
-  min-height: 29.7cm; /* A4 height */
+  width: 100%;
   margin: 0 auto;
-  padding: 2.5cm;
-  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  padding: 40px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
   border-radius: 5px;
 }
 
@@ -238,6 +237,7 @@
   padding-bottom: 10px;
   margin-bottom: 20px;
   color: #333;
+  max-width: 100%;
 }
 
 .document-intro {
@@ -249,6 +249,7 @@
   resize: none;
   margin-bottom: 30px;
   color: #555;
+  max-width: 100%;
 }
 
 .section-title {
@@ -263,7 +264,7 @@
 .document-day {
   background-color: #f9f9f9;
   border-radius: 10px;
-  padding: 20px;
+  padding: 25px;
   margin-bottom: 30px;
   border: 1px solid #e0e0e0;
 }
@@ -303,13 +304,50 @@
 
 
 .content-item-document {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 15px;
-  background-color: white;
-  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #fdfdfd;
+  padding: 20px 60px 20px 20px; /* Top, Right (increased), Bottom, Left */
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: relative; /* Crucial for absolute positioning of children */
+}
+
+.content-item-document label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Optional: If LexicalEditor or its direct wrapper has specific positioning that might interfere */
+.content-item-document .editor-container { /* Assuming LexicalEditor is wrapped by .editor-container */
+  position: relative; /* Or static, if it doesn't need its own positioning context */
+  z-index: 1; /* Ensure it's below the remove button */
+}
+
+.content-item-document .remove-content-btn {
+  position: absolute;
+  top: 20px; /* Adjust for vertical alignment with the label or top of content */
+  right: 15px; /* Distance from the right edge of .content-item-document */
+  background: none;
+  border: none;
+  color: #F44336;
+  cursor: pointer;
+  font-size: 18px; /* Slightly larger icon for better visibility */
+  padding: 5px; /* Add some clickable area */
+  opacity: 0.5; /* Default opacity, slightly more visible */
+  transition: opacity 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  z-index: 10; /* Ensure this button is on top of other elements within the item */
+}
+
+.content-item-document:hover .remove-content-btn {
+  opacity: 1; /* Fully visible on hover of the parent item */
+  color: #D32F2F; /* Darken color on hover */
+}
+
+/* Add a specific hover effect for the button itself for better feedback */
+.content-item-document .remove-content-btn:hover {
+  transform: scale(1.1); /* Slightly enlarge the button on its own hover */
 }
 
 .content-textarea {
@@ -691,6 +729,128 @@
   }
   
   .document-container {
-    padding: 20px;
+    padding: 15px;
   }
+}
+
+/* --- Language Tabs --- */
+.language-tabs {
+  display: flex;
+  margin-bottom: 25px; /* Space below the tabs */
+  background-color: #e9ecef; /* Light grey background */
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.language-tab {
+  flex: 1; /* Equal width */
+  padding: 10px 15px;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #495057;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.language-tab:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #0056b3;
+}
+
+.language-tab.active {
+  background-color: #fff; /* White background for active tab */
+  color: #007bff; /* Blue text for active tab */
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+}
+
+/* --- Adjustments for Single Input Layout --- */
+.form-group {
+  margin-bottom: 20px; /* Ensure consistent spacing */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Style for derived language display (e.g., Destination EN/FR) */
+.derived-lang-display {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+}
+
+/* Adjustments for content items */
+.content-item-document {
+  margin-bottom: 20px; /* Increased spacing */
+  background-color: #fdfdfd; /* Slightly off-white */
+  padding: 20px 60px 20px 20px; /* Top, Right (increased), Bottom, Left */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: relative; /* For remove button positioning */
+}
+
+.content-item-document label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.content-item-document .editor-container { /* Assuming LexicalEditor is wrapped by .editor-container */
+  position: relative; /* Or static, if it doesn't need its own positioning context */
+  z-index: 1; /* Ensure it's below the remove button */
+}
+
+.content-item-document .remove-content-btn {
+  position: absolute;
+  top: 20px; /* Adjust for vertical alignment with the label or top of content */
+  right: 15px; /* Distance from the right edge of .content-item-document */
+  background: none;
+  border: none;
+  color: #F44336;
+  cursor: pointer;
+  font-size: 18px; /* Slightly larger icon for better visibility */
+  padding: 5px; /* Add some clickable area */
+  opacity: 0.5; /* Default opacity, slightly more visible */
+  transition: opacity 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  z-index: 10; /* Ensure this button is on top of other elements within the item */
+}
+
+.content-item-document:hover .remove-content-btn {
+  opacity: 1; /* Fully visible on hover of the parent item */
+  color: #D32F2F; /* Darken color on hover */
+}
+
+/* Add a specific hover effect for the button itself for better feedback */
+.content-item-document .remove-content-btn:hover {
+  transform: scale(1.1); /* Slightly enlarge the button on its own hover */
 }

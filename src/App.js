@@ -12,6 +12,7 @@ import Login from './routes/Login';
 import Admin from './routes/Admin';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -27,6 +28,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <LanguageProvider>
       <div className="App">
         <ScrollToTop /> 
         <Navbar />
@@ -46,6 +48,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
+      </LanguageProvider>
     </AuthProvider>
   );
 }

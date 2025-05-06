@@ -1,14 +1,14 @@
 export const destinations = [
   {
-    name: 'VIỆT NAM',
+    nameKey: 'vietnam', // Use existing key
     image: 'vietnam.jpg'
   },
   {
-    name: 'PHÁP',
+    nameKey: 'france', // Use existing key
     image: 'phap.jpg'
   },
   {
-    name: 'BHUTAN',
+    nameKey: 'bhutan', // Use existing key
     image: 'bhutan.jpg'
   }
 ];

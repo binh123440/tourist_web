@@ -1,13 +1,19 @@
 import React, { useEffect, useRef } from 'react';
+// Assuming destinations have keys now
 import { destinations } from './DestinationsItems.js';
 import './DestinationsStyle.css';
 import { useNavigate } from 'react-router-dom';
+// Remove TranslatedText import
+// import TranslatedText from './TranslatedText';
+import { useLanguage } from '../context/LanguageContext';
+import Text from './Text'; // Import Text component
 
 const Destinations = ({ onDestinationSelect }) => {
+  // Get t function
+  // const { t } = useLanguage(); // t is not directly needed if using Text component
   const navigate = useNavigate();
   const destinationsRef = useRef(null);
 
-  // Thêm animation khi scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -33,36 +39,43 @@ const Destinations = ({ onDestinationSelect }) => {
   }, []);
 
   const handleDestinationClick = (destination) => {
+    // Assuming destination object has a nameKey
+    const destinationName = destination.nameKey || destination.name;
     if (onDestinationSelect) {
-      onDestinationSelect(destination.name);
+      onDestinationSelect(destinationName); // Pass key or name
     } else {
-      navigate(`/tour?destination=${destination.name.toLowerCase()}`);
+      // Use lowercase key or name for URL
+      navigate(`/tour?destination=${destinationName.toLowerCase()}`);
     }
   };
 
   return (
     <div className="featured-destinations" ref={destinationsRef}>
       <div className="section-header light">
-        <span className="section-subtitle">Khám phá điểm đến</span>
-        <h2 className="section-title">ĐIỂM ĐẾN ĐẶC TRƯNG</h2>
+        {/* Use Text component */}
+        <Text tag="span" className="section-subtitle" translationKey="destinationsSubtitle" />
+        <Text tag="h2" className="section-title" translationKey="destinationsTitle" />
       </div>
-      
+
       <div className="destinations-grid">
+        {/* Assuming destinations array has nameKey */}
         {destinations.map((destination, index) => (
           <div
             className="destination-item"
             key={index}
             onClick={() => handleDestinationClick(destination)}
-            style={{ 
+            style={{
               backgroundImage: `url(${destination.image})`,
               animationDelay: `${index * 0.2}s`
             }}
           >
             <div className="destination-overlay"></div>
             <div className="destination-content">
-              <h3 className="destination-name">{destination.name}</h3>
+              {/* Use Text component */}
+              <Text tag="h3" className="destination-name" translationKey={destination.nameKey || destination.name} />
               <div className="destination-explore">
-                <span>Khám phá</span>
+                {/* Use Text component */}
+                <Text tag="span" translationKey="explore" />
                 <i className="fas fa-long-arrow-alt-right"></i>
               </div>
             </div>

@@ -1,31 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../../middleware/auth');
 const {
+  createOrUpdateTour, // Giữ lại cho POST
   getTours,
-  getTourWithDetail,
-  createOrUpdateTour,
-  deleteTour
+  getTourWithDetail, // Đổi tên hàm nếu cần
+  deleteTour, // Đổi tên hàm nếu cần
+  updateIntegratedTour // <--- Import hàm mới
 } = require('../../controllers/admin/integratedTourController');
+const authAdmin = require('../../middleware/auth');
 
-// @route   GET /api/admin/integrated-tours
-// @desc    Lấy tất cả tours với chi tiết
-// @access  Admin
-router.get('/', auth, getTours);
+// GET all integrated tours
+router.get('/', authAdmin, getTours);
 
-// @route   GET /api/admin/integrated-tours/:id
-// @desc    Lấy tour và chi tiết theo id của tour
-// @access  Admin
-router.get('/:id', auth, getTourWithDetail);
+// GET single integrated tour by Tour ID
+router.get('/:id', authAdmin, getTourWithDetail);
 
-// @route   POST /api/admin/integrated-tours
-// @desc    Tạo hoặc cập nhật tour với chi tiết
-// @access  Admin
-router.post('/', auth, createOrUpdateTour);
+// POST create integrated tour
+router.post('/', authAdmin, createOrUpdateTour); // Route này chỉ dùng để tạo mới
 
-// @route   DELETE /api/admin/integrated-tours/:id
-// @desc    Xóa tour và chi tiết tour
-// @access  Admin
-router.delete('/:id', auth, deleteTour);
+// PUT update integrated tour by Tour ID <--- SỬA HOẶC THÊM DÒNG NÀY
+router.put('/:id', authAdmin, updateIntegratedTour); // Trỏ đến hàm mới
+
+// DELETE integrated tour by Tour ID
+router.delete('/:id', authAdmin, deleteTour);
 
 module.exports = router;

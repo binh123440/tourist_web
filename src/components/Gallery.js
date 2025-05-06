@@ -2,11 +2,17 @@ import React, { useState, useEffect, useCallback } from 'react';
 import './GalleryStyle.css';
 import Modal from 'react-modal';
 import { useAuth } from '../context/AuthContext';
+// Remove TranslatedText import
+// import TranslatedText from './TranslatedText';
+import { useLanguage } from '../context/LanguageContext';
+import Text from './Text'; // Import Text component
 import axios from 'axios';
 
 Modal.setAppElement('#root');
 
 const Gallery = () => {
+  // Get t function
+  const { t } = useLanguage();
   const [images, setImages] = useState([]);
   const [visibleImages, setVisibleImages] = useState(8);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -16,7 +22,7 @@ const Gallery = () => {
   const [error, setError] = useState(null);
   const [imageLoading, setImageLoading] = useState({});
   const [modalImageLoading, setModalImageLoading] = useState(true);
-  
+
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -24,25 +30,21 @@ const Gallery = () => {
       try {
         setLoading(true);
         const res = await axios.get('http://localhost:5000/api/gallery');
-        
-        // Khởi tạo trạng thái loading cho từng ảnh
         const loadingStates = {};
-        res.data.forEach(img => {
-          loadingStates[img._id || img.url] = true;
-        });
-        
+        res.data.forEach(img => { loadingStates[img._id || img.url] = true; });
         setImageLoading(loadingStates);
         setImages(res.data);
         setLoading(false);
       } catch (err) {
-        setError('Không thể tải thư viện ảnh');
+        // Use translated error
+        setError(t('errorLoadingGallery'));
         setLoading(false);
         console.error('Error fetching images:', err);
       }
     };
-
     fetchImages();
-  }, []);
+    // Add t dependency if error message relies on language
+  }, [t]);
 
   const handleLoadMore = () => {
     setVisibleImages(prev => Math.min(prev + 8, images.length));
@@ -124,7 +126,8 @@ const Gallery = () => {
   }, [handleKeyDown]);
 
   const handleDelete = async (id) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa ảnh này?')) {
+    // Use translated confirmation
+    if (window.confirm(t('deleteImageConfirm'))) {
       try {
         const token = localStorage.getItem('token');
         await axios.delete(`http://localhost:5000/api/admin/gallery/${id}`, {
@@ -135,7 +138,8 @@ const Gallery = () => {
         setImages(images.filter(img => img._id !== id));
       } catch (err) {
         console.error('Error deleting image:', err);
-        alert('Không thể xóa ảnh');
+        // Use translated error alert
+        alert(t('deleteImageError'));
       }
     }
   };
@@ -144,12 +148,14 @@ const Gallery = () => {
     return (
       <div className="gallery">
         <div className="section-header">
-          <span className="section-subtitle">Hành trình của chúng tôi</span>
-          <h2 className="section-title">THƯ VIỆN ẢNH</h2>
+          {/* Use Text component */}
+          <Text tag="span" className="section-subtitle" translationKey="ourJourney" />
+          <Text tag="h2" className="section-title" translationKey="photoGallery" />
         </div>
         <div className="loading-container">
           <div className="loading-spinner"></div>
-          <p>Đang tải thư viện ảnh...</p>
+          {/* Use Text component */}
+          <Text tag="p" translationKey="loadingGallery" />
         </div>
       </div>
     );
@@ -159,9 +165,11 @@ const Gallery = () => {
     return (
       <div className="gallery">
         <div className="section-header">
-          <span className="section-subtitle">Hành trình của chúng tôi</span>
-          <h2 className="section-title">THƯ VIỆN ẢNH</h2>
+          {/* Use Text component */}
+          <Text tag="span" className="section-subtitle" translationKey="ourJourney" />
+          <Text tag="h2" className="section-title" translationKey="photoGallery" />
         </div>
+        {/* Display translated error */}
         <div className="error">{error}</div>
       </div>
     );
@@ -197,8 +205,9 @@ const Gallery = () => {
   return (
     <div className="gallery">
       <div className="section-header">
-        <span className="section-subtitle">Hành trình của chúng tôi</span>
-        <h2 className="section-title">THƯ VIỆN ẢNH</h2>
+        {/* Use Text component */}
+        <Text tag="span" className="section-subtitle" translationKey="ourJourney" />
+        <Text tag="h2" className="section-title" translationKey="photoGallery" />
       </div>
       
       <div className="masonry-gallery">
@@ -208,6 +217,7 @@ const Gallery = () => {
               const imageId = image._id || `img-${colIndex}-${index}`;
               const imageUrl = typeof image === 'object' ? (image.url || image) : image;
               const isImageLoading = imageLoading[imageId] !== false;
+              const globalIndex = colIndex * Math.ceil(visibleImages / galleryColumns.length) + index; // Calculate global index for modal
               
               return (
                 <div 
@@ -224,8 +234,9 @@ const Gallery = () => {
                     )}
                     <img 
                       src={getOptimizedImageUrl(imageUrl, 'thumbnail')} 
-                      alt={image.name || `Gallery ${index + 1}`}
-                      onClick={() => openModal(image, colIndex * Math.ceil(visibleImages/galleryColumns.length) + index)} 
+                      // Use t() for alt text, providing default
+                      alt={image.name ? t(image.name) : t('galleryImage', { index: globalIndex + 1 })}
+                      onClick={() => openModal(image, globalIndex)} 
                       onLoad={() => handleImageLoad(imageId)}
                       loading="lazy"
                       style={{ opacity: isImageLoading ? 0 : 1 }}
@@ -236,9 +247,10 @@ const Gallery = () => {
                     />
                     <div className="gallery-overlay">
                       <div className="gallery-info">
-                        <h4>{image.name || `Hình ảnh ${index + 1}`}</h4>
-                        <span>{image.description || 'Lotus Voyages'}</span>
-                        <button className="view-btn" onClick={() => openModal(image, colIndex * Math.ceil(visibleImages/galleryColumns.length) + index)}>
+                        {/* Use Text component, providing default */}
+                        <Text tag="h4" translationKey={image.name || `galleryImage_${globalIndex + 1}`}>{t('galleryImage', { index: globalIndex + 1 })}</Text>
+                        <Text tag="span" translationKey={image.description || 'galleryDefaultDesc'}>{t('galleryDefaultDesc')}</Text>
+                        <button className="view-btn" onClick={() => openModal(image, globalIndex)}>
                           <i className="fas fa-search-plus"></i>
                         </button>
                       </div>
@@ -267,7 +279,8 @@ const Gallery = () => {
       
       {visibleImages < images.length && (
         <button className="load-more-btn" onClick={handleLoadMore}>
-          <span>Xem thêm</span>
+          {/* Use Text component */}
+          <Text tag="span" translationKey="loadMore" />
           <i className="fas fa-chevron-down"></i>
         </button>
       )}
