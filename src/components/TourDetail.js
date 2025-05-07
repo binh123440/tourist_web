@@ -17,38 +17,34 @@ import "slick-carousel/slick/slick-theme.css";
 Modal.setAppElement('#root');
 
 const TourDetail = () => {
-  // Use 't' for static text, 'currentLanguage' for selecting dynamic content
   const { currentLanguage, t } = useLanguage();
   const { tourId } = useParams();
-  const [tourData, setTourData] = useState(null); // Will hold the full object with {vi, en, fr}
+  const [tourData, setTourData] = useState(null); // Bây giờ sẽ là { tour: {}, detail: {} }
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth(); // Keep if needed for edit button etc.
+  const { isAuthenticated } = useAuth();
 
-  // Fetching logic remains the same
   useEffect(() => {
     const fetchTourDetail = async () => {
       try {
         setLoading(true);
-        setCurrentSlide(0); // Reset slide when tourId changes
-        const data = await getTourDetail(tourId); // Fetches the object with {vi, en, fr}
+        setCurrentSlide(0);
+        const data = await getTourDetail(tourId); // data bây giờ là { tour: {}, detail: {} }
         setTourData(data);
         setLoading(false);
       } catch (err) {
-        // Use static translation key for error
         setError(t('errorLoadingTourDetails') || 'Could not load tour details.');
         setLoading(false);
         console.error('Error fetching tour details:', err);
       }
     };
     fetchTourDetail();
-  }, [tourId, t]); // Add t dependency
+  }, [tourId, t]);
 
-  // Slider settings (keep as is)
   const settings = {
     infinite: false,
     speed: 500,
@@ -59,22 +55,19 @@ const TourDetail = () => {
   };
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
   const handleEdit = () => {
-    // Ensure tourData and _id exist before navigating
-    // Use tourData._id which should be the TourDetail's _id from the API
-    // Or if your API returns { tour: { _id: ... }, detail: { _id: ... } }, use tourData.tour._id
-    const idToEdit = tourData?.tour?._id || tourData?._id; // Adjust based on your API response structure
+    // ID để edit là _id của tour chính (parentTour)
+    const idToEdit = tourData?.tour?._id;
     if (idToEdit) {
       navigate(`/admin/tours?edit=${idToEdit}`);
     } else {
-      console.error("Cannot edit: Tour data or ID is missing.", tourData);
-      // Optionally show a user notification
+      console.error("Cannot edit: Main tour data or ID is missing.", tourData);
     }
   };
 
-
-  // --- Render Logic ---
   if (loading) {
+    // ... (giữ nguyên)
     return (
       <div className="tour-detail-page">
         <div className="tour-details loading-container">
@@ -85,7 +78,8 @@ const TourDetail = () => {
     );
   }
 
-  if (error || !tourData) {
+  // Quan trọng: Kiểm tra tourData và tourData.detail
+  if (error || !tourData || !tourData.detail) { // Thêm kiểm tra !tourData.detail
     return (
       <div className="tour-detail-page">
         <div className="tour-details">
@@ -97,93 +91,86 @@ const TourDetail = () => {
     );
   }
 
-  // Helper to get the correct language string or fallback
   const getLang = (fieldObject, lang = currentLanguage) => {
-    // Check if fieldObject itself is the language object (like day.content items)
     if (typeof fieldObject === 'object' && fieldObject !== null && ('vi' in fieldObject || 'en' in fieldObject || 'fr' in fieldObject)) {
        return fieldObject?.[lang] || fieldObject?.vi || '';
     }
-    // Otherwise, assume fieldObject is the parent and contains the language object
-    // This case might not be needed if data structure is consistent
     return '';
   };
 
-  // Helper specifically for top-level fields like title, intro
   const getTopLevelLang = (fieldObject, lang = currentLanguage) => {
       return fieldObject?.[lang] || fieldObject?.vi || '';
   };
 
-
-  // Determine destination for related tours (use Vietnamese name for consistency)
+  // Destination lấy từ tourData.tour
   const currentDestinationNameVi = tourData?.tour?.destination?.vi || '';
-  const currentDestination = currentDestinationNameVi.toLowerCase(); // Use lowercase for matching
+  const currentTourLink = tourData?.tour?.link || ''; // Lấy link của tour hiện tại
+
+  console.log('Full tourData object from API:', tourData);
+  console.log('Extracted currentDestinationNameVi for Related Tours:', currentDestinationNameVi);
+  console.log('Current tour link to exclude:', currentTourLink);
+
+
+  // Truy cập dữ liệu chi tiết qua tourData.detail
+  const detail = tourData.detail;
 
   return (
     <div className="tour-detail-page">
       <div className="tour-details">
-        {/* --- Title --- */}
-        <h1>{getTopLevelLang(tourData.title)}</h1>
+        {/* --- Title từ tourData.detail.title --- */}
+        <h1 className="tour-title">{getTopLevelLang(detail.title)}</h1>
 
-        {/* --- Introduction --- */}
+        {/* --- Introduction từ tourData.detail.intro --- */}
         <div className="tour-intro">
-           <h2><Text translationKey="tourIntroduction" /></h2>
-           {/* Use parser for HTML content */}
-           <div>{parse(getTopLevelLang(tourData.intro))}</div>
+          <h2 className="section-title"><Text translationKey="tourIntroduction" /></h2>
+          <div className="intro-content">{parse(getTopLevelLang(detail.intro))}</div>
         </div>
 
-
-        {/* --- Itinerary --- */}
+        {/* --- Itinerary từ tourData.detail.days --- */}
         <div className="tour-itinerary">
-           <h2><Text translationKey="tourItinerary" /></h2>
-           {(tourData.days && tourData.days.length > 0) ? (
-              tourData.days.map((day, index) => (
-                <div key={index} className="day-details">
-                  {/* Day Title */}
-                  <h3>{getLang(day.title)}</h3>
-                  <div className="day-content">
-                    {/* Day Content Items */}
-                    {(day.content || []).map((item, idx) => (
-                      <div key={idx} className="content-item-html">
-                        {/* Use parser for HTML content - item is the language object */}
-                        {parse(getLang(item))}
-                      </div>
-                    ))}
-                  </div>
+          <h2 className="section-title"><Text translationKey="tourItinerary" /></h2>
+          {(detail.days && detail.days.length > 0) ? (
+            detail.days.map((day, index) => (
+              <div key={index} className="day-details">
+                <h3 className="day-title">{getLang(day.title)}</h3>
+                <div className="day-content">
+                  {(day.content || []).map((item, idx) => (
+                    <div key={idx} className="content-item-html">
+                      {parse(getLang(item))}
+                    </div>
+                  ))}
                 </div>
-              ))
-           ) : (
-              <p><Text translationKey="noItineraryAvailable" /></p>
-           )}
+              </div>
+            ))
+          ) : (
+            <p className="no-itinerary"><Text translationKey="noItineraryAvailable" /></p>
+          )}
         </div>
 
-
-        {/* --- Image Slider --- */}
-        {tourData.images && tourData.images.length > 0 && (
+        {/* --- Image Slider từ tourData.detail.images --- */}
+        {detail.images && detail.images.length > 0 && (
           <div className="tour-slider">
             <Slider ref={sliderRef} {...settings}>
-              {tourData.images.map((image, index) => (
+              {detail.images.map((image, index) => (
                 <div key={index}>
-                  {/* Image URL is not translated */}
                   <img
                     src={image.image?.startsWith('http') ? image.image : `http://localhost:5000${image.image}`}
-                    // Alt text is translated
                     alt={getLang(image.alt)}
                   />
                 </div>
               ))}
             </Slider>
             <div className="slide-number">
-              {currentSlide + 1}/{tourData.images.length}
+              {currentSlide + 1}/{detail.images.length}
             </div>
-            {/* Navigation Buttons (keep as is) */}
             <div className="slider-navigation">
                <button className="prev-button" onClick={() => sliderRef.current.slickPrev()} disabled={currentSlide === 0}>&#8592;</button>
-               <button className="next-button" onClick={() => sliderRef.current.slickNext()} disabled={currentSlide === tourData.images.length - 1}>&#8594;</button>
+               <button className="next-button" onClick={() => sliderRef.current.slickNext()} disabled={currentSlide === detail.images.length - 1}>&#8594;</button>
             </div>
           </div>
         )}
 
-        {/* --- Booking Button & Modal (Keep as is) --- */}
+        {/* --- Booking Button & Modal --- */}
         <div className="slider-button-container">
           <button className="schedule-button" onClick={openModal}>
             <Text translationKey="bookNow" />
@@ -194,20 +181,22 @@ const TourDetail = () => {
           <ContactPage />
         </Modal>
 
-        {/* --- Related Tours (Pass the Vietnamese destination name) --- */}
+        {/* --- Related Tours (currentDestinationNameVi đã đúng) --- */}
         <div className="related-tours">
           <h2><Text translationKey="relatedTours" /></h2>
-          {/* Pass the Vietnamese destination name for filtering */}
-          <Tours selectedDestination={currentDestinationNameVi} />
+          {/* Truyền thêm currentTourLink vào component Tours */}
+          <Tours
+            selectedDestination={currentDestinationNameVi}
+            excludeTourLink={currentTourLink}
+          />
         </div>
 
-         {/* --- Optional Edit Button --- */}
+         {/* --- Optional Edit Button (sử dụng tourData.tour._id) --- */}
          {isAuthenticated && (
             <button onClick={handleEdit} className="admin-edit-button">
                <i className="fas fa-edit"></i> <Text translationKey="editTour" />
             </button>
          )}
-
       </div>
     </div>
   );

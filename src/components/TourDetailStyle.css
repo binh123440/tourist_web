@@ -466,3 +466,90 @@
   overflow-wrap: break-word;
   max-width: 100%;
 }
+
+/* Căn chỉnh và style cho tiêu đề chính */
+.tour-title {
+  font-size: 40px;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Style cho phần giới thiệu */
+.tour-intro {
+  background-color: #f9f9f9;
+  padding: 20px 30px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tour-intro .section-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #e74c3c;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.tour-intro .intro-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #555;
+  text-align: justify;
+}
+
+/* Style cho phần hành trình */
+.tour-itinerary {
+  background-color: #ffffff;
+  padding: 20px 30px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tour-itinerary .section-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #16a085;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.day-details {
+  margin-bottom: 30px;
+  padding: 15px;
+  border-left: 5px solid #16a085;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.day-details .day-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.day-details .day-content {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #555;
+  text-align: justify;
+}
+
+.day-details .content-item-html {
+  margin-bottom: 10px;
+}
+
+/* Style cho thông báo không có hành trình */
+.no-itinerary {
+  font-size: 18px;
+  color: #999;
+  text-align: center;
+  margin-top: 20px;
+}
