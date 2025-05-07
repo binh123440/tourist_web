@@ -1,16 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-// Assuming destinations have keys now
 import { destinations } from './DestinationsItems.js';
 import './DestinationsStyle.css';
 import { useNavigate } from 'react-router-dom';
-// Remove TranslatedText import
-// import TranslatedText from './TranslatedText';
-import { useLanguage } from '../context/LanguageContext';
-import Text from './Text'; // Import Text component
+import { useLanguage } from '../context/LanguageContext'; // Vẫn cần cho Text component
+import Text from './Text';
 
 const Destinations = ({ onDestinationSelect }) => {
-  // Get t function
-  // const { t } = useLanguage(); // t is not directly needed if using Text component
+  // const { t } = useLanguage(); // Không cần t trực tiếp ở đây nếu chỉ điều hướng bằng key
   const navigate = useNavigate();
   const destinationsRef = useRef(null);
 
@@ -39,30 +35,39 @@ const Destinations = ({ onDestinationSelect }) => {
   }, []);
 
   const handleDestinationClick = (destination) => {
-    // Assuming destination object has a nameKey
-    const destinationName = destination.nameKey || destination.name;
+    // Sử dụng trực tiếp destination.nameKey vì nó luôn được cung cấp
+    // từ DestinationsItems.js (ví dụ: 'vietnam', 'france', 'bhutan')
+    const keyForURL = destination.nameKey;
+
+    if (!keyForURL) {
+      console.error("Destination item is missing a nameKey:", destination);
+      // Bạn có thể muốn xử lý lỗi này, ví dụ, không điều hướng
+      return;
+    }
+
     if (onDestinationSelect) {
-      onDestinationSelect(destinationName); // Pass key or name
+      onDestinationSelect(keyForURL); // Truyền nameKey nếu component cha cần
     } else {
-      // Use lowercase key or name for URL
-      navigate(`/tour?destination=${destinationName.toLowerCase()}`);
+      // Điều hướng với nameKey đã được chuyển thành chữ thường
+      // Ví dụ: /tour?destination=vietnam
+      navigate(`/tour?destination=${keyForURL.toLowerCase()}`);
     }
   };
 
   return (
     <div className="featured-destinations" ref={destinationsRef}>
       <div className="section-header light">
-        {/* Use Text component */}
         <Text tag="span" className="section-subtitle" translationKey="destinationsSubtitle" />
         <Text tag="h2" className="section-title" translationKey="destinationsTitle" />
       </div>
 
       <div className="destinations-grid">
-        {/* Assuming destinations array has nameKey */}
         {destinations.map((destination, index) => (
           <div
             className="destination-item"
-            key={index}
+            // Sử dụng destination.nameKey cho key của React nếu nó là duy nhất,
+            // hoặc một id ổn định khác nếu có. index không phải là lựa chọn tốt nhất nếu list có thể thay đổi.
+            key={destination.nameKey || index}
             onClick={() => handleDestinationClick(destination)}
             style={{
               backgroundImage: `url(${destination.image})`,
@@ -71,10 +76,9 @@ const Destinations = ({ onDestinationSelect }) => {
           >
             <div className="destination-overlay"></div>
             <div className="destination-content">
-              {/* Use Text component */}
-              <Text tag="h3" className="destination-name" translationKey={destination.nameKey || destination.name} />
+              {/* Text component sẽ sử dụng nameKey để dịch và hiển thị tên điểm đến */}
+              <Text tag="h3" className="destination-name" translationKey={destination.name} />
               <div className="destination-explore">
-                {/* Use Text component */}
                 <Text tag="span" translationKey="explore" />
                 <i className="fas fa-long-arrow-alt-right"></i>
               </div>
