@@ -29,7 +29,7 @@ const Gallery = () => {
     const fetchImages = async () => {
       try {
         setLoading(true);
-        const res = await axios.get('http://localhost:5000/api/gallery');
+        const res = await axios.get('https://tourist-web-noln.onrender.com/api/gallery');
         const loadingStates = {};
         res.data.forEach(img => { loadingStates[img._id || img.url] = true; });
         setImageLoading(loadingStates);
@@ -130,7 +130,7 @@ const Gallery = () => {
     if (window.confirm(t('deleteImageConfirm'))) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/admin/gallery/${id}`, {
+        await axios.delete(`https://tourist-web-noln.onrender.com/api/admin/gallery/${id}`, {
           headers: {
             'x-auth-token': token
           }

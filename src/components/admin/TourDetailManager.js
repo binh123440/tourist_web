@@ -28,7 +28,7 @@ const TourDetailManager = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/admin/tour-details', {
+      const res = await axios.get('https://tourist-web-noln.onrender.com/api/admin/tour-details', {
         headers: {
           'x-auth-token': token
         }
@@ -46,7 +46,7 @@ const TourDetailManager = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const res = await axios.get(`http://localhost:5000/api/admin/tour-details/${id}`, {
+      const res = await axios.get(`https://tourist-web-noln.onrender.com/api/admin/tour-details/${id}`, {
         headers: {
           'x-auth-token': token
         }
@@ -75,7 +75,7 @@ const TourDetailManager = () => {
     if (window.confirm('Bạn có chắc chắn muốn xóa chi tiết tour này?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/admin/tour-details/${id}`, {
+        await axios.delete(`https://tourist-web-noln.onrender.com/api/admin/tour-details/${id}`, {
           headers: {
             'x-auth-token': token
           }
@@ -95,7 +95,7 @@ const TourDetailManager = () => {
       if (currentTourDetail) {
         // Cập nhật chi tiết tour hiện có
         await axios.put(
-          `http://localhost:5000/api/admin/tour-details/${currentTourDetail._id}`,
+          `https://tourist-web-noln.onrender.com/api/admin/tour-details/${currentTourDetail._id}`,
           formData,
           {
             headers: {
@@ -107,7 +107,7 @@ const TourDetailManager = () => {
       } else {
         // Tạo chi tiết tour mới
         await axios.post(
-          'http://localhost:5000/api/admin/tour-details',
+          'https://tourist-web-noln.onrender.com/api/admin/tour-details',
           formData,
           {
             headers: {

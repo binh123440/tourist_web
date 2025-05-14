@@ -37,7 +37,7 @@ const IntegratedTourManager = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token'); // Lấy token xác thực
-      const res = await axios.get('http://localhost:5000/api/admin/integrated-tours', {
+      const res = await axios.get('https://tourist-web-noln.onrender.com/api/admin/integrated-tours', {
         headers: {
           'x-auth-token': token // Gửi token trong header
         }
@@ -56,7 +56,7 @@ const IntegratedTourManager = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const res = await axios.get(`http://localhost:5000/api/admin/integrated-tours/${id}`, {
+      const res = await axios.get(`https://tourist-web-noln.onrender.com/api/admin/integrated-tours/${id}`, {
         headers: {
           'x-auth-token': token
         }
@@ -88,7 +88,7 @@ const IntegratedTourManager = () => {
     if (window.confirm('Bạn có chắc chắn muốn xóa tour này?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/admin/integrated-tours/${id}`, {
+        await axios.delete(`https://tourist-web-noln.onrender.com/api/admin/integrated-tours/${id}`, {
           headers: {
             'x-auth-token': token
           }
@@ -125,8 +125,8 @@ const IntegratedTourManager = () => {
       }
 
       const apiUrl = currentTour
-        ? `http://localhost:5000/api/admin/integrated-tours/${tourIdForUpdate}` // Use the correctly accessed ID
-        : 'http://localhost:5000/api/admin/integrated-tours';
+        ? `https://tourist-web-noln.onrender.com/api/admin/integrated-tours/${tourIdForUpdate}` // Use the correctly accessed ID
+        : 'https://tourist-web-noln.onrender.com/api/admin/integrated-tours';
 
       const method = currentTour ? 'put' : 'post';
 

@@ -86,7 +86,7 @@ const Tours = ({ selectedDestination = 'all' }) => {
     if (window.confirm(t('confirmDeleteTour'))) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/admin/integrated-tours/${tourId}`, {
+        await axios.delete(`https://tourist-web-noln.onrender.com/api/admin/integrated-tours/${tourId}`, {
           headers: { 'x-auth-token': token }
         });
         setTours(tours.filter(tour => tour._id !== tourId));

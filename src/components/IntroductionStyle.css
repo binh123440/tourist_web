@@ -1,24 +1,25 @@
 .introduction {
-  padding: 100px 0;
-  background-color: #f8f9fa;
+  padding: 50px 15px; /* Giảm padding ngang đáng kể cho mobile */
+  background-color: #f8f9fa; /* Giữ màu nền gốc hoặc #DBE4FF tùy bạn chọn */
+  text-align: center; /* Căn giữa cho mobile */
 }
 
 .introduction-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 30px;
+  /* padding: 0 30px; Bỏ padding ở đây nếu .introduction đã có padding */
 }
 
 .content {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Mặc định là cột cho mobile */
   align-items: center;
-  gap: 60px;
+  gap: 30px; /* Giảm gap */
 }
 
 .text,
 .image {
-  width: 50%;
+  width: 100%; /* Full width cho mobile */
   opacity: 0;
   transition: all 1s ease;
 }
@@ -31,22 +32,26 @@
   animation: fadeInLeft 1s forwards;
 }
 
+.image {
+  margin-bottom: 20px; /* Thêm khoảng cách nếu text ở trên image */
+}
+
 .image-frame {
   position: relative;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08); /* Giảm nhẹ shadow */
 }
 
 .image-frame::before {
   content: '';
   position: absolute;
-  top: -20px;
-  left: -20px;
-  width: calc(100% - 40px);
-  height: calc(100% - 40px);
-  border: 5px solid #ff678d;
-  z-index: -1;
+  top: -10px; /* Giảm offset */
+  left: -10px;
+  width: calc(100% - 20px); /* Điều chỉnh kích thước border frame */
+  height: calc(100% - 20px);
+  border: 3px solid #ff678d; /* Giảm độ dày border */
+  z-index: -1; /* Đảm bảo nó ở sau image */
 }
 
 .image img {
@@ -55,6 +60,7 @@
   display: block;
   transform: scale(1);
   transition: transform 0.5s ease;
+  border-radius: 10px; /* Thêm border-radius cho ảnh nếu frame có */
 }
 
 .image:hover img {
@@ -62,41 +68,44 @@
 }
 
 .text {
-  text-align: left;
+  text-align: center; /* Căn giữa text cho mobile */
 }
 
 .subtitle {
   color: #ff678d;
-  font-size: 18px;
+  font-size: 14px; /* Giảm font-size */
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 15px;
+  letter-spacing: 2px; /* Giảm letter-spacing */
+  margin-bottom: 10px; /* Giảm margin */
 }
 
 .title {
-  font-size: 42px;
-  margin-bottom: 30px;
+  font-size: 28px; /* Giảm font-size cho mobile */
+  margin-bottom: 20px;
   color: #333;
   font-weight: 700;
   position: relative;
-  padding-bottom: 15px;
+  padding-bottom: 10px; /* Giảm padding */
+  display: inline-block; /* Để ::after hoạt động đúng */
 }
 
 .title::after {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
-  width: 80px;
+  left: 50%; /* Căn giữa gạch chân */
+  transform: translateX(-50%); /* Căn giữa gạch chân */
+  width: 60px; /* Giảm chiều rộng */
   height: 3px;
   background-color: #ff678d;
 }
 
 .text p {
-  font-size: 17px;
-  line-height: 1.8;
-  margin-bottom: 20px;
+  font-size: 15px; /* Điều chỉnh font-size */
+  line-height: 1.7;
+  margin-bottom: 15px;
   color: #666;
+  text-align: justify; /* Căn đều cho đoạn văn dài trên mobile */
 }
 
 .text p strong {
@@ -104,9 +113,9 @@
 }
 
 .signature {
-  margin-top: 30px;
+  margin-top: 20px;
   font-style: italic;
-  text-align: right;
+  text-align: center; /* Căn giữa signature */
 }
 
 .signature p:first-child {
@@ -117,14 +126,15 @@
 
 .learn-more-btn {
   display: inline-block;
-  margin-top: 30px;
-  padding: 12px 30px;
+  margin-top: 20px; /* Giảm margin */
+  padding: 10px 25px; /* Giảm padding */
   background-color: transparent;
   border: 2px solid #ff678d;
   color: #ff678d;
   text-decoration: none;
   border-radius: 30px;
   font-weight: 600;
+  font-size: 15px; /* Điều chỉnh font-size */
   transition: all 0.3s ease;
 }
 
@@ -145,7 +155,7 @@
 @keyframes fadeInLeft {
   from {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-30px); /* Giảm translation */
   }
   to {
     opacity: 1;
@@ -156,7 +166,7 @@
 @keyframes fadeInRight {
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(30px); /* Giảm translation */
   }
   to {
     opacity: 1;
@@ -164,158 +174,77 @@
   }
 }
 
-@media screen and (max-width: 1500px) {
+/* Tablet screens */
+@media screen and (min-width: 768px) {
   .introduction {
-    padding: 30px 100px;
-    background-color: #DBE4FF;
-    text-align: center;
+    padding: 70px 30px; /* Tăng padding lại */
+    text-align: left; /* Căn trái lại */
   }
   .content {
-    flex-direction: column;
-    /* Chuyển sang bố cục cột khi màn hình nhỏ */
+    flex-direction: row; /* Chuyển lại thành row */
     align-items: center;
+    gap: 40px;
   }
-
   .text,
   .image {
-    width: 70%;
-    height: auto;
-    /* Đặt chiều cao tự động khi ở màn hình nhỏ */
+    width: 50%; /* Chia đôi màn hình */
   }
-
   .text {
-    margin-bottom: 20px;
-    text-align: justify;
+    text-align: left; /* Căn trái lại */
   }
-
-  .signature {
-    text-align: right;
-  }
-
-  /* Giảm kích thước chữ khi màn hình nhỏ hơn 1140px */
-  .text h1 {
-    font-size: 28px;
-    /* Thu nhỏ cỡ chữ */
-  }
-
-  .text h2 {
-    font-size: 24px;
-  }
-
-  .text h3 {
-    font-size: 20px;
-  }
-
-  .text p {
-    font-size: 16px;
-  }
-}
-
-@media screen and (max-width: 1140px) {
-  .introduction {
-    padding: 30px 200px;
-    background-color: #DBE4FF;
-    text-align: center;
-  }
-  .content {
-    flex-direction: column;
-    /* Chuyển sang bố cục cột khi màn hình nhỏ */
-    align-items: center;
-  }
-
-  .text,
   .image {
-    width: 100%;
-    height: auto;
-    /* Đặt chiều cao tự động khi ở màn hình nhỏ */
+    margin-bottom: 0; /* Bỏ margin khi ở dạng row */
   }
-
-  .text {
-    margin-bottom: 20px;
-    text-align: justify;
-  }
-
-  .signature {
-    text-align: right;
-  }
-
-  /* Giảm kích thước chữ khi màn hình nhỏ hơn 1140px */
-  .text h1 {
-    font-size: 28px;
-    /* Thu nhỏ cỡ chữ */
-  }
-
-  .text h2 {
-    font-size: 24px;
-  }
-
-  .text h3 {
-    font-size: 20px;
-  }
-
-  .text p {
+  .subtitle {
     font-size: 16px;
+    letter-spacing: 2.5px;
+    margin-bottom: 12px;
   }
-}
-
-@media screen and (max-width: 992px) {
-  .content {
-    flex-direction: column;
-  }
-  
-  .text, .image {
-    width: 100%;
-  }
-  
-  .image {
-    margin-bottom: 40px;
-  }
-  
   .title {
     font-size: 36px;
+    margin-bottom: 25px;
+    padding-bottom: 12px;
+    display: block; /* Có thể để block nếu không cần inline-block nữa */
   }
-}
-
-@media screen and (max-width: 768px) {
-  .introduction {
-    padding: 30px 100px;
-    background-color: #DBE4FF;
-    text-align: center;
+  .title::after {
+    left: 0; /* Căn trái gạch chân */
+    transform: none; /* Bỏ transform */
+    width: 70px;
   }
-
-  .text h1 {
-    font-size: 24px;
-  }
-
-  .text h2 {
-    font-size: 20px;
-  }
-
-  .text h3 {
-    font-size: 18px;
-  }
-
   .text p {
-    font-size: 14px;
+    font-size: 16px;
+    text-align: left; /* Căn trái lại */
   }
-}
-
-@media screen and (max-width: 480px) {
-
-  /* Giảm kích thước chữ tối đa khi màn hình rất nhỏ (như điện thoại) */
-  .text h1 {
-    font-size: 20px;
+  .signature {
+    text-align: right; /* Căn phải lại */
   }
-
-  .text h2 {
-    font-size: 18px;
-  }
-
-  .text h3 {
+  .learn-more-btn {
+    padding: 12px 30px;
     font-size: 16px;
   }
+}
 
+/* Desktop screens */
+@media screen and (min-width: 1024px) {
+  .introduction {
+    padding: 100px 50px;
+  }
+  .content {
+    gap: 60px;
+  }
+  .title {
+    font-size: 42px;
+  }
   .text p {
-    font-size: 12px;
+    font-size: 17px;
   }
 }
+
+/* Xóa các media query cũ hơn nếu chúng gây xung đột hoặc đã được tích hợp */
+/*
+@media screen and (max-width: 1500px) { ... }
+@media screen and (max-width: 1140px) { ... }
+@media screen and (max-width: 992px) { ... }
+@media screen and (max-width: 768px) { ... } // Đã được xử lý
+@media screen and (max-width: 480px) { ... } // Các style mobile cơ bản nên bao gồm cả trường hợp này
+*/

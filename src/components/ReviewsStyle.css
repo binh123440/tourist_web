@@ -1,17 +1,23 @@
 .reviews-section {
-  padding: 50px;
+  padding: 40px 15px; /* Giảm padding cho mobile */
   background-color: #f5f5f5;
   text-align: center;
 }
 
-.reviews-section h2 {
-  font-size: 36px;
-  margin-bottom: 10px;
+.reviews-section h2 { /* Tiêu đề "Đánh giá của khách hàng" */
+  font-size: 28px; /* Giảm font-size tiêu đề */
+  margin-bottom: 10px; /* Giảm margin */
+  color: #333;
 }
 
-.reviews-section .review-text {
-  font-size: 18px;
-  margin-bottom: 20px;
+/* Mô tả chung của section reviews */
+.reviews-section > .review-text { 
+  font-size: 16px; 
+  margin-bottom: 30px; 
+  color: #555;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .reviews-section .slick-slide {
@@ -20,117 +26,242 @@
 }
 
 .reviews-section .slick-slider {
-  width: 90%;
+  width: 100%; 
   margin: 0 auto;
 }
+
+/* Wrapper cho mỗi slide, nếu bạn muốn padding cho slide */
+.review-item-wrapper {
+  padding: 0 8px; /* Khoảng cách giữa các slide */
+}
+
 .review-item {
   background-color: #fff;
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px 15px; /* Điều chỉnh padding */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
   text-align: left;
+  display: flex; 
+  flex-direction: column; 
+  min-height: 250px; /* Đảm bảo chiều cao tối thiểu, điều chỉnh nếu cần */
+  height: 100%; /* Để slick-slide có thể làm cho các item cùng chiều cao */
 }
 
-.review-image {
-  width: 50px;
-  height: 50px;
+.review-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.review-image { /* Avatar */
+  width: 45px; 
+  height: 45px;
   border-radius: 50%;
-  background-color: #ddd;
+  background-color: #ff678d; /* Màu placeholder nổi bật hơn */
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 20px; 
+  margin-right: 12px; 
+  flex-shrink: 0; 
+  font-weight: bold;
 }
 
-.recommend {
-  font-size: 14px;
-  color: #888;
-  margin-bottom: 10px;
+.reviewer-info {
+  display: flex;
+  flex-direction: column;
 }
 
-.review-text {
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  display: -webkit-box;
-  font-size: 16px;
+.reviewer { /* Tên người review */
+  font-size: 15px; 
+  font-weight: 600; 
+  color: #333;
+  margin-bottom: 2px;
+}
+
+.recommend { /* Ngày review hoặc "Recommends" */
+  font-size: 12px; 
+  color: #777;
+}
+
+/* Nội dung review của từng item - CẬP NHẬT CHO SCROLL */
+.review-text-content { 
+  font-size: 14px; 
+  line-height: 1.6; 
+  color: #555;
   margin-bottom: 10px;
-  -webkit-line-clamp: 2;
+  flex-grow: 1; /* Cho phép text mở rộng đến max-height */
+  max-height: 135px; /* Giới hạn chiều cao, ví dụ khoảng 4-5 dòng tùy line-height */
+  overflow-y: auto; /* Thêm thanh cuộn khi nội dung vượt quá max-height */
+  /* Bỏ các thuộc tính -webkit-line-clamp */
+  /* -webkit-box-orient: vertical; */
+  /* display: -webkit-box; */
+  /* -webkit-line-clamp: 4; */
+  padding-right: 5px; /* Thêm chút padding để thanh cuộn không đè lên chữ */
+}
+
+/* Tùy chỉnh thanh cuộn (Webkit browsers) */
+.review-text-content::-webkit-scrollbar {
+  width: 6px; /* Chiều rộng thanh cuộn */
+}
+
+.review-text-content::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Màu nền của track */
+  border-radius: 10px;
+}
+
+.review-text-content::-webkit-scrollbar-thumb {
+  background: #ccc; /* Màu của thumb (con trượt) */
+  border-radius: 10px;
+}
+
+.review-text-content::-webkit-scrollbar-thumb:hover {
+  background: #aaa; /* Màu thumb khi hover */
 }
 
 .read-more {
-  color: #00a99d;
+  color: #ff678d;
   text-decoration: none;
-  font-size: 14px;
-  margin-bottom: 10px;
+  font-size: 13px; 
+  font-weight: 500;
+  margin-top: auto; /* Đẩy xuống dưới nếu review-text-content không đủ dài */
+  display: inline-block; 
 }
-.fb-img{
-  width: 70px;
-  height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
-.insta-img{
-  margin: 0px 15px 0 30px;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-}
+
 .read-more:hover {
   text-decoration: underline;
 }
 
-.reviewer {
-  font-size: 13px;
-  color: #888;
-}
-
+/* Phần Recommendation Section (Social Links) */
 .recommendation-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+  margin-top: 40px; 
+  text-align: center;
 }
+
+.follow-us-text {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.social-links-container {
+  display: flex;
+  flex-direction: column; /* Xếp chồng trên mobile */
+  align-items: center;
+  gap: 15px; 
+}
+
+.social-link {
+  display: inline-flex; /* Để align-items hoạt động tốt */
+  align-items: center;
+  text-decoration: none;
+  padding: 10px 20px; 
+  border-radius: 25px; 
+  transition: all 0.3s ease;
+  font-weight: 500;
+  min-width: 220px; /* Chiều rộng tối thiểu cho nút */
+  justify-content: center; /* Căn giữa nội dung trong nút */
+}
+
+.social-link img { /* Style cho ảnh icon bên trong link */
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+/* Nếu dùng icon font, style cho span chứa icon */
+.social-link .fb-img, .social-link .insta-img {
+   display: flex; /* Đảm bảo img bên trong được căn chỉnh */
+   align-items: center;
+}
+
+
 .facebook-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+  background-color: #1877f2; /* Màu Facebook */
+  color: white;
 }
-.fb-text {
-  text-decoration: none;
-  font-size: 20px;
-  color: #3b5998;
-  margin: 0;
-}
-.insta-text {
-  text-decoration: none;
-  font-size: 20px;
-  color: #eb6bfc;
-  margin: 0;
+.facebook-link:hover {
+  background-color: #166fe5;
 }
 
-.recommendation-text {
-  text-align: left;
+.instagram-link {
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); /* Gradient Instagram */
+  color: white;
+}
+.instagram-link:hover {
+  opacity: 0.9;
 }
 
-.recommendation-text p {
-  margin: 0;
+.fb-text, .insta-text { /* Text bên trong link */
+  font-size: 15px;
 }
 
-@media screen and (max-width: 1024px) {
+
+/* Slick dots styling */
+.reviews-section .slick-dots {
+  bottom: -25px; /* Điều chỉnh vị trí dots */
+}
+
+.reviews-section .slick-dots li button:before {
+  font-size: 10px; /* Kích thước dots */
+  color: #ccc; /* Màu dots không active */
+  opacity: 1;
+}
+
+.reviews-section .slick-dots li.slick-active button:before {
+  color: #ff678d; /* Màu dot active */
+}
+
+
+/* Media Queries */
+/* Tablet */
+@media screen and (min-width: 768px) {
+  .reviews-section {
+    padding: 50px 30px;
+  }
+  .reviews-section h2 {
+    font-size: 32px;
+  }
+  .reviews-section > .review-text {
+    font-size: 17px;
+  }
   .review-item {
-    width: 45%;
+    min-height: 280px; /* Tăng chiều cao tối thiểu nếu cần */
+  }
+  .review-text-content {
+    font-size: 15px;
+    max-height: 120px; /* Cho phép nhiều nội dung hơn trước khi cuộn trên tablet */
+  }
+  .social-links-container {
+    flex-direction: row; /* Các link nằm trên cùng một hàng */
+    justify-content: center;
+    gap: 20px;
+  }
+  .social-link {
+    min-width: auto; /* Bỏ min-width để co giãn tự nhiên */
+    padding: 10px 25px;
+  }
+  .fb-text, .insta-text {
+    font-size: 16px;
   }
 }
 
-@media screen and (max-width: 600px) {
+/* Desktop */
+@media screen and (min-width: 1024px) {
+  .reviews-section {
+    padding: 60px 50px;
+  }
+  .reviews-section h2 {
+    font-size: 36px;
+  }
+  .reviews-section > .review-text {
+    font-size: 18px;
+  }
   .review-item {
-    width: 100%;
+    padding: 25px 20px;
+  }
+   .review-text-content {
+    max-height: 150px; /* Cho phép nhiều nội dung hơn nữa trên desktop */
   }
 }

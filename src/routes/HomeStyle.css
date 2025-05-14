@@ -1,40 +1,63 @@
+/* General reset for box-sizing and overflow prevention */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0; /* Basic reset for margin */
+  padding: 0; /* Basic reset for padding */
+}
+
+html,
+body {
+  overflow-x: hidden; /* Prevent horizontal scroll caused by overflowing elements */
+  width: 100%;
+}
+
+/* Ensure all direct children of body also respect viewport width */
+body > div { /* Assuming your React app is a div directly under body */
+  width: 100%;
+  overflow-x: hidden;
+}
+
 /* src/routes/HomeStyle.css */
 /* CTA Banner */
 .cta-banner {
   background-color: #fff;
-  padding: 30px 0;
-  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.05);
+  padding: 20px 0; /* Reduced vertical padding for mobile */
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05); /* Softer shadow */
   position: relative;
-  margin-top: -80px;
+  margin-top: -70px; /* Adjust if navbar height changes on mobile */
   z-index: 10;
+  width: 100%; /* Ensure it doesn't exceed viewport width */
 }
 
 .cta-container {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center items by default for mobile */
   flex-wrap: wrap;
-  gap: 20px;
-  padding: 0 30px;
+  gap: 15px; /* Reduced gap for mobile */
+  padding: 0 15px; /* Reduced horizontal padding for mobile */
 }
 
 .cta-item {
-  flex: 1;
-  min-width: 250px;
+  flex: 1 1 100%; /* Default to full width for mobile */
+  max-width: 350px; /* Max width for single items on mobile */
   text-align: center;
-  padding: 30px 20px;
-  transition: all 0.3s ease;
+  padding: 20px 15px; /* Reduced padding */
+  transition: transform 0.3s ease; /* Only transition transform */
+  border-radius: 8px; /* Optional: add some rounding */
 }
 
 .cta-item:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px); /* Slightly less hover effect */
 }
 
 .cta-item i {
-  font-size: 40px;
+  font-size: 32px; /* Adjusted icon size */
   color: #ff678d;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   background: linear-gradient(135deg, #ff678d, #ff9d9d);
   -webkit-background-clip: text;
   background-clip: text;
@@ -42,40 +65,44 @@
 }
 
 .cta-item h3 {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: #333;
 }
 
 .cta-item p {
-  font-size: 16px;
-  color: #666;
-  line-height: 1.6;
+  font-size: 14px; /* Adjusted text size */
+  color: #555; /* Slightly darker for better readability */
+  line-height: 1.5;
 }
 
 /* Latest Programs Section */
 .latest-programs {
-  padding: 100px 0;
-
+  padding: 60px 0; /* Reduced padding */
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: scroll; /* Changed to scroll for better mobile performance */
   color: white;
+  width: 100%;
 }
 
 .latest-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 15px; /* Reduced horizontal padding */
 }
 
-.section-header.light {
+.section-header { /* General section header styling if you have one */
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-header.light .section-title { /* Assuming .section-title is a child */
   color: white;
 }
-
 .section-header.light .section-subtitle {
-  color: #ff9d9d;
+  color: #ffc1cc; /* Lighter pink for subtitle */
 }
 
 .section-header.light .section-title::after {
@@ -84,87 +111,89 @@
 
 .program-countdown {
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0, 0, 0, 0.2); /* Darker overlay for better text contrast */
   border-radius: 10px;
-  padding: 50px 30px;
-  margin-top: 40px;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 25px 15px; /* Reduced padding */
+  margin-top: 30px;
+  backdrop-filter: blur(4px); /* Slightly less blur */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .countdown-text h3 {
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 700;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .countdown-text p {
-  font-size: 18px;
-  margin-bottom: 30px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .countdown-timer {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 10px; /* Reduced gap */
+  margin-bottom: 20px;
 }
 
 .countdown-item {
-  width: 100px;
-  height: 100px;
+  width: 70px; /* Adjusted size */
+  height: 70px;
   background-color: rgba(255, 103, 141, 0.8);
-  border-radius: 10px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 10px 20px rgba(255, 103, 141, 0.3);
+  box-shadow: 0 6px 12px rgba(255, 103, 141, 0.2);
 }
 
 .countdown-item .count {
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 700;
   line-height: 1;
-  margin-bottom: 5px;
 }
 
 .countdown-item .label {
-  font-size: 14px;
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  margin-top: 3px;
 }
 
 .book-now-btn {
   display: inline-block;
-  padding: 15px 40px;
+  padding: 12px 25px; /* Adjusted padding */
   background-color: #ff678d;
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 600;
-  border-radius: 30px;
+  border-radius: 25px;
   transition: all 0.3s ease;
-  box-shadow: 0 10px 20px rgba(255, 103, 141, 0.3);
+  box-shadow: 0 6px 12px rgba(255, 103, 141, 0.25);
 }
 
 .book-now-btn:hover {
   background-color: white;
   color: #ff678d;
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
 /* Newsletter Section */
 .newsletter-section {
-  padding: 80px 0;
+  padding: 50px 0; /* Reduced padding */
   background-color: #f8f9fa;
+  width: 100%;
 }
 
 .newsletter-container {
-  max-width: 900px;
+  max-width: 900px; /* This is fine */
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 15px; /* Reduced horizontal padding */
 }
 
 .newsletter-content {
@@ -172,42 +201,52 @@
 }
 
 .newsletter-content h2 {
-  font-size: 36px;
+  font-size: 24px;
   color: #333;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .newsletter-content p {
-  font-size: 18px;
-  color: #666;
-  margin-bottom: 30px;
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 25px;
+  max-width: 500px; /* Constrain paragraph width */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .newsletter-form {
   display: flex;
-  max-width: 600px;
+  flex-direction: column; /* Default to column for mobile */
+  gap: 10px; /* Gap between input and button */
+  max-width: 400px; /* Constrain form width on mobile */
   margin: 0 auto;
 }
 
 .newsletter-form input[type="email"] {
-  flex: 1;
-  height: 60px;
-  padding: 0 20px;
-  border: 2px solid #ddd;
-  border-right: none;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
-  font-size: 16px;
+  width: 100%;
+  height: 48px; /* Adjusted height */
+  padding: 0 18px;
+  border: 1px solid #ccc; /* Slightly darker border */
+  border-radius: 25px;
+  font-size: 15px;
+  background-color: #fff;
+}
+
+.newsletter-form input[type="email"]::placeholder {
+  color: #999;
 }
 
 .newsletter-form button {
-  padding: 0 40px;
+  width: 100%;
+  height: 48px;
+  padding: 0 30px;
   background-color: #ff678d;
   color: white;
   border: none;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
-  font-size: 18px;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -216,39 +255,136 @@
   background-color: #e0557a;
 }
 
-@media screen and (max-width: 992px) {
+/* --- Media Queries --- */
+
+/* Tablet screens and up */
+@media screen and (min-width: 768px) {
+  .cta-banner {
+    padding: 30px 0;
+    margin-top: -80px;
+  }
+  .cta-container {
+    justify-content: space-between; /* Spread items out */
+    padding: 0 30px;
+    gap: 20px;
+  }
   .cta-item {
-    flex-basis: calc(50% - 20px);
+    flex-basis: calc(33.333% - 14px); /* Adjust for 3 items with gap (20px * 2/3) */
+    max-width: none; /* Remove max-width for multi-column layout */
+    padding: 30px 20px;
   }
-  
+   .cta-item:nth-child(1), .cta-item:nth-child(2) { /* Example for 2 items per row on tablet */
+    /* flex-basis: calc(50% - 10px); */
+  }
+  .cta-item i {
+    font-size: 36px;
+    margin-bottom: 15px;
+  }
+  .cta-item h3 {
+    font-size: 20px;
+  }
+  .cta-item p {
+    font-size: 16px;
+  }
+
+  .latest-programs {
+    padding: 80px 0;
+  }
+  .latest-container {
+    padding: 0 30px;
+  }
+  .program-countdown {
+    padding: 40px 25px;
+    margin-top: 40px;
+  }
+  .countdown-text h3 {
+    font-size: 26px;
+  }
+  .countdown-text p {
+    font-size: 17px;
+  }
   .countdown-timer {
-    flex-wrap: wrap;
     gap: 15px;
+    margin-bottom: 25px;
   }
-  
   .countdown-item {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
   }
-  
+  .countdown-item .count {
+    font-size: 32px;
+  }
+  .countdown-item .label {
+    font-size: 13px;
+  }
+  .book-now-btn {
+    padding: 14px 35px;
+    font-size: 17px;
+  }
+
+  .newsletter-section {
+    padding: 70px 0;
+  }
+  .newsletter-container {
+    padding: 0 30px;
+  }
+  .newsletter-content h2 {
+    font-size: 32px;
+  }
+  .newsletter-content p {
+    font-size: 17px;
+  }
   .newsletter-form {
-    flex-direction: column;
+    flex-direction: row; /* Switch to row layout */
+    gap: 0; /* Remove gap for connected input/button */
+    max-width: 600px;
   }
-  
   .newsletter-form input[type="email"] {
-    border-right: 2px solid #ddd;
-    border-radius: 30px;
-    margin-bottom: 10px;
+    flex: 1; /* Allow input to take available space */
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 30px; /* Original radius */
+    border-bottom-left-radius: 30px;
+    height: 55px;
   }
-  
   .newsletter-form button {
-    border-radius: 30px;
-    height: 60px;
+    width: auto; /* Auto width based on content and padding */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 30px; /* Original radius */
+    border-bottom-right-radius: 30px;
+    height: 55px;
+    font-size: 17px;
   }
 }
 
-@media screen and (max-width: 768px) {
+/* Larger tablet / Small desktop */
+@media screen and (min-width: 992px) {
   .cta-item {
-    flex-basis: 100%;
+     /* flex-basis: calc(33.333% - 14px); /* Already set for 3 items */
+  }
+  .countdown-item {
+    width: 100px;
+    height: 100px;
+  }
+  .countdown-item .count {
+    font-size: 36px;
+  }
+  .countdown-item .label {
+    font-size: 14px;
+  }
+  .newsletter-content h2 {
+    font-size: 36px;
+  }
+  .newsletter-content p {
+    font-size: 18px;
+  }
+  .newsletter-form input[type="email"], .newsletter-form button {
+    height: 60px;
+    font-size: 16px; /* Input font size */
+  }
+  .newsletter-form button {
+    font-size: 18px; /* Button font size */
   }
 }

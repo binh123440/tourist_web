@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     const checkLoggedIn = async () => {
       if (localStorage.getItem('accessToken')) {
         try {
-          const res = await axios.get('http://localhost:5000/api/auth/me', {
+          const res = await axios.get('https://tourist-web-noln.onrender.com/api/auth/me', {
             headers: {
               'x-auth-token': localStorage.getItem('accessToken')
             }
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   // Đăng nhập
   const login = async (username, password) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', {
+      const res = await axios.post('https://tourist-web-noln.onrender.com/api/auth/login', {
         username,
         password
       });
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         
         // Lấy thông tin người dùng
-        const userRes = await axios.get('http://localhost:5000/api/auth/me', {
+        const userRes = await axios.get('https://tourist-web-noln.onrender.com/api/auth/me', {
           headers: {
             'x-auth-token': res.data.token
           }

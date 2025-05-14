@@ -54,6 +54,7 @@
   transition: background-color 0.3s ease;
   position: absolute;
   /* Đặt nút ở vị trí tuyệt đối */
+  z-index: 10; /* Ensure buttons are above slider images */
 }
 
 .slider-navigation .prev-button {
@@ -86,6 +87,7 @@
   background-color: #f5f5f5;
   color: #333;
   font-family: Arial, sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll on the page */
 }
 
 .tour-slider {
@@ -94,7 +96,7 @@
   margin-bottom: 30px;
   width: 70%;
   /* Giảm kích thước slider xuống 80% */
-  margin: 0 auto;
+  margin: 30px auto; /* Added top/bottom margin */
   /* Căn giữa slider */
 }
 
@@ -316,8 +318,7 @@
   }
 
   .tour-slider {
-    width: 100%;
-    /* Giảm kích thước slider xuống 80% */
+    width: 85%; /* Adjusted from 100% to allow some space for nav buttons if needed */
   }
 
   .tour-info {
@@ -333,6 +334,34 @@
     right: -10px;
     /* Đặt nút "Tiếp theo" ra ngoài bên phải slider */
   }
+
+  .tour-detail-container {
+    width: 90%;
+    padding-top: 220px;
+  }
+
+  .tour-details {
+    padding: 80px 10%;
+  }
+
+  .tour-title {
+    font-size: 32px;
+  }
+
+  .tour-intro .section-title,
+  .tour-itinerary .section-title {
+    font-size: 24px;
+  }
+
+  .tour-intro .intro-content,
+  .day-details .day-title,
+  .day-details .day-content {
+    font-size: 16px; /* Adjust if needed */
+  }
+
+  .day-details .day-title {
+    font-size: 20px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -346,6 +375,136 @@
 
   .modal {
     margin: 70px 0 0 0;
+  }
+
+  .tour-detail-container {
+    width: 95%;
+    padding-top: 200px; /* Tăng padding-top từ 80px lên 100px (hoặc một giá trị phù hợp với chiều cao Navbar của bạn) */
+  }
+
+  .tour-slider {
+    width: 100%; /* Slider takes full width */
+    margin: 20px auto;
+  }
+
+  .slider-navigation button {
+    padding: 6px 10px; /* Smaller buttons for mobile */
+    font-size: 12px;
+  }
+
+  .slider-navigation .prev-button {
+    left: 5px; /* Bring buttons closer or overlay */
+  }
+
+  .slider-navigation .next-button {
+    right: 5px; /* Bring buttons closer or overlay */
+  }
+
+  .tour-details {
+    padding: 100px 15px 30px 15px; /* Significantly reduce padding */
+    margin: 0 10px; /* Add small horizontal margin for the container itself */
+  }
+
+  .tour-title {
+    font-size: 24px; /* Reduce font size */
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+  }
+
+  .tour-intro, .tour-itinerary {
+    padding: 15px; /* Reduce padding for intro and itinerary sections */
+    margin-bottom: 25px;
+  }
+
+  .tour-intro .section-title,
+  .tour-itinerary .section-title {
+    font-size: 20px; /* Reduce section titles */
+    margin-bottom: 10px;
+  }
+
+  .tour-intro .intro-content {
+    font-size: 15px; /* Adjust content font size */
+    line-height: 1.7;
+  }
+
+  .day-details {
+    padding: 10px; /* Reduce padding for day details */
+    margin-bottom: 20px;
+    border-left-width: 3px; /* Thinner border */
+  }
+
+  .day-details .day-title {
+    font-size: 18px; /* Reduce day title font size */
+    margin-bottom: 8px;
+  }
+
+  .day-details .day-content {
+    font-size: 14px; /* Adjust day content font size */
+    line-height: 1.7;
+  }
+
+  .schedule-button {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+
+  .modal {
+    margin: 70px 10px 20px 10px; /* Adjust modal margin for better fit */
+    padding: 15px;
+    width: calc(100% - 20px); /* Ensure modal fits screen */
+    box-sizing: border-box;
+  }
+
+  .modal .contact-page .contact-form {
+    margin: 0; /* Remove left margin */
+    padding: 15px;
+  }
+
+  .close-modal {
+    top: 5px;
+    right: 5px;
+    font-size: 18px;
+    padding: 3px 8px;
+  }
+
+  .related-tours h2 {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tour-detail-container {
+    padding-top: 180px; /* Tăng padding-top từ 60px lên 80px (hoặc một giá trị phù hợp) */
+  }
+
+  .tour-details {
+    padding: 90px 10px 20px 10px;
+  }
+
+  .tour-title {
+    font-size: 20px;
+  }
+
+  .tour-intro .section-title,
+  .tour-itinerary .section-title {
+    font-size: 18px;
+  }
+
+  .tour-intro .intro-content,
+  .day-details .day-content {
+    font-size: 14px;
+  }
+
+  .day-details .day-title {
+    font-size: 16px;
+  }
+
+  .slider-navigation button {
+    display: none; /* Optionally hide slider navigation buttons on very small screens if they clutter */
+  }
+
+  .slide-number {
+    font-size: 14px;
   }
 }
 
@@ -505,7 +664,6 @@
 /* Style cho phần hành trình */
 .tour-itinerary {
   background-color: #ffffff;
-  padding: 20px 30px;
   border-radius: 10px;
   margin-bottom: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

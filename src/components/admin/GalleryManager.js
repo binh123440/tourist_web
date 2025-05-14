@@ -25,7 +25,7 @@ const GalleryManager = () => {
         deleted: deleted
       };
 
-      const res = await axios.get('http://localhost:5000/api/admin/gallery', {
+      const res = await axios.get('https://tourist-web-noln.onrender.com/api/admin/gallery', {
         params,
         headers: {
           'x-auth-token': token
@@ -54,7 +54,7 @@ const GalleryManager = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const res = await axios.get(`http://localhost:5000/api/admin/gallery/${id}`, {
+      const res = await axios.get(`https://tourist-web-noln.onrender.com/api/admin/gallery/${id}`, {
         headers: {
           'x-auth-token': token
         }
@@ -100,7 +100,7 @@ const GalleryManager = () => {
     if (window.confirm('Bạn có chắc chắn muốn xóa ảnh này? Ảnh sẽ được chuyển vào thùng rác và có thể khôi phục.')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.put(`http://localhost:5000/api/admin/gallery/${id}/soft-delete`, {}, {
+        await axios.put(`https://tourist-web-noln.onrender.com/api/admin/gallery/${id}/soft-delete`, {}, {
           headers: {
             'x-auth-token': token
           }
@@ -128,7 +128,7 @@ const GalleryManager = () => {
         const token = localStorage.getItem('token');
         console.log('Using token:', token ? 'Exists' : 'Missing');
 
-        const response = await axios.put(`http://localhost:5000/api/admin/gallery/${id}/restore`, {}, {
+        const response = await axios.put(`https://tourist-web-noln.onrender.com/api/admin/gallery/${id}/restore`, {}, {
           headers: {
             'x-auth-token': token
           }
@@ -157,7 +157,7 @@ const GalleryManager = () => {
     if (window.confirm('CẢNH BÁO: Ảnh sẽ bị xóa vĩnh viễn khỏi cả Cloudinary và database. Bạn không thể hoàn tác hành động này. Tiếp tục?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`http://localhost:5000/api/admin/gallery/${id}/permanent`, {
+        await axios.delete(`https://tourist-web-noln.onrender.com/api/admin/gallery/${id}/permanent`, {
           headers: {
             'x-auth-token': token
           }
@@ -184,7 +184,7 @@ const GalleryManager = () => {
       if (currentImage) {
         // Cập nhật thông tin ảnh
         await axios.put(
-          `http://localhost:5000/api/admin/gallery/${currentImage._id}`,
+          `https://tourist-web-noln.onrender.com/api/admin/gallery/${currentImage._id}`,
           {
             name: formData.name,
             description: formData.description,
@@ -206,7 +206,7 @@ const GalleryManager = () => {
         data.append('type', formData.type);
 
         await axios.post(
-          'http://localhost:5000/api/admin/gallery',
+          'https://tourist-web-noln.onrender.com/api/admin/gallery',
           data,
           {
             headers: {

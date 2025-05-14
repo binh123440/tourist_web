@@ -37,7 +37,7 @@ const TourForm = ({ tour, onSubmit, onCancel }) => {
     // Lấy danh sách destinations
     const fetchDestinations = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/destinations');
+        const res = await axios.get('https://tourist-web-noln.onrender.com/api/destinations');
         setDestinations(res.data);
       } catch (err) {
         console.error('Error fetching destinations:', err);

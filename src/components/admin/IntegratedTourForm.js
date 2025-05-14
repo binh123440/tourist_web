@@ -574,7 +574,7 @@ const IntegratedTourForm = ({ tourData, onSubmit, onCancel }) => {
         imageFormData.append('type', 'tour'); // <-- Add type 'tour' here
         console.log('Uploading tour image...');
         // Use the correct endpoint: /api/admin/gallery
-        const res = await axios.post('http://localhost:5000/api/admin/gallery', imageFormData, {
+        const res = await axios.post('https://tourist-web-noln.onrender.com/api/admin/gallery', imageFormData, {
           headers: { 'x-auth-token': token, 'Content-Type': 'multipart/form-data' }
         });
         // Assuming the response from galleryController contains the URL
@@ -592,7 +592,7 @@ const IntegratedTourForm = ({ tourData, onSubmit, onCancel }) => {
               imageFormData.append('type', 'gallery'); // <-- Add type 'gallery' here
               console.log(`Uploading gallery image index ${index}...`);
               // Use the correct endpoint: /api/admin/gallery
-              const res = await axios.post('http://localhost:5000/api/admin/gallery', imageFormData, {
+              const res = await axios.post('https://tourist-web-noln.onrender.com/api/admin/gallery', imageFormData, {
                   headers: { 'x-auth-token': token, 'Content-Type': 'multipart/form-data' }
               });
               // Update the URL in the copied array using the response from galleryController

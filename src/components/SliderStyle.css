@@ -1,19 +1,19 @@
 .slick-slide {
   overflow: hidden;
-  height: 100vh; /* Tăng chiều cao của slide */
-  position: relative; /* Thêm position: relative để định vị text tuyệt đối */
+  height: 100vh; /* Chiều cao mặc định */
+  position: relative;
 }
 
 .slick-slide img {
   width: 100%;
-  height: 100vh; /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao của slide */
-  object-fit: cover; /* Đảm bảo hình ảnh giữ tỷ lệ khung hình và crop theo kích thước */
+  height: 100%; /* Thay đổi ở media query nếu cần */
+  object-fit: cover;
   transform: scale(1);
-  transition: transform 7s ease-in-out; /* Hiệu ứng zoom chậm */
+  transition: transform 7s ease-in-out;
 }
 
 .slick-active img {
-  transform: scale(1.1); /* Hiệu ứng zoom khi slide active */
+  transform: scale(1.1);
 }
 
 .slide-overlay {
@@ -22,7 +22,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4); /* Lớp overlay tối hơn */
+  background: rgba(0, 0, 0, 0.45); /* Tăng nhẹ độ tối của overlay */
   z-index: 1;
 }
 
@@ -33,15 +33,15 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Giữ nguyên vị trí ban đầu */
+  transform: translate(-50%, -50%);
   color: #fff;
   text-align: center;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
   z-index: 2;
-  width: 80%;
-  max-width: 800px;
+  width: 85%; /* Tăng nhẹ chiều rộng cho màn hình lớn hơn */
+  max-width: 800px; /* Giữ nguyên max-width */
   opacity: 0;
-  transition: opacity 0.5s ease; /* Chỉ transition opacity, không transition transform */
+  transition: opacity 0.5s ease;
 }
 
 /* 2. Chỉ thay đổi opacity khi active, không thay đổi vị trí */
@@ -78,20 +78,20 @@
 .slider-text h1,
 .slider-text p,
 .slider-text .slider-buttons {
-  opacity: 0;
+  opacity: 0; /* Sẽ được kích hoạt bởi animation */
 }
 
 .slider-text h1 {
-  font-size: 64px; /* Tăng kích thước chữ */
-  margin-bottom: 20px;
+  font-size: 56px; /* Giảm nhẹ cho desktop để cân đối hơn */
+  margin-bottom: 15px; /* Giảm margin */
   font-weight: bold; /* Làm chữ đậm hơn */
   text-transform: uppercase; /* Chuyển chữ thành in hoa */
-  letter-spacing: 3px; /* Tăng khoảng cách giữa các chữ */
+  letter-spacing: 2px; /* Giảm letter-spacing */
 }
 
 .slider-text p {
-  font-size: 24px; /* Tăng kích thước chữ */
-  margin-bottom: 30px;
+  font-size: 22px; /* Giảm nhẹ */
+  margin-bottom: 25px; /* Giảm margin */
   font-weight: 300;
   max-width: 600px;
   margin-left: auto;
@@ -102,176 +102,237 @@
 .slider-buttons {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 30px;
+  gap: 15px; /* Giảm gap */
+  margin-top: 25px; /* Giảm margin */
 }
 
-.primary-btn {
-  font-size: 18px; /* Tăng kích thước chữ */
-  padding: 15px 30px; /* Tăng kích thước nút */
-  background-color: #ff678d; /* Thay đổi màu nền nút */
-  color: white;
-  border: none;
+.primary-btn,
+.secondary-btn {
+  font-size: 16px; /* Giảm font-size */
+  padding: 12px 25px; /* Giảm padding */
   border-radius: 30px;
   cursor: pointer;
   transition: all 0.3s ease-in-out; /* Hiệu ứng hover */
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center; /* Căn giữa nội dung nút */
+  gap: 8px; /* Giảm gap trong nút */
+  text-align: center; /* Đảm bảo text trong nút được căn giữa */
+}
+
+.primary-btn {
+  background-color: #ff678d; /* Thay đổi màu nền nút */
+  color: white;
+  border: none;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Thêm đổ bóng cho nút */
 }
 
 .secondary-btn {
-  font-size: 18px;
-  padding: 15px 30px;
   background: transparent;
   color: white;
   border: 2px solid white;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .primary-btn:hover {
   background-color: white;
   color: #ff678d;
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(255, 103, 141, 0.3);
+  transform: translateY(-3px); /* Giảm hiệu ứng hover */
+  box-shadow: 0 8px 15px rgba(255, 103, 141, 0.25); /* Giảm đổ bóng */
 }
 
 .secondary-btn:hover {
   background-color: white;
   color: #333;
-  transform: translateY(-5px);
+  transform: translateY(-3px);
 }
 
+/* Styling cho slick-dots và custom-dot */
 .slick-dots {
-  bottom: 30px;
+  bottom: 25px; /* Điều chỉnh vị trí dots */
   position: absolute;
   width: 100%;
-  display: flex;
-  justify-content: center;  /* Tăng khoảng cách giữa các dots */
+  display: flex !important; /* Đảm bảo display flex hoạt động */
+  justify-content: center;
+  list-style: none; /* Bỏ list-style mặc định */
+  padding-left: 0; /* Bỏ padding mặc định */
+}
+
+.slick-dots li {
+  margin: 0 5px; /* Khoảng cách giữa các custom dots */
 }
 
 .custom-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px; /* Kích thước dot nhỏ hơn */
+  height: 10px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
-  margin: 0 8px;
   transition: all 0.3s ease;
+  cursor: pointer; /* Thêm cursor pointer */
 }
 
 .custom-dot.active {
   background-color: #fff;
-  transform: scale(1.5);
+  transform: scale(1.3); /* Giảm nhẹ hiệu ứng active */
 }
 
-.slick-dots li {
-  margin: 0 15px; /* Thay thế gap bằng margin */
-}
-
+/* Bỏ các style phức tạp cho slick-dots li button:before nếu customPaging đang hoạt động tốt */
+/*
 .slick-dots li button:before {
-  color: #fff; /* Màu trắng cho dots */
-  font-size: 10px; /* Tăng kích thước của dots */
-  border: 3px solid #fff; /* Thêm viền màu trắng */
-  border-radius: 50%; /* Bo tròn dots */
-  padding: 1px; /* Tăng kích thước dots bằng cách thêm padding */
-  background-color: rgba(255, 4, 121, 0.855); /* Thêm nền mờ cho dots */
-  transition: all 0.3s ease-in-out; /* Hiệu ứng chuyển đổi */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Thêm đổ bóng cho dots */
-  margin-right: 150px;
+  ... các style cũ ...
+  margin-right: 150px; // Dòng này có vẻ là lỗi, nên được loại bỏ hoặc sửa
 }
+*/
 
-.slick-dots li.slick-active button:before {
-  color: #ff678d; /* Màu nổi bật cho dots đang hoạt động */
-  background-color: #fff; /* Thay đổi nền cho dots đang hoạt động */
-  border-color: #ff678d; /* Thay đổi viền cho dots đang hoạt động */
-  transform: scale(1.2); /* Phóng to dots đang hoạt động */
-}
-
-.slick-dots li button:hover:before {
-  background-color: #ff678d; /* Thay đổi nền khi hover */
-  color: #fff; /* Thay đổi màu khi hover */
-  transform: scale(1.1); /* Phóng to dots khi hover */
+.slick-prev,
+.slick-next {
+  z-index: 3; /* Đảm bảo mũi tên điều hướng nằm trên các phần tử khác */
 }
 
 .slick-prev:before,
 .slick-next:before {
   color: #fff;
-  right: 0px;
+  font-size: 24px; /* Tăng kích thước mũi tên một chút nếu cần */
 }
 
 .slick-prev {
-  left: 0px;
-  visibility: hidden;
+  left: 15px; /* Điều chỉnh vị trí mũi tên */
+  visibility: visible; /* Luôn hiển thị nếu bạn muốn */
 }
 
 .slick-next {
-  right: 0px;
-  visibility: hidden;
+  right: 15px; /* Điều chỉnh vị trí mũi tên */
+  visibility: visible; /* Luôn hiển thị nếu bạn muốn */
 }
 
-/* Hiệu ứng xuất hiện chữ */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -60%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
+/* --- Media Queries --- */
+
+/* Màn hình lớn hơn (giữ nguyên hoặc điều chỉnh nhẹ) */
+@media screen and (min-width: 1200px) {
+  .slider-text h1 {
+    font-size: 60px; /* Có thể tăng lại một chút nếu muốn */
   }
 }
 
-/* Animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -30%);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%);
-  }
-}
-
+/* Màn hình Tablet lớn và Desktop nhỏ (1140px -> 993px) */
 @media screen and (max-width: 1140px) {
-  .slick-slide {
-    height: 70vh; /* Đặt chiều cao của slide bằng 70% chiều cao của viewport */
+  .slick-slide, .slick-slide img {
+    height: 80vh; /* Giảm chiều cao slide */
   }
-  .slick-slide img {
-    height: 70vh; /* Đảm bảo hình ảnh chiếm toàn bộ chiều cao của slide */
-  }
-  .slick-dots {
-    bottom: 70px; /* Đặt vị trí của dots cách đáy slider 70px */
-  }
-  .slick-dots li button:before {
-    font-size: 15px; /* Kích thước của dots */
-  }
-}
-
-@media screen and (max-width: 992px) {
   .slider-text h1 {
     font-size: 48px;
   }
-  
   .slider-text p {
     font-size: 20px;
   }
-  
-  .slider-buttons {
-    flex-direction: column;
-    align-items: center;
+  .slick-dots {
+    bottom: 20px;
   }
 }
 
-@media screen and (max-width: 576px) {
-  .slider-text h1 {
-    font-size: 36px;
+/* Màn hình Tablet nhỏ (992px -> 769px) */
+@media screen and (max-width: 992px) {
+  .slick-slide, .slick-slide img {
+    height: 75vh;
   }
-  
+  .slider-text {
+    width: 90%; /* Tăng chiều rộng tương đối */
+  }
+  .slider-text h1 {
+    font-size: 40px; /* Giảm font chữ */
+    letter-spacing: 1.5px;
+  }
+  .slider-text p {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  .slider-buttons {
+    flex-direction: column; /* Chuyển nút thành cột */
+    align-items: center;
+    gap: 12px; /* Giảm gap khi là cột */
+  }
+  .primary-btn,
+  .secondary-btn {
+    font-size: 15px;
+    padding: 10px 20px;
+    width: 70%; /* Giới hạn chiều rộng nút */
+    max-width: 280px; /* Max width cho nút */
+  }
+  .slick-dots {
+    bottom: 15px;
+  }
+  .custom-dot {
+    width: 9px;
+    height: 9px;
+  }
+  .slick-prev { left: 10px; }
+  .slick-next { right: 10px; }
+  .slick-prev:before, .slick-next:before { font-size: 20px; }
+}
+
+/* Màn hình điện thoại (768px -> 577px) */
+@media screen and (max-width: 768px) {
+  .slick-slide, .slick-slide img {
+    height: 70vh; /* Giảm chiều cao slide hơn nữa */
+  }
+  .slider-text h1 {
+    font-size: 34px; /* Giảm nữa */
+    margin-bottom: 10px;
+  }
   .slider-text p {
     font-size: 16px;
+    margin-bottom: 15px;
+  }
+  .primary-btn,
+  .secondary-btn {
+    font-size: 14px;
+    padding: 10px 18px;
+    width: 80%;
+  }
+  .custom-dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 4px;
   }
 }
+
+/* Màn hình điện thoại nhỏ (<= 576px) */
+@media screen and (max-width: 576px) {
+  .slick-slide, .slick-slide img {
+    height: 65vh; /* Chiều cao tối ưu cho điện thoại nhỏ */
+  }
+  .slider-text {
+    width: 92%; /* Gần full width */
+  }
+  .slider-text h1 {
+    font-size: 28px; /* Font chữ nhỏ hơn */
+    letter-spacing: 1px;
+  }
+  .slider-text p {
+    font-size: 15px;
+    line-height: 1.5; /* Cải thiện khả năng đọc */
+  }
+  .slider-buttons {
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .primary-btn,
+  .secondary-btn {
+    width: 85%; /* Nút rộng hơn một chút */
+    max-width: 260px;
+    padding: 9px 15px;
+  }
+  .slick-dots {
+    bottom: 10px;
+  }
+  .custom-dot {
+    width: 7px;
+    height: 7px;
+  }
+  .slick-prev:before, .slick-next:before { font-size: 18px; }
+}
+
+/* Loại bỏ các keyframes không sử dụng nếu có */
+/*
+@keyframes fadeIn { ... }
+@keyframes fadeInUp { ... }
+*/
