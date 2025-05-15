@@ -477,26 +477,32 @@
     padding-top: 180px; /* Tăng padding-top từ 60px lên 80px (hoặc một giá trị phù hợp) */
   }
 
+  .tour-details h1 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+  }
   .tour-details {
     padding: 90px 10px 20px 10px;
   }
 
   .tour-title {
-    font-size: 20px;
+    font-size: 10px;
   }
 
   .tour-intro .section-title,
   .tour-itinerary .section-title {
-    font-size: 18px;
+    font-size: 10px;
   }
 
   .tour-intro .intro-content,
   .day-details .day-content {
-    font-size: 14px;
+    font-size: 7px;
   }
 
   .day-details .day-title {
-    font-size: 16px;
+    font-size: 8px;
   }
 
   .slider-navigation button {
@@ -504,7 +510,7 @@
   }
 
   .slide-number {
-    font-size: 14px;
+    font-size: 7px;
   }
 }
 
